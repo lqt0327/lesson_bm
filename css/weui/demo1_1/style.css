@@ -1,0 +1,31 @@
+.title{
+    display:flex;
+}
+.title-bgc{
+    background-size: auto;
+    width: 100vw;
+    height: 40vh;
+    margin-bottom: 15px;
+    overflow: hidden;
+}
+
+.title-bgc img{
+    width: 100%;
+}
+.weui-cell{
+    padding: 2px;
+    margin-top: 5px;
+    width: calc(100%-150px);
+    word-break: break-all;
+}
+.avatar{
+    position: relative;
+    width: 100px;
+    height: 100px;
+    margin: 0;
+    padding: 0;
+    border-radius: 50%;
+}
+.avatar img{
+    width: 100%;
+}

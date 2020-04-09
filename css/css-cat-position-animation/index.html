@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        /* css 选择器 */
+        /* . 类选择（html 上面的 class） */
+        .body{
+            /* 背景 */
+            background: url("./cat/maoshenti.png");
+            width: 117px;
+            height: 201px;
+            /* 水平居中 垂直居中 */
+            /* absolute:绝对定位（相对于父级第一个设置了定位属性的元素来定位,如果没有则相对于 视窗）
+               relative:相对定位*/
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            /* 微调图片长宽的50% */
+            transform: translate3d(-50%,-50%,0);
+        }
+        .weiba{
+            position: absolute;
+            width: 64px;
+            height: 194px;
+            background: url("./cat/maowei.png");
+            left: 0;
+            top: -182px;
+            /* 摇摆（rotate） */
+            animation: ani 3s ease-in-out infinite alternate;
+            /* ease-in-out 动画速度变化 */
+            /* 动画播放次数 infinite 无穷大 */
+            /* alternate 0->100 100->0 */
+            /* 以尾巴的根部旋转 默认:50% 50% 中心点 */
+            transform-origin: 100% 100%;
+        }
+        /* 关键帧：动画里面几个关键的点 */
+        /* 定义一个叫ani的动画 */
+        @keyframes ani{
+            100%{
+                /* 逆时针 5deg */
+                transform: rotate(-5deg);
+            }
+        }
+        .maozhua{
+            position: relative;
+            background: url("./cat/maozhua.png");
+            width: 34px;
+            height: 81px;
+            z-index: inherit -99;
+            left: 60%;
+            top: 93%;
+            animation: ani 3s ease-in-out infinite alternate;
+            transform-origin: 0 0;
+        }
+        .maoyan1{
+            position: absolute;
+            background: url("./cat/maoyan1.png");
+            width: 5px;
+            height: 5px;
+            left: 58%;
+            top: 85%;
+        }
+        .maoyan2{
+            position: absolute;
+            background: url("./cat/maoyan2.png");
+            width: 5px;
+            height: 5px;
+            left: 79%;
+            top: 89%;
+        }
+        .maozui{
+            position: absolute;
+            background: url("./cat/maozui.png");
+            width: 5px;
+            height: 5px;
+            left: 62%;
+            top: 93%;
+        }
+    </style>
+</head>
+<body>
+    <!--网页划分为一块一块-->
+    <div class="cat">
+        <!-- 猫的组成 -->
+        <div class="body">
+            <div class="weiba"></div>
+            <div class="maozhua"></div>
+            <div class="maoyan1"></div>
+            <div class="maoyan2"></div>
+            <div class="maozui"></div>
+        </div>
+    </div>
+</body>
+</html>

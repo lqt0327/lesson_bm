@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en" style="font-size:100px">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" 
+  content="initial-scale=0.5,maximum-scale=0.5, minimum-scale=0.5,width=device-width, height=device-height, user-scalable=no">
+  <title>Document</title>
+  <!-- sdk -->
+  <script type="text/javascript" 
+  src="https://api.map.baidu.com/api?v=2.0&ak=47FQtS6XkphGqmZ5nSEj6WTSTwE8SGaT"></script>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+    }
+    body {
+      /* css 继承 */
+      font-size: 0.28rem;
+      line-height: 1.5;
+    }
+    img {
+      max-width: 100%;
+    }
+    #map {
+      width: 100vw;
+      height: 100vh;
+    }
+    .poi-item-wrapper {
+      background-color: #fff;
+      padding: 0.24rem 0 0 0.3rem;
+      border-bottom: 1px solid #e5e5e5;
+    }
+    .poi-item-wrapper .poi-info-wrapper {
+      display: flex;
+    }
+    .poi-item-wrapper .image-wrapper {
+      position: relative;
+      margin-top: 0.05rem;
+      width: 1.6rem;
+      height: 1.61rem;
+    }
+    .poi-item-wrapper .poi-info {
+      margin-left: 0.18rem;
+      flex:1 ;
+    }
+    .poi-item-wrapper .poi-info .price-wrapper {
+      position: relative;
+      font-size: 0.24rem;
+      line-height: 0.33rem;
+      margin-top: 0.06rem;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      height: 1rem;
+    }
+    .poi-item-wrapper .poi-info .location {
+      position: absolute;
+      top: 0;
+      right: 0;
+      height: 0.33rem;
+      line-height: 0.33rem;
+      font-size: 0.24rem;
+      font-family: PingFangSC-Regular;
+      color: #666666;
+      letter-spacing: 0.2px;
+    }
+  </style>
+</head>
+<body>
+  <!-- html  +   css -->
+  <!-- 附近的商家 info  -->
+  <div class="shop-list">
+    <!-- <div class="poi-item-wrapper">
+      <div class="poi-info-wrapper">
+        <div class="image-wrapper">
+          <div class="imgbox">
+            <img src="http://p0.meituan.net/deal/__45899142__3351739.jpg@320w_320h_1e_1c" alt="">
+          </div>
+        </div>
+        <div class="poi-info">
+          <div class="poi-name"></div>
+          <div class="price-wrapper">
+            <div class="location"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="poi-item-wrapper">
+      
+    </div> -->
+  </div>
+  <!-- <div id="map"></div> -->
+  <script>
+  // 1. 距离
+  // 2. 点 经纬度
+  // 115.941546,28.544622
+  // 命名规范
+  const myLatitude = 28.544622,
+    myLongitude = 115.941546;
+  // 坐标 店名 评分， ... {   } JSON 对象字面量
+  const shops = [
+    {
+      name: '肯德基(莲塘店)',
+      pos: [115.950531, 28.549066],
+      logo: 'http://p0.meituan.net/deal/__45899142__3351739.jpg@320w_320h_1e_1c'
+    },
+    {
+      name: '牛男手造(莲塘店)',
+      pos: [115.947719,28.546228],
+      logo: 'http://p0.meituan.net/deal/__45899142__3351739.jpg@320w_320h_1e_1c'
+    },
+    {
+      name: '莲塘老鸭子店',
+      pos: [115.933514,28.554123],
+      logo: 'http://p0.meituan.net/deal/__45899142__3351739.jpg@320w_320h_1e_1c'
+    },
+    {
+      name:'青岩里（铜锣湾店）',
+      pos:[115.874729,28.706099],
+      logo:'https://img.meituan.net/180.180/msmerchant/24e08ed9286a859aef26593f65d2e3c01127288.jpg@320w_320h_1e_1c'
+    },
+    {
+      name:'万方圆拌粉瓦罐汤（金融大街店）',
+      pos:[115.855189,28.689534],
+      logo:'https://img.meituan.net/msmerchant/ad87d0761dd576285cba5756902a7129119669.jpg@320w_320h_1e_1c'
+    },
+    {
+      name:'兜麦烧肉料场',
+      pos:[115.861391,28.699207],
+      logo:'https://img.meituan.net/180.180/msmerchant/c84d2f2e3005fec4143b4450ba4e481a251395.jpg@320w_320h_1e_1c'
+    },
+    {
+      name:'吴家东少手撕鸭（绳金塔店）',
+      pos:[115.905128,28.670449],
+      logo:'https://img.meituan.net/msmerchant/674ee67be7b913e236459a5abd6696c3334750.jpg@320w_320h_1e_1c'
+    },
+    {
+      name:'瑞可爷爷的店（八一万达店）',
+      pos:[115.910776,28.682626],
+      logo:'//p0.meituan.net/deal/00d1bfc4a5d5c7d404cc0d241f3321f8278240.jpg@320w_320h_1e_1c'
+    },
+    {
+      name:'月满大江（首创奥特莱斯店）',
+      pos:[115.816323,28.711427],
+      logo:'//p0.meituan.net/mogu/7e45a10ddb15c15846a591655aa07917403675.jpg@320w_320h_1e_1c'
+    },
+    {
+      name:'桃花源中餐厅（李家庄店）',
+      pos:[115.929793,28.71294],
+      logo:'https://img.meituan.net/msmerchant/9da93266759794e9ad2b57f446a721fb172778.jpg@320w_320h_1e_1c'
+    }
+  ]; 
+  
+  // sdk 有点大， 他在远方
+  // js 事件机制
+  window.onload = function() {
+    const shopContainer = document.querySelector('.shop-list');
+    const map = new BMap.Map(); //实例化地图
+    const myPoint = new BMap.Point(myLongitude, myLatitude);
+
+    for(let i = 0; i < shops.length; i++) {
+      let  shopPoint = new BMap.Point(shops[i].pos[0],
+      shops[i].pos[1]);
+      let distance = parseDistance(
+    //   // 925.1111
+        map.getDistance(myPoint, shopPoint)
+      ); // 
+      shopContainer.innerHTML += `
+        <div class="poi-item-wrapper">
+          <div class="poi-info-wrapper">
+            <div class="image-wrapper">
+              <div class="imgbox">
+                <img src="${shops[i].logo}" alt="">
+              </div>
+            </div>
+            <div class="poi-info">
+              <div class="poi-name">${shops[i].name}</div>
+              <div class="price-wrapper">
+                <i class="stars"><img src="http://s1.meituan.net/bs/file/?f=meis/meishi.mobile:assets/cb45534a7d3737c0.png@057a516" alt="">
+                <img src="http://s1.meituan.net/bs/file/?f=meis/meishi.mobile:assets/cb45534a7d3737c0.png@057a516" alt="">
+                <img src="http://s1.meituan.net/bs/file/?f=meis/meishi.mobile:assets/cb45534a7d3737c0.png@057a516" alt="">
+                <img src="http://s1.meituan.net/bs/file/?f=meis/meishi.mobile:assets/cb45534a7d3737c0.png@057a516" alt="">
+                <img src="http://s1.meituan.net/bs/file/?f=meis/meishi.mobile:assets/e076efca46320452.png@057a516" alt="">
+            </i>
+              <span class="price">￥13/人</span>
+                <div class="location">${distance}</div>
+              </div>
+              <div class="catename" style="position: relative;top:-0.6rem">快餐简餐</div>
+              <div class="service-tags"  style="position: relative;top:-0.6rem"><span class="service-tag index-0" style="color: rgb(108, 186, 178);">支持外卖</span></div>
+            </div>
+          </div>
+        </div>
+      `
+    }
+    function parseDistance(distance) {
+      //  如果> 1000米 返回  4.1km
+      // 否则 整数  936m
+      return distance/1000>=1?(distance/1000).toFixed(1)+"km":parseInt(distance)+"m";
+
+    }
+
+    //  开始我们的js 编程
+    
+
+    // const kfcPoint = new BMap.Point(kfcLongitude, kfcLatitude);
+    // const distance = parseDistance(
+    //   // 925.1111
+    //   map.getDistance(myPoint, kfcPoint)
+    // ); // Number
+    // // console.log(distance);
+    // document.querySelector('.poi-name').innerHTML =  '肯德基';
+    // document.querySelector('.location').innerHTML = distance;
+    // document.querySelector('.imgbox img').src = 
+    //   "https://p0.meituan.net/200.0/deal/607cffdccca7f4da09a2dddeedd31a8e49072.jpg@126_0_388_388a%7C267h_267w_2e_100Q"
+  }
+  
+  </script>
+</body>
+</html>

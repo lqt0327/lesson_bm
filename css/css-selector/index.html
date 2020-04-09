@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    /* id */
+    /* 1 */
+    #app {
+      color: red;
+    }
+    /* 11 */
+    .wrapper,
+    .wrapper1, .wrapper2, .wrapper3, .wrapper4, .wrapper5, .wrapper6,
+    .wrapper7, .wrapper8, .wrapper9, .wrapper10 {
+      color: blue;
+    }
+    /* 0,0,1,0 * 10  => 0,0,11,0 
+             0,1,0,0 => 0,1,0,0
+    */
+    /* div { */
+      /* color: yellow !important; */
+    /* } */
+    div::before {
+      content: '1';
+    }
+    div::after {
+      content: '2';
+    }
+    div::first-line {
+      color: tomato;
+    }
+    ul li:nth-child(2) {
+      color: teal;
+    }
+    /* * {
+    
+    } */
+    [type="text"] {
+      padding: 4px;
+    }
+
+    .blue {
+      color: blue;
+    }
+    .red {
+      color: red;
+    }
+    /* 同等优先级按照：定义的顺序，后面覆盖前面的 */
+    /* 父子 */
+    /* .parent .child {
+
+    } */
+    /* 即能选中 .parent 的元素，又能选中 .child 的元素*/
+    /* .parent, .child {
+
+    } */
+    /* 即有 .parent 类名，又有 .child 类名 的元素*/
+    .parent1 {
+      width: 100px;
+      transform: translateX(-100px);
+      transition: all .5s;
+    }
+    .parent1.child {
+      transform: translateX(0);
+    }
+  </style>
+</head>
+<body>
+  <div id="app" class="wrapper wrapper1 wrapper2 wrapper3 wrapper4 wrapper5 wrapper6 
+  wrapper7 wrapper8 wrapper9 wrapper10">
+    abcd
+    <ul>
+      <li>1</li>
+      <li>2</li>
+      <li>3</li>
+    </ul>
+  </div>
+  <input type="text" name="" id="">
+  <div class="red blue">abgcd</div>
+  <div class="parent">
+    parent
+    <div class="child">
+      child
+    </div>
+  </div>
+  <div class="parent1">
+    ABCDEF
+  </div>
+  <script>
+    setTimeout(() => {
+      document.querySelector('.parent1').classList.add('child')
+    }, 3000)
+    setTimeout(() => {
+      document.querySelector('.parent1').classList.remove('child')
+    }, 4000)
+    const inventors = [
+      { first: 'Albert', last: 'Einstein', year: 1879, passed: 1955 },
+      { first: 'Isaac', last: 'Newton', year: 1643, passed: 1727 },
+      { first: 'Galileo', last: 'Galilei', year: 1564, passed: 1642 },
+      { first: 'Marie', last: 'Curie', year: 1867, passed: 1934 },
+      { first: 'Johannes', last: 'Kepler', year: 1571, passed: 1630 },
+      { first: 'Nicolaus', last: 'Copernicus', year: 1473, passed: 1543 },
+      { first: 'Max', last: 'Planck', year: 1858, passed: 1947 },
+      { first: 'Katherine', last: 'Blodgett', year: 1898, passed: 1979 },
+      { first: 'Ada', last: 'Lovelace', year: 1815, passed: 1852 },
+      { first: 'Sarah E.', last: 'Goode', year: 1855, passed: 1905 },
+      { first: 'Lise', last: 'Meitner', year: 1878, passed: 1968 },
+      { first: 'Hanna', last: 'Hammarström', year: 1829, passed: 1909 }
+    ];
+    // 1 过滤一下  1950 < year > 1959
+    let t = [];
+    // 循环 for for of forEach
+    inventors.forEach((inventor) => {
+      console.log(inventor);
+      if (inventor.year >= 1550 && inventor.year <= 1959) {
+        t.push(inventor);
+      }
+      if (inventor.last === 'Einstein') {}
+    })
+    console.log(t);
+    // filter find 需要返回一个 bool， true =》满足条件
+    let t1 = inventors.filter(function (inventor) {
+      // if (inventor.year >= 1550 && inventor.year <= 1959) {
+      //   return true;
+      // } else {
+      //   return false;
+      // }
+      // 缩写了
+      return inventor.year >= 1550 && inventor.year <= 1959
+    })
+    console.log(t1);
+    let ai = inventors.find(function(inventor) {
+      // if (inventor.last === 'Einstein') {
+      //   return true;
+      // } else {
+      //   return false
+      // }
+      return inventor.last === 'Einstein'
+    })
+    console.log(ai);
+
+    let arr = [0,1,2,3];
+    // 每一项扩大两倍 => [0,2,4,6]
+    let t3 = [];
+    for (let i = 0; i < arr.length; i ++) {
+      let res = arr[i] * 2;
+      t3.push(res);
+    }
+    console.log(t3);
+    // map 映射，也需要返回 一个映射的规则
+    // 鸡  ->  蛋
+    // 牛  ->  奶
+    let t4 = arr.map(function(num) {
+      console.log(num);
+      return num * 4
+    })
+    console.log(t4);
+
+  </script>
+</body>
+</html>
