@@ -1,0 +1,2 @@
+.box{width:100px;height:100px;background-color:#0000FF;position: absolute;z-index:1;left:0;top:0}
+.box.active{background-color:#FF0000;}
