@@ -6,20 +6,44 @@
   <title>Document</title>
   <link rel="stylesheet" href="./box.css">
   <style>
-      * {
-          margin: 0;
-          padding: 0;
-      }
+  * {
+    margin: 0;
+    padding: 0;
+  }
   :root {
     --bg-color: green;
     --base-size: 10;
   }
   .box {
     /* 占据90% -10px 宽 */
-    width: calc(90% - 10px);
-    height: 100px;
+    /* width: calc(90% - 10px); */
+    /* height: 100px; */
+    /* background-color: var(--bg-color); */
+    width: calc(var(--base-size) * 10px);
+    height: calc(var(--base-size) * 5px);
     background-color: var(--bg-color);
+    padding: calc(var(--base-size) * 1px);
   }
+  /*css 选择器里  @  竖屏 480 手机  ipad 1024*768  
+    pa   1100 +  
+    巨屏 1400+ 
+  */
+  @media (max-width: 480px) {
+    :root {    
+      --base-size: 8;
+    }
+  }
+  /* @media  媒体查询(上网的媒介) only screen 带有屏幕的设备 */
+  @media only screen and (min-width: 1200px) {
+    .box{
+      --base-size:20;
+    }
+  }
+
+  /* 当是大型屏幕， >1200  --base-size: 20 */
+
+  /* 当是手机浏览时， 请把box 宽， 高，  padding 大小
+  等比例缩放80%, 在变量上做文章 */
   </style>
 </head>
 <body>
