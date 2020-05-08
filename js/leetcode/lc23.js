@@ -30,5 +30,6 @@ var mergeKLists = function(lists) {
         tem.next = node;
         tem = tem.next;
     })
+    console.log(ans);
     return ans.next;
 };
