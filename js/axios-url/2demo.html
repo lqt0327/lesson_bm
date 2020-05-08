@@ -1,0 +1,58 @@
+<script>
+    // 1：key value 编码一下 ？
+    // 2：传递数组 传递不合法值
+    // 安全性 有那么一些特殊字符 后端 sql 语句 威胁
+    // 传输 传输每个设备 编码规则
+    // 浏览器会自动帮你编码    
+    // http://neteasecloudmusicapi.zhaoboy.com/search?keywords=%E6%B5%B7%E9%98%94%E5%A4%A9%E7%A9%BA
+    function encode(str) {
+      return encodeURIComponent(str)
+      .replace('%5B', '[').replace('%5D', ']')  // 数组 合法
+      ;
+    }
+    function buildUrl(url, params) {
+      let parts = [];
+      Object.keys(params).forEach(function(key) {
+        let value = params[key]
+        if (value === null || typeof value === 'undefined') {
+          return;
+        }
+        if (Array.isArray(value)) {
+          key += '[]';
+          // c: [1, 2, 3] => c[]=1&c[]=2&c[]=3 是不是要循环一下 value
+          // 
+        } else {
+          // c: 123
+          // key = c
+          value = [value];
+        }
+        // 一定数组
+        // 统一 都可以循环
+        // 把 value 里面里面的每一项 追加到 key 后面 c[]=1 c[]=2 c[]=3
+        // else c=123
+        value.forEach(val => {
+          // key
+          let part = `${encode(key)}=${encode(val)}` 
+          //  1: keywords='海阔天空' type='all' query='js'
+          //  2: & join
+          parts.push(part);
+          console.log(part);
+        })
+  
+      })
+      console.log(parts);
+      console.log(parts.join('&'));
+      // 
+      url += '?' + parts.join('&')
+      return url;
+    }
+    let url = buildUrl('http://neteasecloudmusicapi.zhaoboy.com/search', {
+      keywords: '海阔天空',
+      type: 'all',
+      query: 'js',
+      a: null,
+      b: undefined,
+      c: [1,2,3]
+    })
+    console.log(url);
+  </script>
