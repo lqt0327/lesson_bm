@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="utf-8" />
+	<title>绕Y轴旋转</title>
+	<style type="text/css">
+		* {
+			margin: 0;
+			padding: 0;
+		}
+
+		#box {
+			margin: 50px auto;
+		}
+
+		#box,
+		.container,
+		.front,
+		.back {
+			width: 200px;
+			height: 200px;
+		}
+
+		.container {
+			position: relative;
+			transform-style: preserve-3d;
+			transition: all 1s linear;
+		}
+
+		.container:hover {
+			transform: rotateY(180deg);
+		}
+
+		.front,
+		.back {
+			position: absolute;
+			top: 0;
+			left: 0;
+			backface-visibility: hidden;
+			color: #fff;
+			font-size: 40px;
+			text-align: center;
+			line-height: 200px;
+		}
+
+		.front {
+			background: red;
+		}
+
+		.back {
+			background: green;
+			transform: rotateY(180deg);
+		}
+	</style>
+</head>
+
+<body>
+	<div id="box">
+		<div class="container">
+			<div class="front">front</div>
+			<div class="back">back</div>
+		</div>
+	</div>
+</body>
+
+</html>

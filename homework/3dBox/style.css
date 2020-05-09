@@ -1,0 +1,94 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+.box {
+    margin-top: 300px;
+    margin-left: 300px;
+    transition: all .3s;
+    /* transform: rotate3d(1, 1, 1, 45deg); */
+    transform-style: preserve-3d;
+    width: 170px;
+    box-sizing: border-box;
+    animation: rotate 10s linear infinite;
+}
+
+.box .side {
+    width: 120px;
+    box-sizing: border-box;
+    height: 120px;
+    position: absolute;
+    z-index: 38;
+    border: 1px solid #3f515f;
+    background-color: #0390A1;
+    opacity: 0.6;
+}
+
+.left {
+    right: 100%;
+    height: 110px;
+    border-top: 2px solid #3f515f;
+    transform: rotateY(-90deg);
+    transform-origin: right;
+    background-color: blueviolet !important;
+}
+
+.top {
+    position: absolute;
+    top: -120px;
+    left: 0;
+    box-sizing: border-box;
+    background-color: red !important;
+    transform: rotateX(90deg);
+    transform-origin: bottom;
+}
+
+.front {
+    left: 0;
+    height: 110px;
+    border-top: 1px solid #3f515f;
+    transform-origin: right top;
+    background-color: yellow !important;
+}
+
+.right {
+    left: 70%;
+    padding: 12px 0 0 12px;
+    height: 110px;
+    transform: rotateY(90deg);
+    transform-origin: center;
+    transform-origin: left top;
+}
+
+.back {
+    position: absolute;
+    z-index: 37;
+    left: 0;
+    height: 110px;
+    transform: translateZ(-120px);
+    background-color: blue !important;
+}
+
+.down {
+    position: absolute;
+    z-index: 37;
+    background-color: turquoise;
+    transform: rotateX(-90deg);
+    left: 0;
+    top: 120px;
+    height: 110px;
+    transform-origin: top;
+}
+
+@keyframes rotate {
+    0% {
+        transform: rotate3d(1, 1, 1, 0deg);
+        /*从0度开始*/
+    }
+
+    100% {
+        transform: rotate3d(1, 1, 1, 360deg);
+        /*360度结束*/
+    }
+}
