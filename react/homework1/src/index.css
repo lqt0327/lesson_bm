@@ -1,0 +1,15 @@
+.wrapper {
+    width: 500px;
+    margin: 10px auto;
+    font-size: 14px;
+    background-color: #ffffff;
+    border:1px red solid;
+}
+
+.content {
+    display: none;
+}
+
+.content.show{
+    display: block;
+}
