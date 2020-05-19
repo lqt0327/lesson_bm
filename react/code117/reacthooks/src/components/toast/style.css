@@ -1,0 +1,9 @@
+.my-toast{width:auto;height:auto;background-color:rgba(0,0,0,0.8);position: fixed;z-index:100;left:50%;top:50%;transform: translate(-50%,-50%);font-size:16px;color:#FFFFFF;padding:10px;border-radius: 4px;animation: showToast 0.3s forwards}
+@keyframes showToast {
+    0%{opacity: 0}
+    100%{opacity: 1}
+}
+@keyframes hideToast {
+    0%{opacity: 1}
+    100%{opacity: 0}
+}
