@@ -1,0 +1,7 @@
+.my-swiper-main{width:100%;height:100%;position: relative;z-index:1;}
+.my-swiper-main .slide{width:100%;height:100%;position: absolute;z-index:1;left:0px;top:0px;opacity:0;transition:opacity 0.5s;}
+.my-swiper-main .slide.show{opacity: 1;z-index: 2;}
+.my-swiper-main .slide img{width:100%;height:100%;border:0 none;}
+.my-swiper-main .pagination{width:auto;height:auto;position: absolute;z-index: 3;left:50%;bottom:8%;transform: translateX(-50%)}
+.my-swiper-main .pagination .dot{width:30px;height:8px;background-color:rgba(0,0,0,0.8);cursor:pointer;display: inline-block;margin-left:2.5px;margin-right:2.5px;}
+.my-swiper-main .pagination .dot.active{background-color:rgba(255,255,255,0.8)}
