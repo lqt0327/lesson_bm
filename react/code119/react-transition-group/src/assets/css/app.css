@@ -1,0 +1,8 @@
+
+.btn-bg{background-color:#0000FF!important;}
+/*.my-button{width:1000px!important;height:100px!important;}*/
+.banner{width:800px;height:350px;}
+.app{width:100vw;height:100vh;}
+
+.box{width:100px;height:100px;background:#FF00FF;position: absolute;z-index:1;left:0px;top:50px;}
+.name{width:300px;height:40px;background-color:#0000FF;color:#FFFFFF;font-size:16px;line-height:40px;margin-bottom:5px;}
