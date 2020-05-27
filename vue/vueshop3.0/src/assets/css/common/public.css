@@ -1,0 +1,12 @@
+html,body{
+    font-family: Arial;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    margin:0px;
+    padding:0px;
+    background-color:#EFEFEF;
+    font-size: 50px;
+}
+ul,li{margin:0px;padding:0px;list-style: none;}
+input,button{border:0 none;border-radius: 0px;outline:none;}
+.no-data{text-align: center;font-size:0.32rem;margin-top:0.3rem;}
