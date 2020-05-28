@@ -33,7 +33,21 @@ let router = new Router({
                     meta:{keepAlive:false, title:"我的"}
                 },
             ]
-        }
+        },
+        {
+            path:"/goods/classify",
+            name:"goods-classify",
+            component:()=>import("./pages/home/goods/classify"),
+            redirect:"/goods/classify/item",//页面重定向
+            children:[
+                {
+                    path:"item",
+                    name:"goods-classify-item",
+                    component:()=>import("./pages/home/goods/classify_item"),
+                    meta:{title:"商品分类"}
+                }
+            ]
+        },
     ]
 })
 

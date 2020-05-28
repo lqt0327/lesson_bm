@@ -1,8 +1,8 @@
 <template>
     <div class="page">
-        <div :class="{header:true, scroll:true}">
-            <div class="classify-icon"></div>
-            <div class="search-wrap">
+        <div :class="{header:true, scroll:isScrollTop}">
+            <div class="classify-icon" @click="$router.push('/goods/classify')"></div>
+            <div class="search-wrap" @click="searchShow.show = true">
                 <div class="search-icon"></div>
                 <div class="text">请输入宝贝名称</div>
             </div>
@@ -12,184 +12,66 @@
         <div class="banner-wrap">
            <div class="swiper-container" ref="swiper-container">
                 <div class="swiper-wrapper">
-                    <div class="swiper-slide" v-for="(item,index) in swipers.data" :key="index"><img :src="item.image" alt=""></div>
+                    <div class="swiper-slide" v-for="(item,index) in swipers" :key="index"><img :src="item.image" alt=""></div>
                 </div>
                 <div class="swiper-pagination" ref="swiper-pagination"></div>
             </div>
         </div>
         <div class="quick-nav">
-            <ul class="item">
-                <li><img src="../../../assets/images/common/lazyImg.jpg" alt=""></li>
-                <li>潮流女装</li>
-            </ul>
-            <ul class="item">
-                <li><img src="../../../assets/images/common/lazyImg.jpg" alt=""></li>
-                <li>品牌男装</li>
-            </ul>
-            <ul class="item">
-                <li><img src="../../../assets/images/common/lazyImg.jpg" alt=""></li>
-                <li>电脑办公</li>
-            </ul>
-            <ul class="item">
-                <li><img src="../../../assets/images/common/lazyImg.jpg" alt=""></li>
-                <li>手机数码</li>
+            <ul class="item" v-for="(item,index) in navs" :key="index">
+                <li><img src="../../../assets/images/common/lazyImg.jpg" :data-echo="item.image" alt=""></li>
+                <li>{{item.title}}</li>
             </ul>
         </div>
-        <template>
-            <div class="goods-main">
-                <div class="classify-name color-0">—— 潮流女装 ——</div>
+        <template v-for="(item, index) in goods">
+            <div class="goods-main" :key="index" v-if="(index+1)%2!==0">
+                <div :class="'classify-name color-'+index">—— {{item.title}} ——</div>
                 <div class="goods-row-1">
                     <div class="goods-column">
-                        <div class="goods-title">高跟鞋女2018新款春季单鞋仙女甜美链子尖头防水台细跟女鞋一字带</div>
+                        <div class="goods-title">{{item.items && item.items[0].title}}</div>
                         <div class="goods-tip">精品打折</div>
-                        <div class="goods-price bg-color-0">12.8元</div>
+                        <div class="goods-price bg-color-0">{{item.items && item.items[0].price}}元</div>
                         <div class="goods-image">
-                            <img src="http://vueshop.glbuys.com/uploadfiles/1524556409.jpg" alt="高跟鞋女2018新款春季单鞋仙女甜美链子尖头防水台细跟女鞋一字带">
+                            <img src="../../../assets/images/common/lazyImg.jpg" :data-echo="item.items && item.items[0].image" :alt="item.items && item.items[0].title">
                         </div>
                     </div>
                     <div class="goods-column">
-                        <div class="goods-list">
-                            <div class="goods-list-title">欧美尖头蝴蝶结拖鞋女夏外穿2018新款绸缎面细跟凉拖半拖鞋穆勒鞋</div>
+                        <div class="goods-list" v-for="(item2,index2) in item.items.slice(1,3)" :key="index2">
+                            <div class="goods-list-title">{{item2.title}}</div>
                             <div class="goods-list-tip">品质精挑</div>
-                            <div class="goods-list-image"><img src="http://vueshop.glbuys.com/uploadfiles/1524556315.jpg" alt="欧美尖头蝴蝶结拖鞋女夏外穿2018新款绸缎面细跟凉拖半拖鞋穆勒鞋"></div>
-                        </div>
-                        <div class="goods-list">
-                            <div class="goods-list-title">欧美尖头蝴蝶结拖鞋女夏外穿2018新款绸缎面细跟凉拖半拖鞋穆勒鞋</div>
-                            <div class="goods-list-tip">品质精挑</div>
-                            <div class="goods-list-image"><img src="http://vueshop.glbuys.com/uploadfiles/1524556315.jpg" alt="欧美尖头蝴蝶结拖鞋女夏外穿2018新款绸缎面细跟凉拖半拖鞋穆勒鞋"></div>
+                            <div class="goods-list-image"><img src="../../../assets/images/common/lazyImg.jpg" :data-echo="item2.image" :alt="item2.title"></div>
                         </div>
                     </div>
                 </div>
                 <div class="goods-row-2">
-                    <div class="goods-list">
-                        <div class="goods-title">小白鞋女2018春夏季新款韩版百搭平底学生原宿ulzzang帆布鞋板鞋</div>
-                        <div class="goods-image"><img src="http://vueshop.glbuys.com/uploadfiles/1524556119.jpg" alt="小白鞋女2018春夏季新款韩版百搭平底学生原宿ulzzang帆布鞋板鞋"></div>
-                        <div class="price">¥288</div>
-                        <div class="price line">¥576</div>
-                    </div>
-                    <div class="goods-list">
-                        <div class="goods-title">小白鞋女2018春夏季新款韩版百搭平底学生原宿ulzzang帆布鞋板鞋</div>
-                        <div class="goods-image"><img src="http://vueshop.glbuys.com/uploadfiles/1524556119.jpg" alt="小白鞋女2018春夏季新款韩版百搭平底学生原宿ulzzang帆布鞋板鞋"></div>
-                        <div class="price">¥288</div>
-                        <div class="price line">¥576</div>
-                    </div>
-                    <div class="goods-list">
-                        <div class="goods-title">小白鞋女2018春夏季新款韩版百搭平底学生原宿ulzzang帆布鞋板鞋</div>
-                        <div class="goods-image"><img src="http://vueshop.glbuys.com/uploadfiles/1524556119.jpg" alt="小白鞋女2018春夏季新款韩版百搭平底学生原宿ulzzang帆布鞋板鞋"></div>
-                        <div class="price">¥288</div>
-                        <div class="price line">¥576</div>
-                    </div>
-                    <div class="goods-list">
-                        <div class="goods-title">小白鞋女2018春夏季新款韩版百搭平底学生原宿ulzzang帆布鞋板鞋</div>
-                        <div class="goods-image"><img src="http://vueshop.glbuys.com/uploadfiles/1524556119.jpg" alt="小白鞋女2018春夏季新款韩版百搭平底学生原宿ulzzang帆布鞋板鞋"></div>
-                        <div class="price">¥288</div>
-                        <div class="price line">¥576</div>
+                    <div class="goods-list" v-for="(item2,index2) in item.items.slice(3,7)" :key="index2">
+                        <div class="goods-title">{{item2.title}}</div>
+                        <div class="goods-image"><img src="../../../assets/images/common/lazyImg.jpg" :data-echo="item2.image" :alt="item2.title"></div>
+                        <div class="price">¥{{item2.price}}</div>
+                        <div class="price line">¥{{item2.price*2}}</div>
                     </div>
                 </div>
             </div>
             
-            <div class="goods-main">
-                <div class="classify-name color-1">—— 品牌男装 ——</div>
+            <div class="goods-main" :key="index" v-else>
+                <div class="classify-name color-1">—— {{item.title}} ——</div>
                 <div class="goods-row-1">
-                    <div class="goods-column-2">
-                        <div class="goods-title">新款短袖男士夏季3d立体图案体恤猴子搞怪大猩猩个性t恤大码衣服</div>
+                    <div class="goods-column-2" v-for="(item2, index2) in item.items.slice(0,2)" :key="index2">
+                        <div class="goods-title">{{item2.title}}</div>
                         <div class="goods-tip">火爆开售</div>
                         <div class="goods-image">
-                            <img src="http://vueshop.glbuys.com/uploadfiles/1524568819.jpg" alt="">
-                        </div>
-                    </div>
-                    <div class="goods-column-2">
-                        <div class="goods-title">新款短袖男士夏季3d立体图案体恤猴子搞怪大猩猩个性t恤大码衣服</div>
-                        <div class="goods-tip">火爆开售</div>
-                        <div class="goods-image">
-                            <img src="http://vueshop.glbuys.com/uploadfiles/1524568819.jpg" alt="">
+                            <img src="../../../assets/images/common/lazyImg.jpg" :data-echo="item2.image" alt="">
                         </div>
                     </div>
                 </div>
                 <div class="goods-row-2">
-                    <div class="goods-list">
-                        <div class="goods-title">男装棉麻休闲裤男夏季短裤男潮七分裤中裤宽松大码库子大裤衩日系</div>
+                    <div class="goods-list" v-for="(item2, index2) in item.items.slice(2,6)" :key="index2">
+                        <div class="goods-title">{{item2.title}}</div>
                         <div class="goods-image">
-                            <img src="http://vueshop.glbuys.com/uploadfiles/1524567287.jpg" alt="">
+                            <img src="../../../assets/images/common/lazyImg.jpg" :data-echo="item2.image" alt="">
                         </div>
-                        <div class="price">¥69</div>
-                        <div class="price line">¥138</div>
-                    </div>
-                    <div class="goods-list">
-                        <div class="goods-title">男装棉麻休闲裤男夏季短裤男潮七分裤中裤宽松大码库子大裤衩日系</div>
-                        <div class="goods-image">
-                            <img src="http://vueshop.glbuys.com/uploadfiles/1524567287.jpg" alt="">
-                        </div>
-                        <div class="price">¥69</div>
-                        <div class="price line">¥138</div>
-                    </div>
-                    <div class="goods-list">
-                        <div class="goods-title">男装棉麻休闲裤男夏季短裤男潮七分裤中裤宽松大码库子大裤衩日系</div>
-                        <div class="goods-image">
-                            <img src="http://vueshop.glbuys.com/uploadfiles/1524567287.jpg" alt="">
-                        </div>
-                        <div class="price">¥69</div>
-                        <div class="price line">¥138</div>
-                    </div>
-                    <div class="goods-list">
-                        <div class="goods-title">男装棉麻休闲裤男夏季短裤男潮七分裤中裤宽松大码库子大裤衩日系</div>
-                        <div class="goods-image">
-                            <img src="http://vueshop.glbuys.com/uploadfiles/1524567287.jpg" alt="">
-                        </div>
-                        <div class="price">¥69</div>
-                        <div class="price line">¥138</div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="goods-main">
-                <div class="classify-name color-2">—— 电脑办公 ——</div>
-                <div class="goods-row-1">
-                    <div class="goods-column">
-                        <div class="goods-title">高跟鞋女2018新款春季单鞋仙女甜美链子尖头防水台细跟女鞋一字带</div>
-                        <div class="goods-tip">精品打折</div>
-                        <div class="goods-price bg-color-2">12.8元</div>
-                        <div class="goods-image">
-                            <img src="http://vueshop.glbuys.com/uploadfiles/1524556409.jpg" alt="高跟鞋女2018新款春季单鞋仙女甜美链子尖头防水台细跟女鞋一字带">
-                        </div>
-                    </div>
-                    <div class="goods-column">
-                        <div class="goods-list">
-                            <div class="goods-list-title">欧美尖头蝴蝶结拖鞋女夏外穿2018新款绸缎面细跟凉拖半拖鞋穆勒鞋</div>
-                            <div class="goods-list-tip">品质精挑</div>
-                            <div class="goods-list-image"><img src="http://vueshop.glbuys.com/uploadfiles/1524556315.jpg" alt="欧美尖头蝴蝶结拖鞋女夏外穿2018新款绸缎面细跟凉拖半拖鞋穆勒鞋"></div>
-                        </div>
-                        <div class="goods-list">
-                            <div class="goods-list-title">欧美尖头蝴蝶结拖鞋女夏外穿2018新款绸缎面细跟凉拖半拖鞋穆勒鞋</div>
-                            <div class="goods-list-tip">品质精挑</div>
-                            <div class="goods-list-image"><img src="http://vueshop.glbuys.com/uploadfiles/1524556315.jpg" alt="欧美尖头蝴蝶结拖鞋女夏外穿2018新款绸缎面细跟凉拖半拖鞋穆勒鞋"></div>
-                        </div>
-                    </div>
-                </div>
-                <div class="goods-row-2">
-                    <div class="goods-list">
-                        <div class="goods-title">小白鞋女2018春夏季新款韩版百搭平底学生原宿ulzzang帆布鞋板鞋</div>
-                        <div class="goods-image"><img src="http://vueshop.glbuys.com/uploadfiles/1524556119.jpg" alt="小白鞋女2018春夏季新款韩版百搭平底学生原宿ulzzang帆布鞋板鞋"></div>
-                        <div class="price">¥288</div>
-                        <div class="price line">¥576</div>
-                    </div>
-                    <div class="goods-list">
-                        <div class="goods-title">小白鞋女2018春夏季新款韩版百搭平底学生原宿ulzzang帆布鞋板鞋</div>
-                        <div class="goods-image"><img src="http://vueshop.glbuys.com/uploadfiles/1524556119.jpg" alt="小白鞋女2018春夏季新款韩版百搭平底学生原宿ulzzang帆布鞋板鞋"></div>
-                        <div class="price">¥288</div>
-                        <div class="price line">¥576</div>
-                    </div>
-                    <div class="goods-list">
-                        <div class="goods-title">小白鞋女2018春夏季新款韩版百搭平底学生原宿ulzzang帆布鞋板鞋</div>
-                        <div class="goods-image"><img src="http://vueshop.glbuys.com/uploadfiles/1524556119.jpg" alt="小白鞋女2018春夏季新款韩版百搭平底学生原宿ulzzang帆布鞋板鞋"></div>
-                        <div class="price">¥288</div>
-                        <div class="price line">¥576</div>
-                    </div>
-                    <div class="goods-list">
-                        <div class="goods-title">小白鞋女2018春夏季新款韩版百搭平底学生原宿ulzzang帆布鞋板鞋</div>
-                        <div class="goods-image"><img src="http://vueshop.glbuys.com/uploadfiles/1524556119.jpg" alt="小白鞋女2018春夏季新款韩版百搭平底学生原宿ulzzang帆布鞋板鞋"></div>
-                        <div class="price">¥288</div>
-                        <div class="price line">¥576</div>
+                        <div class="price">¥{{item2.price}}</div>
+                        <div class="price line">¥{{item2.price*2}}</div>
                     </div>
                 </div>
             </div>
@@ -203,127 +85,131 @@
             <div class="line"></div>
         </div>
         <div class="goods-recom">
-            <div class="goods-list">
+            <div class="goods-list" v-for="(item,index) in recomGoods" :key="index">
                 <div class="goods-image">
-                    <img src="http://vueshop.glbuys.com/uploadfiles/1484283665.jpg" alt="ONLY冬装新品雪纺拼接流苏腰带长款连衣裙女" >
+                    <img src="../../../assets/images/common/lazyImg.jpg" :data-echo="item.image" :alt="item.title" >
                 </div>
-                <div class="goods-title">ONLY冬装新品雪纺拼接流苏腰带长款连衣裙女</div>
-                <div class="goods-price">¥399.00</div>
-            </div>
-            <div class="goods-list">
-                <div class="goods-image">
-                    <img src="http://vueshop.glbuys.com/uploadfiles/1484283665.jpg" alt="ONLY冬装新品雪纺拼接流苏腰带长款连衣裙女" >
-                </div>
-                <div class="goods-title">ONLY冬装新品雪纺拼接流苏腰带长款连衣裙女</div>
-                <div class="goods-price">¥399.00</div>
-            </div>
-            <div class="goods-list">
-                <div class="goods-image">
-                    <img src="http://vueshop.glbuys.com/uploadfiles/1484283665.jpg" alt="ONLY冬装新品雪纺拼接流苏腰带长款连衣裙女" >
-                </div>
-                <div class="goods-title">ONLY冬装新品雪纺拼接流苏腰带长款连衣裙女</div>
-                <div class="goods-price">¥399.00</div>
-            </div>
-            <div class="goods-list">
-                <div class="goods-image">
-                    <img src="http://vueshop.glbuys.com/uploadfiles/1484283665.jpg" alt="ONLY冬装新品雪纺拼接流苏腰带长款连衣裙女" >
-                </div>
-                <div class="goods-title">ONLY冬装新品雪纺拼接流苏腰带长款连衣裙女</div>
-                <div class="goods-price">¥399.00</div>
-            </div>
-            <div class="goods-list">
-                <div class="goods-image">
-                    <img src="http://vueshop.glbuys.com/uploadfiles/1484283665.jpg" alt="ONLY冬装新品雪纺拼接流苏腰带长款连衣裙女" >
-                </div>
-                <div class="goods-title">ONLY冬装新品雪纺拼接流苏腰带长款连衣裙女</div>
-                <div class="goods-price">¥399.00</div>
+                <div class="goods-title">{{item.title}}</div>
+                <div class="goods-price">¥{{item.price}}</div>
             </div>
         </div>
+        <my-search :show="searchShow"></my-search>
     </div>
 </template>
 
 <script>
 import {mapState, mapActions} from 'vuex'
 import Swiper from '../../../assets/js/libs/swiper';
+import MySearch from '../../../components/search';
 export default {
     name:"index",
     data() {
         return {
-            title: "index",
-            swipers:{
-                data: [
-                    {
-                        title: "图片1",
-                        image: "//vueshop.glbuys.com/uploadfiles/1484285302.jpg",
-                        webs: "#"
-                    },
-                    {
-                        title: "图片2",
-                        image: "//vueshop.glbuys.com/uploadfiles/1484285334.jpg",
-                        webs: "#"
-                    },
-                    {
-                        title: "图片3",
-                        image: "//vueshop.glbuys.com/uploadfiles/1524206455.jpg",
-                        webs: "#"
-                    }
-                ]
-            }
+            isScrollTop:false,
+            searchShow:{show:false}
         }
+    },
+    components:{
+        MySearch,
     },
     created() {
         document.title = this.$route.meta.title;
-        // console.log("hello",this);
-        this.$nextTick(()=>{
-            new Swiper(this.$refs['swiper-container'], {
-                autoplay: 5000,//可选选项，自动滑动
-                pagination : this.$refs['swiper-pagination'],
-                paginationClickable :true,
-                autoplayDisableOnInteraction : false
+        this.isScroll = true;
+        window.addEventListener("scroll", this.eventScrollTop);
+        this.getSwiper({success:()=>{
+            this.$nextTick(()=>{
+                new Swiper(this.$refs['swiper-container'], {
+                    autoplay: 5000,//可选选项，自动滑动
+                    pagination : this.$refs['swiper-pagination'],
+                    paginationClickable :true,
+                    autoplayDisableOnInteraction : false
+                })
             })
-        })
-        this.getNavs();
+        }})
+        this.getNavs({success:()=>{
+            this.$nextTick(()=>{
+                this.$utils.lazyImg();
+            })
+        }});
+        this.getGoods({success:()=>{
+            this.$nextTick(()=> {
+                this.$utils.lazyImg();
+            })
+        }});
+        this.getRecomGoods({success:()=>{
+            this.$nextTick(()=> {
+                this.$utils.lazyImg();
+            })
+        }});
     },
     mounted() {
-        // new Swiper(this.$refs['swiper-container'], {
-        //     autoplay: 5000,//可选选项，自动滑动
-        // })
+
     },
     computed:{
         ...mapState({
-            // swipers:(state)=>state.index.swipers,
-            // navs:(state)=>state.index.navs,
-            // goods:(state)=>state.index.goods,
-            // recomGoods:(state)=>state.index.recomGoods,
+            swipers:(state)=>state.index.swipers,
+            navs:(state)=>state.index.navs,
+            goods:(state)=>state.index.goods,
+            recomGoods:(state)=>state.index.recomGoods,
         })
     },
     methods:{
         ...mapActions({
+            getSwiper:"index/getSwiper",
             getNavs:"index/getNavs",
-        })
+            getGoods:"index/getGoods",
+            getRecomGoods:"index/getRecomGoods"
+        }),
+        eventScrollTop() {
+            let scrollTop = document.body.scrollTop || document.documentElement.scrollTop;
+            // console.log(scrollTop);
+            if(scrollTop >= 150) {
+                if(this.isScroll) {
+                    this.isScroll = false;
+                    this.isScrollTop = true;
+                }
+            }else{
+                if(!this.isScroll) {
+                    this.isScroll = true;
+                    this.isScrollTop = false;
+                }
+            }
+        }
+    },
+    destroyed() {
+        window.removeEventListener("scroll", this.eventScrollTop);
+    },
+    // keep-alive进入时触发
+    activated() {
+        this.isScroll = true;
+        window.addEventListener("scroll", this.eventScrollTop);
+    },
+    // keep-alive离开时触发
+    deactivated() {
+        window.removeEventListener("scroll", this.eventScrollTop);
     }
 }
 </script>
 
 <style scoped>
     @import "../../../assets/css/common/swiper.css";
-    .page{width: 100%; min-height: 100%; margin-bottom: 1.5rem;background-color: none;}
-    .header{width: 100%; height: 1rem; position: fixed;z-index:10;left:0px;top:0px;background: linear-gradient(rgba(1,1,1,.2),hsla(0,0%,100%,0));display: flex;justify-content: space-between;align-items: center;padding:0 0.3rem;box-sizing: border-box;}
-    .header.scroll{background: linear-gradient(#eb1625,hsla(0,0%,100%,0));}
-    .header .classify-icon{width:0.6rem;height: 0.6rem;background-image: url("../../../assets/images/common/class.png");background-repeat: no-repeat;background-position: center;background-size: 100%;}
-    .header .search-wrap{width:5.26rem;height: 0.52rem;background-color: rgba(255,255,255,0.5);border-radius: 4px;display: flex;align-items: center;}
-    .header .search-wrap .search-icon{width: 0.44rem;height: 0.44rem;background-image: url("../../../assets/images/common/search.png");background-size: 100%;background-position: center;background-repeat: no-repeat;margin-left: 0.2rem;margin-right: 0.2rem;}
-    .header .search-wrap .text{font-size: 0.32rem;color: #ffffff;}
-    .header .login{width: auto;height: 0.44rem;font-size: 0.32rem;color: #ffffff;}
-    .header .my-icon{width: 0.6rem;height: 0.6rem;background-image: url("../../../assets/images/home/index/my.png");background-size: 100%;background-repeat: no-repeat;background-position: center;}
-    .banner-wrap{width: 100%;height: 3.66rem;}
-    .banner-wrap img{width: 100%;height: 100%;}
-    
-    .quick-nav {width: 100%;height: 1.6rem;background-color: #ffffff;margin-top:0.2rem;display: flex;align-items: center;justify-content: space-between;padding: 0px 0.2rem;box-sizing: border-box;}
-    .quick-nav .item{width: 1.4rem;}
-    .quick-nav .item li:nth-child(1){width: 0.8rem;height: 0.8rem;margin: 0 auto;}
-    .quick-nav .item li:nth-child(1) img{width: 100%;height: 100%;}
-    .quick-nav .item li:nth-child(2){font-size: 0.28rem;color: #7b7f82;text-align: center;margin-top: 0.2rem;}
+    .page{width:100%;min-height:100%;margin-bottom:1.5rem;}
+    .header{width:100%;height:1rem;position: fixed;z-index:10;left:0px;top:0px;background:linear-gradient(rgba(1,1,1,.2),hsla(0,0%,100%,0));display:flex;justify-content: space-between;align-items: center;padding:0px 0.3rem;box-sizing: border-box;}
+    .header.scroll{background:linear-gradient(#eb1625,hsla(0,0%,100%,0))}
+    .header .classify-icon{width:0.6rem;height:0.6rem;background-image:url("../../../assets/images/common/class.png");background-size:100%;background-repeat: no-repeat;background-position: center;}
+    .header .search-wrap{width:5.26rem;height:0.52rem;background-color:rgba(255,255,255,0.5);border-radius: 4px;display: flex;align-items: center;}
+    .header .search-wrap .search-icon{width:0.44rem;height:0.44rem;background-image:url("../../../assets/images/common/search.png");background-size:100%;background-repeat: no-repeat;background-position:center;margin-left:0.2rem;margin-right:0.2rem;}
+    .header .search-wrap .text{font-size:0.32rem;color:#FFFFFF;}
+    .header .login{width:auto;height:0.44rem;font-size:0.32rem;color:#FFFFFF;}
+    .header .my-icon{width:0.6rem;height:0.6rem;background-image:url("../../../assets/images/home/index/my.png");background-size:100%;background-repeat: no-repeat;background-position: center;}
+    .banner-wrap{width:100%;height:3.66rem;}
+    .banner-wrap img{width:100%;height:100%}
+
+    .quick-nav{width:100%;height:1.6rem;background-color:#FFFFFF;margin-top:0.2rem;display: flex;align-items: center;justify-content: space-between;padding:0px 0.2rem;box-sizing: border-box;}
+    .quick-nav .item{width:1.4rem;}
+    .quick-nav .item li:nth-child(1){width:0.8rem;height:0.8rem;margin:0 auto;}
+    .quick-nav .item li:nth-child(1) img{width:100%;height:100%;}
+    .quick-nav .item li:nth-child(2){font-size:0.28rem;color:#7b7f82;text-align:center;margin-top:0.2rem;}
 
     .goods-main{width:100%;height:7.36rem;background-color:#FFFFFF;margin-top:0.2rem;}
     .goods-main .classify-name{width:100%;height:0.64rem;border-bottom:1px solid #EFEFEF;font-size:0.32rem;text-align:center;line-height:0.64rem;}
