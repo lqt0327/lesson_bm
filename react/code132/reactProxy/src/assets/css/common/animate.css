@@ -1,0 +1,50 @@
+/*
+enter:入场初始化动画
+*/
+.fade-enter{
+  left:0px;
+}
+/*
+enter-active:入场动画的过程
+*/
+.fade-enter-active{
+    left:300px;
+    transition: all 2s;
+}
+/*
+enter-done:最终停留的状态
+*/
+.fade-enter-done{
+    left:300px;
+    display:none;
+}
+/*
+exit:出场初始化动画
+*/
+.fade-exit{
+    left:300px;
+    display:block;
+}
+/*
+exit-active:出场动画的过程
+*/
+.fade-exit-active{
+    left:0px;
+    transition: all 2s;
+}
+/*
+exit-done:最终停留的状态
+*/
+.fade-exit-done{
+    left:0px;
+    display:none;
+}
+
+.name-exit{opacity:1;}
+.name-exit-active{opacity:0;transition: all 0.5s}
+.name-exit-done{opacity:0}
+
+.name-enter{opacity:0}
+.name-enter-active{opacity:1;transition: all 0.5s}
+.name-enter-done{opacity:1}
+
