@@ -10,7 +10,7 @@ export default {
     },
     mutations:{
         ["SET_NAVS"](state, payload) {
-            console.log(this.state,payload);
+            // console.log(this.state,payload);
             state.navs = payload.navs;
             
         },
@@ -38,7 +38,7 @@ export default {
         },
         getSwiper(conText,payload){
             getSwiperData().then(res=>{
-                console.log(res);
+                // console.log(res);
                 if(res.code===200){
                     conText.commit("SET_SWIPER",{swipers:res.data});
                     if(payload.success){
