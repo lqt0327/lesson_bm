@@ -1,13 +1,13 @@
 <template>
     <div class="page">
-        <div class="search-header">
-            <div class="back"></div>
+        <div class="search-header" @click="searchShow.show=true">
+            <div class="back" @click="goBack()"></div>
             <div class="search">请输入宝贝名称</div>
         </div>
         <div class="goods-main">
-            <div class="classify-wrap">
+            <div ref="scroll-classify" class="classify-wrap">
                 <div>
-                    <div :class="{'classify-item':true, active:item.active}" v-for="(item,index) in classifys" :key="index">{{item.title}}</div>
+                    <div ref="item" :class="{'classify-item':true, active:item.active}" v-for="(item,index) in classifys" :key="index" @click="replacePage('/goods/classify/item?cid='+item.cid+'',index)">{{item.title}}</div>
                 </div>
             </div>
             <div class="goods-content">
@@ -19,7 +19,8 @@
 </template>
 
 <script>
-import {mapState, mapActions} from 'vuex'
+import {mapState, mapActions,mapMutations} from 'vuex';
+import IScroll from '../../../assets/js/libs/iscroll';
 import MySearch from '../../../components/search';
 export default {
     name:"classify",
@@ -31,9 +32,6 @@ export default {
     components:{
         MySearch
     },
-    created() {
-        this.getClassify();
-    },
     computed:{
         ...mapState({
             classifys:state=>state.goods.classifys,
@@ -42,7 +40,61 @@ export default {
     methods:{
         ...mapActions({
             getClassify:"goods/getClassify"
-        })
+        }),
+        ...mapMutations({
+            SELECT_ITEM:"goods/SELECT_ITEM"
+        }),
+        goBack() {
+            this.$router.go(-1);
+        },
+        scrollPreventDefault(e){
+            e.preventDefault();
+        },
+        selectItem(index) {
+            let topHeight = this.$refs['item'][0].offsetHeight*index;
+            // console.log(this.$refs['item'])
+            let halfHeight = parseInt(this.$refs['scroll-classify'].offsetHeight/3);
+            let bottomHeight = parseInt(this.$refs['scroll-classify'].scrollHeight-topHeight);
+            if(topHeight > halfHeight && bottomHeight > this.$refs['scroll-classify'].offsetHeight) {
+                this.myScroll.scrollTo(0,-topHeight,1000,IScroll.utils.ease.elastic);
+            }
+            this.SELECT_ITEM({index:index});
+        },
+        replacePage(url, index) {
+            this.$router.replace(url);
+            this.selectItem(index);
+        }
+    },
+    created() {
+        this.cid = this.$route.query.cid ? this.$route.query.cid : '';
+        this.getClassify({success:()=>{
+            this.$nextTick(()=>{
+                this.myScroll.refresh();
+                if(this.classifys.length > 0 && this.cid) {
+                    let i = 0;
+                    for(; i < this.classifys.length; i++ ){
+                        if(this.classifys[i].cid === this.cid) {
+                            break;
+                        }
+                    }
+                    this.selectItem(i);
+                }else{
+                    this.selectItem(0);
+                }
+            })
+        }})
+    },
+    mounted() {
+        document.title = this.$route.meta.title;
+        this.$refs['scroll-classify'].addEventListener("touchmove",this.scrollPreventDefault);
+        this.myScroll = new IScroll(this.$refs['scroll-classify'], {
+            scrollX: false,
+            scrollY: true,
+            preventDefault: false
+        });
+    },
+    beforeDestroy() {
+        this.$refs['scroll-classify'].removeEventListener("touchmove",this.scrollPreventDefault);
     }
 }
 </script>
