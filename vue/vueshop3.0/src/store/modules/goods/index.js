@@ -28,6 +28,25 @@ export default {
         ["SET_GOODS"](state,payload){
             state.goods=payload.goods;
         },
+        ["SELECT_ATTR"](state,payload) {
+            if(state.attrs.length>0){
+                for(let i=0;i<state.attrs[payload.index].values.length;i++){
+                    if(state.attrs[payload.index].values[i].active){
+                        state.attrs[payload.index].values[i].active=false;
+                        break;
+                    }
+                }
+                state.attrs[payload.index].values[payload.index2].active=true;
+                Vue.set(state.attrs[payload.index].values[payload.index2],payload.index2,state.attrs[payload.index].values[payload.index2]);
+            }
+        },
+        ["SET_DETAILS"](state,payload) {
+            state.details = payload.details;
+        },
+        //设置商品规格
+        ["SET_ATTRS"](state,payload){
+            state.attrs=payload.attrs;
+        }
     },
     actions:{
         getClassify(conText,payload){
@@ -57,5 +76,28 @@ export default {
                 }
             })
         },
+        getDetails(conText,payload) {
+            getDetailsData(payload.gid).then(res=>{
+                if(res.code === 200) {
+                    conText.commit("SET_DETAILS",{details:res.data});
+                    if(payload.success) {
+                        payload.success();
+                    }
+                }
+            })
+        },
+        //获取商品规格
+        getSpec(conText,payload){
+            getSpecData(payload.gid).then(res=>{
+                if(res.code===200){
+                    for(let i=0;i<res.data.length;i++){
+                        for(let j=0;j<res.data[i].values.length;j++){
+                            res.data[i].values[j].active=false;
+                        }
+                    }
+                    conText.commit("SET_ATTRS",{attrs:res.data});
+                }
+            })
+        }
     }
 }

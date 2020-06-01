@@ -1,6 +1,7 @@
 import axios from 'axios';
-
+let load=document.querySelector(".load");
 export default function requset(url, method="get", data={}, config={}) {
+    load.style.display="block";
     return axiosRequest(url, method, data, config);
 }
 
@@ -34,6 +35,7 @@ function axiosRequest(url, method, data, config) {
         }
     }
     return axios(axiosConfig).then(res => {
+        load.style.display="none";
         return res.data;
     })
 }
