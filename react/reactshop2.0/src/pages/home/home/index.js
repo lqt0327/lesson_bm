@@ -2,10 +2,56 @@ import React,{lazy,Suspense} from 'react';
 import { Switch, Route } from 'react-router-dom';
 import config from '../../../assets/js/conf/config';
 import Css from '../../../assets/css/home/home/index.css';
-// import IndexComponent from '../index/index';
 const IndexComponent = lazy(()=>import('../index/index'));
+const CartIndex = lazy(()=>import('../cart/index'));
+const UserIndex = lazy(()=>import('../../user/index'));
 
 class HomeComponent extends React.Component{
+    constructor() {
+        super();
+        this.state = {
+            bHomeStyle:true,
+            bCartStyle:false,
+            bMyStyle:false
+        }
+    }
+    componentDidMount() {
+        this.handleNavStyle(this.props)
+    }
+    UNSAFE_componentWillReceiveProps(newProps) {
+        this.handleNavStyle(newProps)
+    }
+    goPage(url) {
+        // console.log(this.props);
+        this.props.history.push(config.path+url);
+    }
+    handleNavStyle(props) {
+        switch(props.location.pathname) {
+            case config.path + 'home/index':
+                this.setState({
+                    bHomeStyle:true,
+                    bCartStyle:false,
+                    bMyStyle:false
+                });
+                break;
+            case config.path + 'home/cart':
+                this.setState({
+                    bHomeStyle:false,
+                    bCartStyle:true,
+                    bMyStyle:false
+                });
+                break;
+            case config.path + 'home/my':
+                this.setState({
+                    bHomeStyle:false,
+                    bCartStyle:false,
+                    bMyStyle:true
+                });
+                break;
+            default:
+                break;
+        }
+    }
     render() {
         return (
             <div>
@@ -13,23 +59,23 @@ class HomeComponent extends React.Component{
                     <Suspense fallback={<React.Fragment></React.Fragment>}>
                         <Switch>
                             <Route path={config.path+"home/index"} component={IndexComponent} ></Route>
-                            {/* <Route path={config.path+"home/cart"} component={CartIndex} ></Route>
-                            <Route path={config.path+"home/my"} component={UserIndex} ></Route> */}
+                            <Route path={config.path+"home/cart"} component={CartIndex} ></Route>
+                            <Route path={config.path+"home/my"} component={UserIndex} ></Route>
                         </Switch>
                     </Suspense>
                 </React.Fragment>
                 <div className={Css['bottom-nav']}>
-                    <ul>
-                        <li className={Css['home']}></li>
-                        <li className={Css['text']}>首页</li>
+                    <ul onClick={this.goPage.bind(this, 'home/index')}>
+                        <li className={this.state.bHomeStyle ? Css['home']+" "+Css['active'] : Css['home']}></li>
+                        <li className={this.state.bHomeStyle ? Css['text']+" "+Css['active'] : Css['text']}>首页</li>
                     </ul>
-                    <ul>
-                        <li className={Css['cart']}></li>
-                        <li className={Css['text']}>购物车</li>
+                    <ul onClick={this.goPage.bind(this, 'home/cart')}>
+                        <li className={this.state.bCartStyle ? Css['cart']+" "+Css['active'] : Css['cart']}></li>
+                        <li className={this.state.bCartStyle ? Css['text']+" "+Css['active'] : Css['text']}>购物车</li>
                     </ul>
-                    <ul>
-                        <li className={Css['my']}></li>
-                        <li className={Css['text']}>我的</li>
+                    <ul onClick={this.goPage.bind(this, 'home/my')}>
+                        <li className={this.state.bMyStyle ? Css['my']+" "+Css['active'] : Css['my']}></li>
+                        <li className={this.state.bMyStyle ? Css['text']+" "+Css['active'] : Css['text']}>我的</li>
                     </ul>
                 </div>
             </div>
