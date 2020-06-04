@@ -17,7 +17,60 @@
       </ul>
     </div>
     <div class="reviews-main">
-      <div class="reviews-title">商品评价（10）</div>
+      <div class="reviews-title">商品评价（{{total}}）</div>
+      <div v-show="reviews.length>0">
+        <div class="reviews-wrap">
+          <div class="reviews-list" v-for="(item,index) in reviews" :key="index">
+            <div class="uinfo">
+              <div class="head"><img src="../../../assets/images/common/lazyImg.jpg" alt="" :data-echo="item.head"></div>
+              <div class="nickname">{{item.nickname}}</div>
+            </div>
+            <div class="reviews-content" v-html="item.content"></div>
+            <div class="reviews-date">{{item.times}}</div>
+          </div>
+        </div>
+        <div class='reviews-more' @click="$router.replace('/goods/details/review?gid='+gid)">查看更多评价</div>
+      </div>
+      <div class="no-data" v-show="reviews.length<=0">暂无评价！</div>
+    </div>
+    <div class='bottom-btn-wrap'>
+        <div class='btn fav'>收藏</div>
+        <div class='btn cart' @click="showPanel()">加入购物车</div>
+    </div>
+    <div class='mask' v-show="isPanel" @click="hidePanel()"></div>
+    <div ref="cart-panel" :class="isPanel ? 'cart-panel up' : 'cart-panel down'">
+      <div ref="goods-info" class="goods-info">
+        <div class="close-panel-wrap">
+          <div class="spot"></div>
+          <div class="line"></div>
+          <div class="close" @click="hidePanel()"></div>
+        </div>
+        <div ref="goods-img" class="goods-img">
+          <img :src="details.images && details.images[0]" alt="">
+        </div>
+        <div class="goods-wrap">
+          <div class="goods-title">{{details.title}}</div>
+          <div class="price">¥{{details.price}}</div>
+          <div class="goods-code">商品编码:{{gid}}</div>
+        </div>
+      </div>
+      <div class="attr-wrap">
+        <div class="attr-list" v-for="(item,index) in attrs" :key="index">
+          <div class="attr-name">{{item.title}}</div>
+          <div class="val-wrap">
+            <span :class="{'val':true ,'active':item2.active}" v-for="(item2,index2) in item.values" :key="index2" @click="SELECT_ATTR({index:index,index2:index2})">{{item2.value}}</span>
+          </div>
+        </div>
+      </div>
+      <div class="amount-wrap">
+        <div class="amount-name">购买数量</div>
+        <div class="amount-input-wrap">
+          <div :class="amount>1?'btn dec':'btn dec active'" @click="amount>1?--amount:1">-</div>
+          <div class="amount-input"><input type="tel" :value="amount" @input="setAmount($event)" /></div>
+          <div class='btn inc' @click="++amount">+</div>
+        </div>
+      </div>
+      <div class='sure-btn' @click="sureSubmit()">确定</div>
     </div>
   </div>
 </template>
@@ -35,7 +88,8 @@ export default {
       gid: this.$route.query.gid ? this.$route.query.gid : ""
     };
   },
-  created() {
+  created() { 
+    this.isMove = true;
     this.getDetails({
       gid: this.gid,
       success: () => {
@@ -50,6 +104,11 @@ export default {
         });
       }
     });
+    this.getReviews({gid:this.gid, success:()=>{
+      this.$nextTick(()=>{
+        this.$utils.lazyImg();
+      })
+    }})
   },
   computed: {
     ...mapState({
@@ -68,7 +127,28 @@ export default {
       getDetails: "goods/getDetails",
       getSpec: "goods/getSpec",
       getReviews: "goodsReview/getReviews"
-    })
+    }),
+    //显示属性面板
+    showPanel(){
+        this.isPanel=true;
+    },
+    //隐藏属性面板
+    hidePanel(){
+        if(this.isMove){
+            this.isPanel=false;
+        }
+    },
+    //设置数量
+    setAmount(e){
+        this.amount=e.target.value;
+        this.amount=this.amount.replace(/[^\d]/g,"");
+        if(!this.amount || this.amount==="0"){
+            this.amount=1;
+        }
+    },
+    sureSubmit() {
+      console.log("提交");
+    }
   }
 };
 </script>

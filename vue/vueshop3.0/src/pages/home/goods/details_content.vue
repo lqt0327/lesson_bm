@@ -1,17 +1,16 @@
 <template>
-    <div>
-        <h1>details_content</h1>
+    <div class="page">
+        <div class='content' v-html="$store.state.goods.details.bodys"></div>
     </div>
 </template>
 
 <script>
-export default {
-    
-}
+    export default {
+
+    }
 </script>
 
 <style scoped>
-    h1{
-        position: relative;top:100px
-    }
+    .page{margin-top:1.2rem;}
+    .content{width:90%;margin:0 auto;font-size:0.32rem;line-height:0.5rem;}
 </style>
