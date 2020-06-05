@@ -9,13 +9,13 @@
                 <button type="button" class='search-btn' @click="goSearch()"></button>
             </div>
         </div>
-        <div class="search-main">
+        <div class="search-main" v-if="historyKeywords.length>0">
             <div class="search-title-wrap">
                 <div class="search-title">最近搜索</div>
-                <div class="bin"></div>
+                <div class="bin" @click="clearHistoryKeywords()"></div>
             </div>
             <div class="search-keywords-wrap">
-                <div class="keywords">连衣裙</div>
+                <div class="keywords" v-for="(item,index) in historyKeywords" :key="index" @click="goSearch(item)">{{item}}</div>
             </div>
         </div>
         <div class="search-main">
@@ -23,14 +23,15 @@
                 <div class="search-title">热门搜索</div>
             </div>
             <div class="search-keywords-wrap">
-                <div class="keywords">连衣裙</div>
-                <div class="keywords">电脑</div>
+                <div class="keywords" v-for="(item,index) in hotKeywords" :key="index" @click="goSearch(item.title)">{{item.title}}</div>
             </div>
         </div>
     </div>
 </template>
 
 <script>
+import {mapState,mapMutations,mapActions} from 'vuex';
+import {Dialog} from 'vant';
 export default {
     name:"my-search",
     data() {
@@ -42,10 +43,62 @@ export default {
         show:{
             type:Object,
             default:{}
+        },
+        isLocal:{
+            type:Boolean,
+            default: false
         }
     },
+    created() {
+        this.keywords = this.historyKeywords?this.historyKeywords:[];
+        this.getHotKeyword();
+    },
+    computed:{
+        ...mapState({
+            "historyKeywords":state=>state.search.historyKeywords,
+            "hotKeywords":state=>state.search.hotKeywords
+        })
+    },
     methods:{
-        goSearch() {}
+        ...mapMutations({
+            "SET_KEYWORDS":"search/SET_KEYWORDS",
+            "CLEAR_KEYWORDS":"search/CLEAR_KEYWORDS"
+        }),
+        ...mapActions({
+            "getHotKeyword":"search/getHotKeyword"
+        }),
+        goSearch(keyword) {
+            let tmpKeyword = keyword || this.keyword || '';
+            if(tmpKeyword) {
+                if(this.keywords.length>0) {
+                    for(let i = 0; i < this.keywords.length; i++) {
+                        if(this.keywords[i] === tmpKeyword) {
+                            this.keywords.splice(i--,1);
+                        }
+                    }
+                }
+                this.keywords.unshift(tmpKeyword);
+                this.SET_KEYWORDS({historyKeywords:this.keywords})
+            }
+            this.show.show = false;
+            if(this.isLocal) {
+                this.$router.replace("/goods/search?keyword=" + tmpKeyword);
+            }else {
+                this.$router.push("/goods/search?keyword=" + tmpKeyword);
+            }
+        },
+        clearHistoryKeywords() {
+            if(this.historyKeywords.length>0){
+                Dialog.confirm({
+                    title: '',
+                    message: '确认要删除吗？'
+                }).then(() => {
+                    this.CLEAR_KEYWORDS();
+                }).catch(()=>{
+
+                })
+            }
+        }
     }
 }
 </script>
