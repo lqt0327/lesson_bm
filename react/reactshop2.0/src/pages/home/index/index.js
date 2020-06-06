@@ -3,6 +3,7 @@ import React from 'react';
 import Swiper from '../../../assets/js/libs/swiper.min.js';
 import config from '../../../assets/js/conf/config.js';
 import {request} from '../../../assets/js/libs/request.js';
+import {lazyImg,setScrollTop} from '../../../assets/js/utils/util.js';
 import "../../../assets/css/common/swiper.min.css";
 import Css from '../../../assets/css/home/index/index.css';
 export default class  IndexComponent extends React.Component{
@@ -21,6 +22,8 @@ export default class  IndexComponent extends React.Component{
     componentDidMount() {
         this.getSwiper();
         this.getNav();
+        this.getGoodsLevel();
+        this.getReco();
     }
     getSwiper(){
         request(config.baseUrl+"/home/index/slide?token="+config.token).then(res=>{
@@ -46,10 +49,20 @@ export default class  IndexComponent extends React.Component{
         request(config.baseUrl+"/home/index/goodsLevel?token="+config.token).then(res=>{
             if (res.code ===200){
                 this.setState({aGoods:res.data},()=>{
-                    // lazyImg();
+                    lazyImg();
                 })
+                console.log(this.state.aGoods);
             }
         })
+    }
+    getReco(){
+        request(config.baseUrl+"/home/index/recom?token="+config.token).then(res=>{
+            if (res.code ===200){
+                this.setState({aRecoGoods:res.data},()=>{
+                    lazyImg();
+                })
+            }
+        } )
     }
     render(){
         return(
@@ -92,10 +105,90 @@ export default class  IndexComponent extends React.Component{
                 {
                     this.state.aGoods!=null ? this.state.aGoods.map((item,index) => {
                         return (
-                            <div></div>
+                            <div key={index} className={Css['goods-level-wrap']}>
+                                <div className={Css['classify-title']+" "+Css['color'+(index+1)]}>—— {item.title} ——</div>
+                                {
+                                    index%2===1?
+                                    <div className={Css['goods-level1-wrap']}>
+                                        {
+                                            item.items!=null?item.items.slice(0,2).map((item2,index2)=>{
+                                                return(
+                                                    <div key={index2} className={Css['goods-level1-item0']}>
+                                                        <div className={Css['goods-title2']}>{item2.title}</div>
+                                                        <div className={Css["goods-text2"]}>火爆开售</div>
+                                                        <div className={Css['goods-img2']}><img data-echo={item2.image} src={require("../../../assets/images/common/lazyImg.jpg")} alt={item2.title}/></div>
+                                                    </div>
+                                                )
+                                            })
+                                        :""}
+                                    </div>
+                                    :<div className={Css['goods-level1-wrap']}>
+                                        <div className={Css['goods-level1-item0']}>
+                                            <div className={Css['goods-title']}>{item.items!=null?item.items[0].title:''}</div>
+                                            <div className={Css["goods-text"]}>精品打折</div>
+                                            <div className={Css['goods-price'+(index+1)]}>{item.items!=null?item.items[0].price:''}元</div>
+                                            <div className={Css['goods-img']}><img data-echo={item.items!=null?item.items[0].image:''} src={require("../../../assets/images/common/lazyImg.jpg")} alt={item.items!=null?item.items[0].title:''} /></div>
+                                        </div>
+                                        <div className={Css['goods-level1-item1']}>
+                                            {
+                                                item.items!=null?item.items.slice(1,3).map((item2,index2)=>{
+                                                    return (
+                                                        <div key={index2} className={Css['goods-row']}>
+                                                            <div className={Css['goods-row-title']}>{item2.title}</div>
+                                                            <div className={Css['goods-row-text']}>品质精挑</div>
+                                                            <div className={Css['goods-row-img']}><img src={require("../../../assets/images/common/lazyImg.jpg")} data-echo={item2.image}  alt={item2.title}/></div>
+                                                        </div>
+                                                    )
+                                                })
+                                                :''
+                                            }
+                                        </div>
+                                    </div>
+                                }
+                                <div className={Css['goods-list-wrap']}>
+                                    {
+                                        item.items!=null?item.items.slice(index%2===1?2:3).map((item2,index2)=>{
+                                            return (
+                                                <div key={index2} className={Css['goods-list']}>
+                                                    <div className={Css['title']}>
+                                                        {item2.title}
+                                                    </div>
+                                                    <div className={Css['image']}><img src={require("../../../assets/images/common/lazyImg.jpg")} data-echo={item2.image} alt={item2.title}/></div>
+                                                    <div className={Css['price']}>¥{item2.price}</div>
+                                                    <div className={Css['unprice']}>¥{item2.price*2}</div>
+                                                </div>
+                                            )
+                                        })
+                                        :''
+                                    }
+                                </div>
+                            </div>
                         )
                     }) : ''
                 }
+                <div className={Css['reco-title-wrap']}>
+                    <div className={Css["line"]}></div>
+                    <div className={Css['reco-text-wrap']}>
+                        <div className={Css['reco-icon']}></div>
+                        <div className={Css['reco-text']}>为您推荐</div>
+                    </div>
+                    <div className={Css["line"]}></div>
+                </div>
+                <div className={Css['reco-item-wrap']}>
+                    {
+                        this.state.aRecoGoods!=null?
+                            this.state.aRecoGoods.map((item, index)=>{
+                                return (
+                                    <div key={index} className={Css['reco-item']}>
+                                        <div className={Css['image']}><img src={require("../../../assets/images/common/lazyImg.jpg")} alt={item.title} data-echo={item.image} /></div>
+                                        <div className={Css['title']}>{item.title}</div>
+                                        <div className={Css['price']}>¥{item.price}</div>
+                                    </div>
+                                )
+                            })
+                        :''
+                    }
+                </div>
             </div>
         );
     }
