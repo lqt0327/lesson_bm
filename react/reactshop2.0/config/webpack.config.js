@@ -440,7 +440,7 @@ module.exports = function(webpackEnv) {
               exclude:[//3、排除文件夹下面的css文件
                 path.join(__dirname, '..', 'node_modules'),
                 path.join(__dirname, '..','src/assets/css/common'),
-                path.join(__dirname, '..','src/components')
+                // path.join(__dirname, '..','src/components')
               ],
               // Don't consider CSS imports dead code even if the
               // containing package claims to have no side effects.
@@ -448,6 +448,14 @@ module.exports = function(webpackEnv) {
               // See https://github.com/webpack/webpack/issues/6571
               sideEffects: true,
             },
+            {
+              test:/\.css$/,
+              use:['style-loader','css-loader'],
+              include:[//样式只应用到这两个文件夹下面的css文件中
+                path.join(__dirname, '..', 'node_modules'),
+                path.join(__dirname, '..','src/assets/css/common'),
+              ]
+          },
             // Adds support for CSS Modules (https://github.com/css-modules/css-modules)
             // using the extension .module.css
             {
@@ -461,15 +469,6 @@ module.exports = function(webpackEnv) {
                 },
               }),
             },
-            {
-              test:cssRegex,
-              use:['style-loader','css-loader'],
-              include:[//4、样式只应用到文件夹下面的css文件中
-                  path.join(__dirname, '..', 'node_modules'),
-                  path.join(__dirname, '..','src/assets/css/common'),
-                  path.join(__dirname, '..','src/components')
-              ]
-          },
             // Opt-in support for SASS (using .scss or .sass extensions).
             // By default we support SASS Modules with the
             // extensions .module.scss or .module.sass
