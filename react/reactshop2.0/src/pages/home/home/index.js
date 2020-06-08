@@ -16,6 +16,7 @@ class HomeComponent extends React.Component{
         }
     }
     componentDidMount() {
+        // console.log(this.props);
         this.handleNavStyle(this.props)
     }
     UNSAFE_componentWillReceiveProps(newProps) {

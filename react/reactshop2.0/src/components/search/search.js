@@ -6,7 +6,6 @@ import { Modal,Toast } from 'antd-mobile';
 import Css from './search.css';
 import {connect} from "react-redux";
 import action from '../../actions';
-console.log(Css);
 class SearchComponent extends React.Component{
     constructor(props){
         super(props);
@@ -26,7 +25,7 @@ class SearchComponent extends React.Component{
         this.getHotKeywords();
     }
     componentWillUpdate() {
-        console.log("search",this.props.pageStyle)
+        // console.log("search",this.props.pageStyle)
     }
     getHotKeywords(){
         request(config.baseUrl+"/home/public/hotwords?token="+config.token).then(res=>{

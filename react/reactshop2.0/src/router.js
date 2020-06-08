@@ -3,6 +3,7 @@ import  {HashRouter as Router,Route,Switch,Redirect}  from  'react-router-dom';
 import config from './assets/js/conf/config.js';
 // import HomeComponent from './pages/home/home/index';
 const HomeComponent = lazy(()=>import('./pages/home/home/index'));
+const GoodsClassify = lazy(()=>import('./pages/home/goods/classify'));
 
 export default class RouterComponent extends React.Component{
   render(){
@@ -13,6 +14,7 @@ export default class RouterComponent extends React.Component{
               <Suspense fallback={<React.Fragment />}>
                 <Switch>
                   <Route path={config.path+"home"} component={HomeComponent} ></Route>
+                  <Route path={config.path+"goods/classify"} component={GoodsClassify} ></Route>
                   <Redirect to={config.path+"home/index"}></Redirect>
                 </Switch>
               </Suspense>
