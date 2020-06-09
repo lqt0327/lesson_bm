@@ -10,7 +10,7 @@
                 <div class="screen-btn" @click="isScreen=true">筛选</div>
             </div>
             <div class="order-main">
-                <div :class="{'order-item':true, active:isPriceOrder}">
+                <div :class="{'order-item':true, active:isPriceOrder}" @click="selectPrice()">
                     <div class="order-text">综合</div>
                     <div class="order-icon"></div>
                     <ul class="order-menu" v-show="isPriceOrder">
@@ -23,12 +23,38 @@
             </div>
         </div>
         <div class="goods-main">
-            <div class="goods-list"></div>
+            <div class="goods-list" v-for="(item,index) in searchData" :key="index" @click="$router.push('/goods/details?gid='+item.gid)">
+                <div class="image"><img src="../../../assets/images/common/lazyImg.jpg" :data-echo="item.image"/></div>
+                <div class="goods-content">
+                    <div class='goods-title'>{{item.title}}</div>
+                    <div class='price'>¥{{item.price}}</div>
+                    <div class='sales'>销量<span>{{item.sales}}</span>件</div>
+                </div>
+            </div>
+            <div class="no-data" v-show="searchData.length<=0">没有相关商品！</div>
+        </div>
+        <div ref="mask" class="mask" v-show="isScreen" @click="isScreen=false"></div>
+        <div ref="screen" :class="isScreen?'screen move':'screen unmove'">
+            <div>
+                <div class="attr-wrap">
+                    <div class="attr-title-wrap" @click="isClassify=!isClssify">
+                        <div class="attr-name">分类</div>
+                        <div :class="{'attr-icon':true, up:isClassify}"></div>
+                    </div>
+                    <div class="item-wrap" v-show="!isClassify">
+                        <div v-for="(item,index) in classifys" :key="index" :class="{item:true, active:item.active}" @click="selectClassify({index:index})">{{item.title}}</div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 </template>
 
 <script>
+import {mapState,mapMutations,mapActions} from 'vuex';
+import MySearch from '../../../components/search';
+import IScroll from '../../../assets/js/libs/iscroll';
+import UpRefresh from '../../../assets/js/libs/uprefresh';
 export default {
     name:"goods-search",
     data() {
@@ -44,6 +70,45 @@ export default {
             isSalesOrder:false,
             isScreen:false,
             isClassify:false
+        }
+    },
+    created(){
+        this.pullUp=new UpRefresh();
+        this.getClassify({success:()=>{
+            this.$nextTick(()=>{
+                // this.myScroll.refresh();
+            })
+        }})
+        this.init();
+    },
+    components:{
+        MySearch
+    },
+    computed:{
+        ...mapState({
+            classifys:state=>state.goods.classifys,
+            searchData:state=>state.search.searchData,
+        })
+    },
+    methods:{
+        ...mapActions({
+            getClassify:"goods/getClassify",
+            getSearch:"search/getSearch",
+            getSearchPage:"search/getSearchPage",
+        }),
+        selectPrice() {
+            this.isPriceOrder = !this.isPriceOrder;
+        },
+        init() {
+            let jsonParams = {keyword:this.keyword,otype:this.otype,cid:this.cid,price1:this.minPrice,price2:this.maxPrice,param:JSON.stringify(this.params)};
+            this.getSearch({...jsonParams,success:(pageNum)=>{
+                this.$nextTick(()=>{
+                    this.$utils.lazyImg();
+                });
+                this.pullUp.init({"curPage":1,"maxPage":parseInt(pageNum),"offsetBottom":100},(page)=>{
+                    this.getSearchPage({...jsonParams,page:page})
+                })
+            }})
         }
     }
 }
