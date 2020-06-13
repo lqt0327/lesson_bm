@@ -23,7 +23,7 @@ class GoodsDetails extends React.Component{
     componentDidMount(){
         this.setTabStyle(this.props);
     }
-    componentWillReceiveProps(newProps){
+    UNSAFE_componentWillReceiveProps(newProps){
         this.setTabStyle(newProps);
     }
     componentWillUnmount(){

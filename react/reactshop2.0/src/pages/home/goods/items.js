@@ -16,7 +16,7 @@ export default class  GoodsItems extends React.Component{
         setScrollTop()
         this.getData(this.props);
     }
-    componentWillReceiveProps(newProps){
+    UNSAFE_componentWillReceiveProps(newProps){
         this.getData(newProps)
     }
     getData(props){

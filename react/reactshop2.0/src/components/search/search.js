@@ -24,7 +24,7 @@ class SearchComponent extends React.Component{
         }
         this.getHotKeywords();
     }
-    componentWillUpdate() {
+    UNSAFE_componentWillUpdate() {
         // console.log("search",this.props.pageStyle)
     }
     getHotKeywords(){

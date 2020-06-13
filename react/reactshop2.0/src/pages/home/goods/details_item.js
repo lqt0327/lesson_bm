@@ -226,8 +226,85 @@ class DetailsItem extends React.Component{
                         <li>月销量{this.state.iSales}件</li>
                     </ul>
                 </div>
+                <div className={Css['reviews-main']}>
+                    <div className={Css["reviews-title"]}>商品评价（{this.state.iReviewTotal}）</div>
+                    <div className={Css['reviews-wrap']}>
+                        {
+                            this.state.aReviews.length>0?
+                                this.state.aReviews.map((item, index)=>{
+                                    return (
+                                        <div className={Css['reviews-list']} key={index}>
+                                            <div className={Css['uinfo']}>
+                                                <div className={Css['head']}><img alt={item.nickname} data-echo={item.head} src={require("../../../assets/images/common/lazyImg.jpg")}  /></div>
+                                                <div className={Css['nickname']}>{item.nickname}</div>
+                                            </div>
+                                            <div className={Css['reviews-content']}>{item.content}</div>
+                                            <div className={Css['reviews-date']}>{item.times}</div>
+                                        </div>
+                                    )
+                                })
+                            :<div className="null-item">没有任何评价！</div>
+                        }
+                    </div>
+                    <div className={this.state.iReviewTotal>0?Css['reviews-more']:Css['reviews-more']+" hide"} onClick={this.replacePage.bind(this, 'goods/details/reviews?gid='+this.state.gid)}>查看更多评价</div>
+                </div>
+                <div className={Css['bottom-btn-wrap']}>
+                    <div className={Css['btn']+" "+Css['fav']} onClick={this.addFav.bind(this)}>收藏</div>
+                    <div className={Css['btn']+" "+Css['cart']} onClick={this.showCartPanel.bind(this)}>加入购物车</div>
+                </div>
+                <div ref="mask" className={this.state.bMask?Css['mask']:Css['mask']+" hide"}></div>
+                <div ref="cart-panel" className={Css['cart-panel']+" "+this.state.sCartPanel}>
+                    <div ref="goods-info" className={Css['goods-info']}>
+                        <div className={Css['close-panel-wrap']}>
+                            <div className={Css['spot']}></div>
+                            <div className={Css["line"]}></div>
+                            <div className={Css['close']} onClick={this.hideCartPanel.bind(this)}></div>
+                        </div>
+                        <div ref="goods-img" className={Css['goods-img']}>
+                            <img src={this.state.aSlide.length!==0?this.state.aSlide[0]:''} alt={this.state.sGoodsTitle} />
+                        </div>
+                        <div className={Css['goods-wrap']}>
+                            <div className={Css['goods-title']}>{this.state.sGoodsTitle}</div>
+                            <div className={Css['price']}>¥{this.state.fPrice}</div>
+                            <div className={Css['goods-code']}>商品编码:{this.state.gid}</div>
+                        </div>
+                    </div>
+                    <div className={Css['attr-wrap']}>
+                        {
+                            this.state.aAttr.length>0?
+                                this.state.aAttr.map((item,index)=>{
+                                    return (
+                                        <div className={Css['attr-list']} key={index}>
+                                            <div className={Css['attr-name']}>{item.title}</div>
+                                            <div className={Css['val-wrap']}>
+                                                {
+                                                    item.values.length>0?
+                                                        item.values.map((item2,index2)=>{
+                                                            return (
+                                                                <span key={index2} className={item2.checked?Css['val']+" "+Css['active']:Css['val']} onClick={this.selectAttrVal.bind(this,index, index2)}>{item2.value}</span>
+                                                            )
+                                                        })
+                                                    :''
+                                                }
+                                            </div>
+                                        </div>
+                                    )
+                                })
+                            :''
+                        }
+                    </div>
+                    <div className={Css['amount-wrap']}>
+                        <div className={Css['amount-name']}>购买数量</div>
+                        <div className={Css["amount-input-wrap"]}>
+                            <div className={this.state.iAmount<=1?Css['btn']+" "+Css['dec']+" "+Css["active"]:Css['btn']+" "+Css['dec']} onClick={this.decAmount.bind(this)}>-</div>
+                            <div className={Css['amount-input']}><input type="tel" value={this.state.iAmount} onChange={(e)=>{this.changeAmount(e)}}/></div>
+                            <div className={Css['btn']+" "+Css['inc']} onClick={this.incAmount.bind(this)}>+</div>
+                        </div>
+                    </div>
+                    <div className={Css['sure-btn']} onClick={this.addCart.bind(this)}>确定</div>
+                </div>
             </div>
-        )
+        );
     }
 }
 export default connect((state)=>{
