@@ -6,6 +6,7 @@ const HomeComponent = lazy(()=>import('./pages/home/home/index'));
 const GoodsClassify = lazy(()=>import('./pages/home/goods/classify'));
 // const GoodsSearch=asyncComponents(()=>import('./pages/home/goods/search'));
 const GoodsDetails=lazy(()=>import('./pages/home/goods/details'));
+const GoodsSearch=lazy(()=>import('./pages/home/goods/search'));
 
 export default class RouterComponent extends React.Component{
   render(){
@@ -18,6 +19,7 @@ export default class RouterComponent extends React.Component{
                   <Route path={config.path+"home"} component={HomeComponent} ></Route>
                   <Route path={config.path+"goods/classify"} component={GoodsClassify} ></Route>
                   <Route path={config.path+"goods/details"} component={GoodsDetails} ></Route>
+                  <Route path={config.path+"goods/search"} component={GoodsSearch} ></Route>
                   <Redirect to={config.path+"home/index"}></Redirect>
                 </Switch>
               </Suspense>
