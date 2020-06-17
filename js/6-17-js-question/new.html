@@ -1,0 +1,51 @@
+<script>
+  // 头条
+  function Animal(name, age) {
+      // this 修改成 empty1 this === empty1
+    this.name = name  // empty1.name 全等
+    this.age = age;
+    // 往 this 上面 添加 name age 的属性
+    // 又因为 this 指向 empty1 
+    // 往 empty1 上面 添加 name age 的属性
+  };
+  // 每个函数都一个 prototype 属性，他是对象，有一个 constructor
+  // Animal.prototype 是一个对象 添加一个 superName 的 key
+  Animal.prototype.say = function() {
+    console.log(this.name)
+  }
+  let obj = {}
+  // obj 也继承 xxx
+  // Object.prototype
+  // Animal.prototype = {
+  //   constructor
+  //   superName, 'dog'
+  //   '__'
+  // }
+  // let obj = {}
+  // // 往 obj 上面添加属性
+  // Animal.apply(obj);
+
+  // console.log(obj);
+  let ani = new Animal('cat', 18);
+  ani.__proto__.superName = 'superName';
+  // 
+  let ani1 = new Animal('dog', 19);
+  // 
+  // 构造函数上面的属性是自己独有的
+  // prototype 上面的东西是共享的（方法）
+  // prototype 只有普通函数才有一个属性，这个属性他是个对象
+  // __proto__ js继承：考原型链穿起来
+  console.log(ani, ani1);
+
+  Object.prototype.ax = 'axxxxx';
+  // let obj = {}
+  console.log(obj.ax)
+  console.log(ani.ax)
+
+  // 
+
+
+  
+
+
+</script>
