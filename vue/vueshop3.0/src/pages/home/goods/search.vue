@@ -1,31 +1,31 @@
 <template>
-    <div class="page">
-        <div class="search-top">
-            <div class="search-header">
-                <div class="back" @click="$router.go(-1)"></div>
-                <div class="search-wrap" @click="searchShow.show=true">
-                    <div class="search-icon"></div>
-                    <div class="search-text">{{keyword}}</div>
+    <div class='page'>
+        <div class='search-top'>
+            <div class='search-header'>
+                <div class='back' @click="$router.go(-1)"></div>
+                <div class='search-wrap' @click="searchShow.show=true">
+                    <div class='search-icon'></div>
+                    <div class='search-text'>{{keyword}}</div>
                 </div>
-                <div class="screen-btn" @click="isScreen=true">筛选</div>
+                <div class='screen-btn' @click="isScreen=true">筛选</div>
             </div>
-            <div class="order-main">
+            <div class='order-main'>
                 <div :class="{'order-item':true, active:isPriceOrder}" @click="selectPrice()">
                     <div class="order-text">综合</div>
-                    <div class="order-icon"></div>
-                    <ul class="order-menu" v-show="isPriceOrder">
-                        <li :class="{active:item.active}" v-for="(item,index) in priceOrderList" :key="index">{{item.title}}</li>
+                    <div class='order-icon'></div>
+                    <ul class='order-menu' v-show="isPriceOrder">
+                        <li :class="{active:item.active}" v-for="(item,index) in priceOrderList" :key="index" @click="selectPriceOrder(index)">{{item.title}}</li>
                     </ul>
                 </div>
-                <div :class="{'order-item':true,active:isSalesOrder}">
+                <div :class="{'order-item':true ,active:isSalesOrder}" @click="selectSales()">
                     <div class="order-text">销量</div>
                 </div>
             </div>
         </div>
-        <div class="goods-main">
-            <div class="goods-list" v-for="(item,index) in searchData" :key="index" @click="$router.push('/goods/details?gid='+item.gid)">
-                <div class="image"><img src="../../../assets/images/common/lazyImg.jpg" :data-echo="item.image"/></div>
-                <div class="goods-content">
+        <div class='goods-main'>
+            <div class='goods-list' v-for="(item,index) in searchData" :key="index" @click="$router.push('/goods/details?gid='+item.gid)">
+                <div class='image'><img src="../../../assets/images/common/lazyImg.jpg" :data-echo="item.image"/></div>
+                <div class='goods-content'>
                     <div class='goods-title'>{{item.title}}</div>
                     <div class='price'>¥{{item.price}}</div>
                     <div class='sales'>销量<span>{{item.sales}}</span>件</div>
@@ -33,20 +33,55 @@
             </div>
             <div class="no-data" v-show="searchData.length<=0">没有相关商品！</div>
         </div>
-        <div ref="mask" class="mask" v-show="isScreen" @click="isScreen=false"></div>
+        <div ref="mask" class='mask' v-show="isScreen" @click="isScreen=false"></div>
         <div ref="screen" :class="isScreen?'screen move':'screen unmove'">
             <div>
-                <div class="attr-wrap">
-                    <div class="attr-title-wrap" @click="isClassify=!isClssify">
-                        <div class="attr-name">分类</div>
+                <div class='attr-wrap'>
+                    <div class='attr-title-wrap' @click="isClassify=!isClassify">
+                        <div class='attr-name'>分类</div>
                         <div :class="{'attr-icon':true, up:isClassify}"></div>
                     </div>
-                    <div class="item-wrap" v-show="!isClassify">
+                    <div class='item-wrap' v-show="!isClassify">
                         <div v-for="(item,index) in classifys" :key="index" :class="{item:true, active:item.active}" @click="selectClassify({index:index})">{{item.title}}</div>
                     </div>
                 </div>
+                <div style='width:100%;height:1px;backgroundColor:#EFEFEF'></div>
+                <div class='attr-wrap'>
+                    <div class='attr-title-wrap' @click="HIDE_PRICE()">
+                        <div class='attr-name'>价格区间</div>
+                        <div class='price-wrap' @click.stop>
+                            <div class='price-input'><input type="tel" placeholder="最低价" :value="minPrice" @input="SET_MINPRICE({minPrice:$event.target.value})" /></div>
+                            <div class='price-line'></div>
+                            <div class='price-input'><input type="tel" placeholder="最高价" :value="maxPrice" @input="SET_MAXPRICE({maxPrice:$event.target.value})" /></div>
+                        </div>
+                        <div :class="{'attr-icon':true, up:priceData.isHide}"></div>
+                    </div>
+                    <div class='item-wrap' v-show="!priceData.isHide">
+                        <div :class="{item:true, active:item.active}" v-for="(item,index) in priceData.items" :key="index" @click="SELECT_PRICE({index:index})">{{item.price1}}-{{item.price2}}</div>
+                    </div>
+                </div>
+                <div style='width:100%;height:0.3rem;backgroundColor:#EFEFEF'></div>
+                <div>
+                    <div class='attr-wrap' v-for="(item,index) in attrs" :key="index">
+                        <div class='attr-title-wrap' @click="HIDE_ATTR({index:index})">
+                            <div class='attr-name'>{{item.title}}</div>
+                            <div :class="{'attr-icon':true, up:item.isHide}"></div>
+                        </div>
+                        <div class='item-wrap' v-show="!item.isHide">
+                            <div :class="{item:true, active:item2.active}" v-for="(item2,index2) in item.param" :key="index2" @click="SELECT_ATTR({index:index,index2:index2})">{{item2.title}}</div>
+                        </div>
+                    </div>
+                    <div style='width:100%;height:1px;backgroundColor:#EFEFEF'></div>
+                </div>
+                <div style='width:100%;height:1.2rem'></div>
+            </div>
+            <div class='handel-wrap'>
+                <div class='item'>共<span>{{total}}</span>件</div>
+                <div class='item reset' @click="resetScreen()">全部重置</div>
+                <div class='item sure' @click="sureSubmit()">确定</div>
             </div>
         </div>
+        <my-search :show="searchShow" :isLocal="true"></my-search>
     </div>
 </template>
 
@@ -73,13 +108,28 @@ export default {
         }
     },
     created(){
+        this.otype="all";
         this.pullUp=new UpRefresh();
         this.getClassify({success:()=>{
             this.$nextTick(()=>{
-                // this.myScroll.refresh();
+                this.myScroll.refresh();
             })
         }})
+        this.resetScreen();
         this.init();
+        this.getAttrs({keyword:this.keyword,success:()=>{
+            this.$nextTick(()=>{
+                this.myScroll.refresh();
+            })
+        }})
+    },
+    mounted() {
+        this.$refs['screen'].addEventListener("touchmove",this.disableScreenTochmove);
+        this.myScroll=new IScroll(this.$refs['screen'],{
+            scrollX:false,
+            scrollY:true,
+            preventDefault:false
+        })
     },
     components:{
         MySearch
@@ -87,14 +137,34 @@ export default {
     computed:{
         ...mapState({
             classifys:state=>state.goods.classifys,
+            priceData:state=>state.search.priceData,
+            minPrice:state=>state.search.minPrice,
+            maxPrice:state=>state.search.maxPrice,
+            attrs:state=>state.search.attrs,
             searchData:state=>state.search.searchData,
+            cid:state=>state.search.cid,
+            attrs:state=>state.search.attrs,
+            params:state=>state.search.params,
+            total:state=>state.search.total
         })
     },
     methods:{
         ...mapActions({
             getClassify:"goods/getClassify",
+            selectClassify:"search/selectClassify",
             getSearch:"search/getSearch",
             getSearchPage:"search/getSearchPage",
+            getAttrs:"search/getAttrs",
+            resetScreen:"search/resetScreen"
+        }),
+        ...mapMutations({
+            "HIDE_PRICE":"search/HIDE_PRICE",
+            SELECT_PRICE:"search/SELECT_PRICE",
+            SET_MINPRICE:"search/SET_MINPRICE",
+            SET_MAXPRICE:"search/SET_MAXPRICE",
+            HIDE_ATTR:"search/HIDE_ATTR",
+            SELECT_ATTR:"search/SELECT_ATTR",
+            SET_PARAMS:"search/SET_PARAMS"
         }),
         selectPrice() {
             this.isPriceOrder = !this.isPriceOrder;
@@ -109,7 +179,69 @@ export default {
                     this.getSearchPage({...jsonParams,page:page})
                 })
             }})
+        },
+        selectPriceOrder(index) {
+            if(this.priceOrderList.length>0){
+                for(let i = 0; i < this.priceOrderList.length; i++) {
+                    if(this.priceOrderList[i].active){
+                        this.priceOrderList[i].active=false;
+                        break;
+                    }
+                }
+                this.priceOrderList[index].active=true;
+                this.$set(this.priceOrderList,index,this.priceOrderList[index]);
+                this.isSalesOrder=false;
+                this.otype=this.priceOrderList[index].otype;
+                this.init();
+            }
+        },
+        selectSales(){
+            this.isSalesOrder=true;
+            this.isPriceOrder=false;
+            for(let i=0;i<this.priceOrderList.length;i++){
+                if(this.priceOrderList[i].active){
+                    this.priceOrderList[i].active=false;
+                    break;
+                }
+            }
+            this.otype="sales";
+            this.init();
+        },
+        disableScreenTochmove(e){
+            e.preventDefault();
+        },
+        sureSubmit(){
+            this.isScreen=false;
+            this.SET_PARAMS();
+            this.init();
         }
+    },
+    beforeRouteUpdate(to,from,next) {
+        this.keyword=to.query.keyword;
+        this.isPriceOrder=false;
+        if(this.priceOrderList.length>0){
+            for(let i=0;i<this.priceOrderList.length;i++){
+                if(this.priceOrderList[i].active){
+                    this.priceOrderList[i].active=false;
+                    break;
+                }
+            }
+        }
+        this.priceOrderList[0].active=true;
+        this.otype="all";
+        this.isSalesOrder=false;
+        this.resetScreen();
+        this.init();
+        this.getAttrs({keyword:this.keyword,success:()=>{
+            this.$nextTick(()=>{
+                this.myScroll.refresh();
+            })
+        }})
+        next();
+    },
+    beforeDestroy(){
+        this.$refs['screen'].removeEventListener("touchmove",this.disableScreenTochmove);
+        this.pullUp.uneventSrcoll();
     }
 }
 </script>
