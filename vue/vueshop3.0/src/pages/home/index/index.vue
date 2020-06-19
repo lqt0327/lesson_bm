@@ -10,7 +10,7 @@
             <div class="my-icon"></div>
         </div>
         <div class="banner-wrap">
-           <div class="swiper-container" ref="swiper-container">
+            <div class="swiper-container" ref="swiper-container">
                 <div class="swiper-wrapper">
                     <div class="swiper-slide" v-for="(item,index) in swipers" :key="index"><img :src="item.image" alt=""></div>
                 </div>
@@ -18,45 +18,48 @@
             </div>
         </div>
         <div class="quick-nav">
-            <ul class="item" v-for="(item,index) in navs" :key="index">
-                <li><img src="../../../assets/images/common/lazyImg.jpg" :data-echo="item.image" alt=""></li>
+            <ul class="item" v-for="(item,index) in navs" :key="index" @click="$router.push('/goods/classify/item?cid='+item.cid)">
+                <li><img src="../../../assets/images/common/lazyImg.jpg" alt="" :data-echo="item.image"></li>
                 <li>{{item.title}}</li>
             </ul>
         </div>
-        <template v-for="(item, index) in goods">
+        <template v-for="(item,index) in goods">
             <div class="goods-main" :key="index" v-if="(index+1)%2!==0">
                 <div :class="'classify-name color-'+index">—— {{item.title}} ——</div>
                 <div class="goods-row-1">
-                    <div class="goods-column">
+                    <div class="goods-column" @click="$router.push('/goods/details?gid='+(item.items && item.items[0].gid))">
                         <div class="goods-title">{{item.items && item.items[0].title}}</div>
                         <div class="goods-tip">精品打折</div>
-                        <div class="goods-price bg-color-0">{{item.items && item.items[0].price}}元</div>
+                        <div :class="'goods-price bg-color-'+index">{{item.items && item.items[0].price}}元</div>
                         <div class="goods-image">
                             <img src="../../../assets/images/common/lazyImg.jpg" :data-echo="item.items && item.items[0].image" :alt="item.items && item.items[0].title">
                         </div>
                     </div>
                     <div class="goods-column">
-                        <div class="goods-list" v-for="(item2,index2) in item.items.slice(1,3)" :key="index2">
+                        <div class="goods-list" v-for="(item2,index2) in item.items.slice(1,3)" :key="index2" @click="$router.push('/goods/details?gid='+(item2.gid))">
                             <div class="goods-list-title">{{item2.title}}</div>
                             <div class="goods-list-tip">品质精挑</div>
-                            <div class="goods-list-image"><img src="../../../assets/images/common/lazyImg.jpg" :data-echo="item2.image" :alt="item2.title"></div>
+                            <div class="goods-list-image">
+                                <img src="../../../assets/images/common/lazyImg.jpg" :data-echo="item2.image" :alt="item2.title">
+                            </div>
                         </div>
                     </div>
                 </div>
                 <div class="goods-row-2">
-                    <div class="goods-list" v-for="(item2,index2) in item.items.slice(3,7)" :key="index2">
+                    <div class="goods-list" v-for="(item2,index2) in item.items.slice(3,7)" :key="index2" @click="$router.push('/goods/details?gid='+item2.gid)">
                         <div class="goods-title">{{item2.title}}</div>
-                        <div class="goods-image"><img src="../../../assets/images/common/lazyImg.jpg" :data-echo="item2.image" :alt="item2.title"></div>
+                        <div class="goods-image">
+                            <img src="../../../assets/images/common/lazyImg.jpg" :data-echo="item2.image" alt="">
+                        </div>
                         <div class="price">¥{{item2.price}}</div>
                         <div class="price line">¥{{item2.price*2}}</div>
                     </div>
                 </div>
             </div>
-            
             <div class="goods-main" :key="index" v-else>
                 <div class="classify-name color-1">—— {{item.title}} ——</div>
                 <div class="goods-row-1">
-                    <div class="goods-column-2" v-for="(item2, index2) in item.items.slice(0,2)" :key="index2">
+                    <div class="goods-column-2" v-for="(item2,index2) in item.items.slice(0,2)" :key="index2" @click="$router.push('/goods/details?gid='+item2.gid)">
                         <div class="goods-title">{{item2.title}}</div>
                         <div class="goods-tip">火爆开售</div>
                         <div class="goods-image">
@@ -65,7 +68,7 @@
                     </div>
                 </div>
                 <div class="goods-row-2">
-                    <div class="goods-list" v-for="(item2, index2) in item.items.slice(2,6)" :key="index2">
+                    <div class="goods-list" v-for="(item2,index2) in item.items.slice(2,6)" :key="index2" @click="$router.push('/goods/details?gid='+item2.gid)">
                         <div class="goods-title">{{item2.title}}</div>
                         <div class="goods-image">
                             <img src="../../../assets/images/common/lazyImg.jpg" :data-echo="item2.image" alt="">
@@ -85,9 +88,9 @@
             <div class="line"></div>
         </div>
         <div class="goods-recom">
-            <div class="goods-list" v-for="(item,index) in recomGoods" :key="index">
+            <div class="goods-list" v-for="(item,index) in recomGoods" :key="index" @click="$router.push('/goods/details?gid='+item.gid)">
                 <div class="goods-image">
-                    <img src="../../../assets/images/common/lazyImg.jpg" :data-echo="item.image" :alt="item.title" >
+                    <img src="../../../assets/images/common/lazyImg.jpg" :data-echo="item.image" :alt="item.title">
                 </div>
                 <div class="goods-title">{{item.title}}</div>
                 <div class="goods-price">¥{{item.price}}</div>
