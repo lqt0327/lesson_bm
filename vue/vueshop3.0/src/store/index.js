@@ -5,6 +5,7 @@ import goods from './modules/goods';
 import goodsReview from "./modules/goods/review";
 import search from "./modules/search";
 import cart from "./modules/cart";
+import user from "./modules/user";
 
 Vue.use(Vuex);
 
@@ -14,7 +15,8 @@ let store = new Vuex.Store({
         goods,
         goodsReview,
         search,
-        cart
+        cart,
+        user
     }
 });
 

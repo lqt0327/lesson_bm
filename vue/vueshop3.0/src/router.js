@@ -29,7 +29,7 @@ let router = new Router({
                 {
                     path:"my",
                     name:"my",
-                    component:()=>import("./pages/home/ucenter"),
+                    component:()=>import("./pages/user/ucenter"),
                     meta:{keepAlive:false, title:"我的"}
                 },
             ]

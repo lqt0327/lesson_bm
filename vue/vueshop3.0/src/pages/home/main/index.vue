@@ -76,7 +76,7 @@ export default {
 </script>
 
 <style scoped>
-  .bottom-nav {position: fixed; bottom: 0; display: flex;justify-content: space-between;align-items: center; width: 100vw; height: 1.2rem; padding: 0 .5rem; box-sizing: border-box;background-color:#FFFFFF;box-shadow: 0 0 10px #efefef;}
+  .bottom-nav {position: fixed; bottom: 0; display: flex;justify-content: space-between;align-items: center; width: 100vw; height: 1.2rem; padding: 0 .5rem; box-sizing: border-box;background-color:#FFFFFF;box-shadow: 0 0 10px #efefef;z-index:99;}
   .bottom-nav ul li{width: 1rem; position: relative;}
   .bottom-nav ul li:nth-child(1) {width: 0.6rem; height: 0.6rem; margin: 0 auto;}
   .bottom-nav ul li:nth-child(2) {font-size: .28rem;text-align: center;}
