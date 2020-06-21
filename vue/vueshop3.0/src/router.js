@@ -35,6 +35,18 @@ let router = new Router({
             ]
         },
         {
+            path:"/login",
+            name:"login",
+            component:()=>import("./pages/home/login"),
+            meta:{keepAlive:false}
+        },
+        {
+            path:"/reg",
+            name:"reg",
+            component:()=>import("./pages/home/reg"),
+            meta:{keepAlive:false}
+        },
+        {
             path:"/goods/classify",
             name:"goods-classify",
             component:()=>import("./pages/home/goods/classify"),
