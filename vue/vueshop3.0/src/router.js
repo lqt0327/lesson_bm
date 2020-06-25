@@ -87,8 +87,40 @@ let router = new Router({
                     component:()=>import("./pages/home/goods/details_review")
                 }
             ]
+        },
+        {
+            path:"/user/order",
+            name:"my-order",
+            component:()=>import("./pages/user/order"),
+            redirect:"/user/order/list",
+            meta:{auth:true},
+            children:[
+                {
+                    path:"list",
+                    name:"order-list",
+                    component:()=>import("./pages/user/order/list"),
+                    meta:{auth:true}
+                },
+                {
+                    path:"review",
+                    name:"order-review",
+                    component:()=>import("./pages/user/order/review"),
+                    meta:{auth:true}
+                }
+            ]
         }
     ]
+});
+router.beforeEach((to,from,next)=>{
+    if(to.meta.auth){
+        if(Boolean(localStorage['isLogin'])){
+            next();
+        }else{
+            next("/login");
+        }
+    }else{
+        next();
+    }
 })
 
 export default router;

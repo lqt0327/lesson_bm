@@ -7,6 +7,16 @@ function lazyImg() {
     });
 }
 
+// 单点登录验证
+function safeUser(_this){
+    _this.$store.dispatch("user/safeUser",{success:(res)=>{
+        if(res.code!==200){
+            _this.$router.replace('/login');
+        }
+    }})
+}
+
 export default {
-    lazyImg
+    lazyImg,
+    safeUser
 }
