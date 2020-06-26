@@ -2,6 +2,9 @@
     <div class="page">
         <SubHeader :title="headerTitle"></SubHeader>
         <OrderTags :status="status"></OrderTags>
+        <div class='main'>
+            <router-view></router-view>
+        </div>
     </div>
 </template>
 

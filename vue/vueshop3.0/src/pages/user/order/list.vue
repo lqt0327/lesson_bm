@@ -2,15 +2,84 @@
     <div>
         <div class="order-list" v-for="(item,index) in orders" :key="index" @click="$router.push('/user/order/details?ordernum='+item.ordernum)">
             <div class="ordernum-wrap">
-                <div class="ordernum">订单编号：</div>
+                <div class="ordernum">订单编号：{{item.ordernum}}</div>
+                <div class="status">
+                    {{item.status==='0'?'待付款':item.status==='1'?'待收货':'已收货'}}
+                </div>
+            </div>
+            <div class="item-list" v-for="(item2,index2) in item.goods" :key="index2">
+                <div class="image"><img :data-echo="item2.image" src="../../../assets/images/common/lazyImg.jpg" alt=""/></div>
+                <div class="title">{{item2.title}}</div>
+                <div class="amount">x {{item2.amount}}</div>
+            </div>
+            <div class="total-wrap">
+                <div class="total">实付金额:¥{{item.total}}</div>
+                <div class="status-wrap">
+                    <div class='status-btn' v-if="item.status==='0'" @click.stop="cancelOrder(index,item.ordernum)">取消订单</div>
+                    <div class='status-btn' @click.stop="sureOrder(index,item)">{{item.status=='0'?'去付款':item.status=='1'?'确认收货':'已收货'}}</div>
+                </div>
             </div>
         </div>
     </div>
 </template>
 
 <script>
+import {mapState,mapActions} from 'vuex';
+import UpRefresh from '../../../assets/js/libs/uprefresh';
+import { Dialog } from 'vant'; 
 export default {
-    
+    name:"order-list",
+    created(){
+        this.status = this.$route.query.status?this.$route.query.status:"all";
+        this.pullUp = new UpRefresh();
+        this.getData();
+    },
+    methods:{
+        ...mapActions({
+            getMyOrder:"order/getMyOrder",
+            getMyOrderPage:"order/getMyOrderPage",
+            asyncCancelOrder:"order/cancelOrder",
+            asyncSureOrder:"order/sureOrder"
+        }),
+        getData(){
+            this.getMyOrder({status:this.status,page:1,success:(pageNum)=>{
+                this.$nextTick(()=>{
+                    this.$utils.lazyImg();
+                });
+                this.pullUp.init({"curPage":1,"maxPage":parseInt(pageNum),"offsetBottom":100},(page)=>{
+                    this.getMyOrderPage({status:this.status,page:page})
+                });
+            }});
+        },
+        cancelOrder(index,orderNum){
+            Dialog.confirm({
+                title:'',
+                message:'确认要取消吗？'
+            }).then(()=>{
+                this.asyncCancelOrder({orderNum:orderNum,index:index})
+            }).catch(()=>{
+
+            })
+        },
+        sureOrder(index,item){
+            if(item.status!='2') {
+                this.asyncSureOrder({orderNum:item.ordernum,index:index,status:2});
+            }
+        }
+    },
+    computed:{
+        ...mapState({
+            orders:state=>state.order.orders
+        })
+    },
+    beforeDestroy(){
+        this.pullUp.uneventSrcoll();
+    },
+    beforeRouteUpdate(to,from,next){
+        this.status = to.query.status;
+        this.getData();
+        next();
+    }
 }
 </script>
 

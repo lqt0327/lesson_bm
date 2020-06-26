@@ -1,5 +1,5 @@
 import config from '../../assets/js/conf/config';
-import {request} from '../../assets/js/utils/request';
+import request from '../../assets/js/utils/request';
 
 //提交订单
 export function addOrderData(data){
