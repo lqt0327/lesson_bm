@@ -108,6 +108,11 @@ let router = new Router({
                     meta:{auth:true}
                 }
             ]
+        },
+        {
+            path:"/user/order/add_review",
+            name:"order-add-review",
+            component:()=>import("./pages/user/order/add_review")
         }
     ]
 });

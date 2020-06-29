@@ -1,9 +1,9 @@
 <template>
     <div class="tags-wrap">
-        <div :class="{tags:true,active:status==='all'?true:false}" @click="$router.replace('user/order?status=all')">全部订单</div>
-        <div :class="{tags:true,active:status==='0'?true:false}" @click="$router.replace('user/order?status=0')">待付款</div>
-        <div :class="{tags:true,active:status==='1'?true:false}" @click="$router.replace('user/order?status=1')">待收货</div>
-        <div :class="{tags:true,active:status==='2'?true:false}" @click="$router.replace('user/order?status=2')">待评价</div>
+        <div :class="{tags:true, active:status==='all'?true:false}" @click="$router.replace('/user/order?status=all')">全部订单</div>
+        <div :class="{tags:true, active:status==='0'?true:false}" @click="$router.replace('/user/order?status=0')">待付款</div>
+        <div :class="{tags:true, active:status==='1'?true:false}" @click="$router.replace('/user/order?status=1')">待收货</div>
+        <div :class="{tags:true, active:status==='2'?true:false}" @click="$router.replace('/user/order/review?status=2')">待评价</div>
     </div>
 </template>
 

@@ -35,3 +35,13 @@ export function getOrderInfoData(data) {
 export function getReviewOrderData(data){
     return request(config.baseApi+"/user/myorder/reviewOrder?uid="+data.uid+"&page="+data.page+"&token="+config.token);
 }
+
+//评价项目选项
+export function getReviewServiceData(){
+    return request(config.baseApi+"/home/reviews/service?token="+config.token);
+}
+
+//提交评价
+export function addReviewData(data){
+    return request(config.baseApi+"/home/reviews/add?token="+config.token,"post",data);
+}

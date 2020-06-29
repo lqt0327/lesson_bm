@@ -1,11 +1,12 @@
-import {addOrderData,getOrderNumData,getMyOrderData,cancelOrderData,sureOrderData,getOrderInfoData,getReviewOrderData} from "../../../api/order";
+import {addOrderData,getOrderNumData,getMyOrderData,cancelOrderData,sureOrderData,getOrderInfoData,getReviewOrderData,getReviewServiceData,addReviewData} from "../../../api/order";
 export default {
     namespaced:true,
     state:{
         orderNum:"",
         orders:[],
         orderInfo:{},
-        reviewOrders:[]
+        reviewOrders:[],
+        reviewServices:[]
     },
     mutations:{
         ["SET_ORDERNUM"](state,payload){
@@ -38,6 +39,22 @@ export default {
         //设置待评价订单
         ["SET_REVIEW_ORDERS_PAGE"](state,payload){
             state.reviewOrders.push(...payload.reviewOrders);
+        },
+        //设置评价服务选项
+        ["SET_REVIEW_SERVICES"](state,payload){
+            state.reviewServices=payload.reviewServices;
+        },
+        //设置评价分数
+        ["SET_REVIEW_SCORE"](state,payload){
+            if(state.reviewServices.length>0){
+                for(let i=payload.index2+1;i<state.reviewServices[payload.index].scores.length;i++){
+                    state.reviewServices[payload.index].scores[i].active=false;
+                }
+                for(let i=0;i<=payload.index2;i++){
+                    state.reviewServices[payload.index].scores[i].active=true;
+                }
+                state.reviewServices[payload.index].score=payload.score;
+            }
         }
     },
     actions:{
@@ -125,6 +142,48 @@ export default {
             getReviewOrderData({uid:conText.rootState.user.uid,...payload}).then(res=>{
                 if(res.code===200){
                     conText.commit("SET_REVIEW_ORDERS_PAGE",{reviewOrders:res.data});
+                }
+            })
+        },
+        //评价服务选项
+        getReviewService(conText){
+            getReviewServiceData().then(res=>{
+                if(res.code===200){
+                    // console.log(res);
+                    for(let i=0;i<res.data.length;i++){
+                        res.data[i].score=5;
+                        res.data[i].scores=[
+                            {
+                                value:1,
+                                active:true
+                            },
+                            {
+                                value:2,
+                                active:true
+                            },
+                            {
+                                value:3,
+                                active:true
+                            },
+                            {
+                                value:4,
+                                active:true
+                            },
+                            {
+                                value:5,
+                                active:true
+                            }
+                        ]
+                    }
+                    conText.commit("SET_REVIEW_SERVICES",{reviewServices:res.data})
+                }
+            })
+        },
+        //提交评价
+        addReview(conText,payload){
+            addReviewData({uid:conText.rootState.user.uid,...payload}).then(res=>{
+                if(payload.success){
+                    payload.success(res);
                 }
             })
         }
