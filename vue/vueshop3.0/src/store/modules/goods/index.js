@@ -1,5 +1,5 @@
 import Vue from 'vue';
-import {getClassifyData,getDetailsData,getGoodsData,getSpecData} from '../../../api/goods';
+import {getClassifyData,getGoodsData,getDetailsData,getSpecData,addFavData} from '../../../api/goods';
 
 export default {
     namespaced:true,
@@ -10,8 +10,8 @@ export default {
         details:{}
     },
     mutations:{
-        ["SET_CLASSIFYS"](state, payload) {
-            state.classifys = payload.classifys;
+        ["SET_CLASSIFYS"](state,payload){
+            state.classifys=payload.classifys
         },
         ["SELECT_ITEM"](state,payload){
             if(state.classifys.length>0){
@@ -28,7 +28,8 @@ export default {
         ["SET_GOODS"](state,payload){
             state.goods=payload.goods;
         },
-        ["SELECT_ATTR"](state,payload) {
+        //选择商品属性
+        ["SELECT_ATTR"](state,payload){
             if(state.attrs.length>0){
                 for(let i=0;i<state.attrs[payload.index].values.length;i++){
                     if(state.attrs[payload.index].values[i].active){
@@ -40,8 +41,9 @@ export default {
                 Vue.set(state.attrs[payload.index].values[payload.index2],payload.index2,state.attrs[payload.index].values[payload.index2]);
             }
         },
-        ["SET_DETAILS"](state,payload) {
-            state.details = payload.details;
+        //设置商品详情
+        ["SET_DETAILS"](state,payload){
+            state.details=payload.details;
         },
         //设置商品规格
         ["SET_ATTRS"](state,payload){
@@ -49,14 +51,13 @@ export default {
         }
     },
     actions:{
+        //左侧分类
         getClassify(conText,payload){
             getClassifyData().then(res=>{
-                // console.log(res);
                 if(res.code===200){
                     for(let i=0;i<res.data.length;i++){
                         res.data[i].active=false;
                     }
-                    console.log(res);
                     conText.commit("SET_CLASSIFYS",{classifys:res.data});
                     if(payload && payload.success){
                         payload.success();
@@ -64,9 +65,10 @@ export default {
                 }
             })
         },
+        //右侧商品
         getGoods(conText,payload) {
-            getGoodsData(payload.cid).then(res=>{
-                if(res.code === 200) {
+            getGoodsData(payload.cid).then(res => {
+                if(res.code===200){
                     conText.commit("SET_GOODS",{goods:res.data});
                     if(payload.success){
                         payload.success();
@@ -76,11 +78,12 @@ export default {
                 }
             })
         },
-        getDetails(conText,payload) {
+        //商品详情
+        getDetails(conText,payload){
             getDetailsData(payload.gid).then(res=>{
-                if(res.code === 200) {
+                if(res.code===200){
                     conText.commit("SET_DETAILS",{details:res.data});
-                    if(payload.success) {
+                    if(payload.success){
                         payload.success();
                     }
                 }
@@ -96,6 +99,14 @@ export default {
                         }
                     }
                     conText.commit("SET_ATTRS",{attrs:res.data});
+                }
+            })
+        },
+        //加入收藏
+        addFav(conText,payload){
+            addFavData({uid:conText.rootState.user.uid,...payload}).then(res=>{
+                if(payload.success){
+                    payload.success(res)
                 }
             })
         }

@@ -20,3 +20,8 @@ export function getDetailsData(gid=""){
 export function getSpecData(gid=""){
     return request(config.baseApi+"/home/goods/info?gid="+gid+"&type=spec&token="+config.token);
 }
+
+//加入收藏
+export function addFavData(data){
+    return request(config.baseApi+"/goods/fav?uid="+data.uid+"&gid="+data.gid+"&token="+config.token+"");
+}

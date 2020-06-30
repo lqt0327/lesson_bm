@@ -146,6 +146,30 @@ let router = new Router({
             component:()=>import("./pages/user/address/add"),
             meta:{auth:true,title:"添加收货地址"}
         },
+        {
+            path:"/user/address/mod",
+            name:"user-address-mod",
+            component:()=>import("./pages/user/address/mod"),
+            meta:{auth:true,title:"修改收货地址"}
+        },
+        {
+            path:"/user/bind_cellphone",
+            name:"bind-cellphone",
+            component:()=>import("./pages/user/bind_cellphone"),
+            meta:{auth:true,title:"绑定手机号"}
+        },
+        {
+            path:"/user/mod_password",
+            name:"mod-password",
+            component:()=>import("./pages/user/mod_password"),
+            meta:{auth:true,title:"修改密码"}
+        },
+        {
+            path:"/user/fav",
+            name:"fav",
+            component:()=>import("./pages/user/fav"),
+            meta:{auth:true,title:"我的收藏"}
+        }
     ]
 });
 router.beforeEach((to,from,next)=>{
