@@ -3,7 +3,7 @@
         <SubHeader title="个人中心" :isBack="false"></SubHeader>
         <div class="user-info-wrap">
             <div class="head">
-                <img :src="require('../../../assets/images/user/my/default-head.png')" alt="" />
+                <img :src="head?head:require('../../../assets/images/user/my/default-head.png')" alt="" />
             </div>
             <div class="nickname">{{nickname?nickname:'昵称'}}</div>
             <div class="points">我的积分:{{points}}</div>
@@ -27,23 +27,23 @@
             </div>
         </div>
         <div class="menu-list-wrap">
-            <ul @click="goPage('/profile')">
+            <ul @click="goPage('/user/profile')">
                 <li>个人资料</li>
                 <li></li>
             </ul>
-            <ul @click="goPage('/address')">
+            <ul @click="goPage('/user/address')">
                 <li>收货地址</li>
                 <li></li>
             </ul>
-            <ul>
+            <ul @click="goPage('/user/bind_cellphone')">
                 <li>绑定手机</li>
                 <li></li>
             </ul>
-            <ul>
+            <ul @click="goPage('/user/mod_password')">
                 <li>修改密码</li>
                 <li></li>
             </ul>
-            <ul>
+            <ul @click="goPage('/user/fav')">
                 <li>我的收藏</li>
                 <li></li>
             </ul>

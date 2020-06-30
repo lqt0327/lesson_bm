@@ -35,3 +35,32 @@ export function regUserData(data){
 export function getUserInfoData(uid){
     return request(config.baseApi+"/user/myinfo/userinfo/uid/"+uid+"?token="+config.token)
 }
+
+//上传头像
+export function uploadHeadData(data){
+    return request(config.baseApi+"/user/myinfo/formdatahead?token="+config.token,"file",data);
+}
+
+//修改会员信息
+export function updateUserInfoData(data){
+    return request(config.baseApi+"/user/myinfo/updateuser?token="+config.token,"post",data);
+}
+
+//修改手机号
+export function updateCellphoneData(data){
+    return request(config.baseApi+"/user/myinfo/updatecellphone?token="+config.token,"post",data);
+}
+//修改密码
+export function updatePasswordData(data){
+    return request(config.baseApi+"/user/myinfo/modpwd?token="+config.token,"post",data);
+}
+
+//我的收藏
+export function getFavData(data){
+    return request(config.baseApi+"/user/fav/index?uid="+data.uid+"&token="+config.token+"&page="+data.page+"");
+}
+
+//删除收藏
+export function delFavData(data){
+    return request(config.baseApi+"/user/fav/del?uid="+data.uid+"&fid="+data.fid+"&token="+config.token);
+}

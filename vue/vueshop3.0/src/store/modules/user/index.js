@@ -1,4 +1,4 @@
-import {loginData,safeUserData,safeOutLoginData,checkVCodeData,isRegData,regUserData,getUserInfoData} from "../../../api/user";
+import {loginData,safeUserData,safeOutLoginData,checkVCodeData,isRegData,regUserData,getUserInfoData,uploadHeadData,updateUserInfoData,updateCellphoneData,updatePasswordData,getFavData,delFavData} from "../../../api/user";
 let modules={
     namespaced:true,
     state:{
@@ -7,7 +7,8 @@ let modules={
         isLogin:localStorage['isLogin']?Boolean(localStorage['isLogin']):false,
         authToken:localStorage["authToken"]?localStorage["authToken"]:"",
         head:"",
-        points:0
+        points:0,
+        favs:[]
     },
     mutations:{
         ["SET_LOGIN"](state,payload){
@@ -38,6 +39,17 @@ let modules={
             state.head=payload.head;
             state.points=payload.points;
             state.nickname=payload.nickname;
+        },
+        //设置我的收藏
+        ["SET_FAVS"](state,payload){
+            state.favs=payload.favs;
+        },
+        ["SET_FAVS_PAGE"](state,payload){
+            state.favs.push(...payload.favs);
+        },
+        //删除收藏
+        ["DEL_FAVS"](state,payload){
+            state.favs.splice(payload.index,1);
         }
     },
     actions:{
@@ -96,13 +108,86 @@ let modules={
             })
         },
         //获取会员信息
-        getUserInfo(conText){
+        getUserInfo(conText,payload){
             getUserInfoData(conText.state.uid).then(res=>{
                 if(res.code===200){
                     conText.commit("SET_USER_INFO",{head:res.data.head,points:res.data.points,nickname:res.data.nickname});
+                    if(payload && payload.success){
+                        payload.success(res.data);
+                    }
                 }
             })
+        },
+        //上传头像
+        uploadHead(conText,payload){
+            uploadHeadData(payload).then(res=>{
+                if(payload.success){
+                    payload.success(res);
+                }
+            })
+        },
+        //修改会员信息
+        updateUserInfo(conText,payload){
+            updateUserInfoData({uid:conText.state.uid,...payload}).then(res=>{
+                if(payload.success){
+                    payload.success(res);
+                }
+            })
+        },
+        //修改手机号
+        updateCellphone(conText,payload){
+            updateCellphoneData({uid:conText.state.uid,...payload}).then(res=>{
+                if(payload.success){
+                    payload.success(res);
+                }
+            })
+        },
+        //修改密码
+        updatePassword(conText,payload){
+            updatePasswordData({uid:conText.state.uid,...payload}).then(res=>{
+                if(payload.success){
+                    payload.success(res);
+                }
+            })
+        },
+        //我的收藏
+        getFav(conText,payload){
+            getFavData({uid:conText.state.uid,...payload}).then(res=>{
+                let pageNum=0;
+                if(res.code===200){
+                    conText.commit("SET_FAVS",{favs:res.data});
+                    pageNum=res.pageinfo.pagenum;
+                }else{
+                    conText.commit("SET_FAVS",{favs:[]});
+                    pageNum=0;
+                }
+                if(payload.success){
+                    payload.success(pageNum);
+                }
+            })
+        },
+        getFavPage(conText,payload){
+            getFavData({uid:conText.state.uid,...payload}).then(res=>{
+                if(res.code===200){
+                    conText.commit("SET_FAVS_PAGE",{favs:res.data});
+                    if(payload.success){
+                        payload.success()
+                    }
+                }
+            })
+        },
+        //删除收藏
+        delFav(conText,payload){
+            delFavData({uid:conText.state.uid,...payload}).then(res=>{
+                if(res.code===200){
+                    conText.commit("DEL_FAVS",{index:payload.index});
+                    if(payload.success){
+                        payload.success();
+                    }
+                }
+            });
         }
     }
+
 }
 export default modules;

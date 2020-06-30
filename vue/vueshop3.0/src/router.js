@@ -6,6 +6,13 @@ Vue.use(Router);
 let router = new Router({
     mode:"hash",
     base:process.env.BASE_URL,  //自动获取根目录路径
+    scrollBehavior:(to,from,position)=>{
+        if(position){
+            return position
+        }else{
+            return {x:0,y:0}
+        }
+    },
     routes:[
         {
             path:"/",
@@ -110,10 +117,35 @@ let router = new Router({
             ]
         },
         {
+            path:"/user/order/details",
+            name:"order-details",
+            component:()=>import("./pages/user/order/details"),
+            meta:{auth:true,title:"订单详情"}
+        },
+        {
             path:"/user/order/add_review",
             name:"order-add-review",
-            component:()=>import("./pages/user/order/add_review")
-        }
+            component:()=>import("./pages/user/order/add_review"),
+            meta:{auth:true,title:"评价"}
+        },
+        {
+            path:"/user/profile",
+            name:"profile",
+            component:()=>import("./pages/user/profile"),
+            meta:{auth:true,title:"个人资料"}
+        },
+        {
+            path:"/user/address",
+            name:"user-address",
+            component:()=>import("./pages/user/address"),
+            meta:{auth:true,title:"收货地址管理"}
+        },
+        {
+            path:"/user/address/add",
+            name:"user-address-add",
+            component:()=>import("./pages/user/address/add"),
+            meta:{auth:true,title:"添加收货地址"}
+        },
     ]
 });
 router.beforeEach((to,from,next)=>{
