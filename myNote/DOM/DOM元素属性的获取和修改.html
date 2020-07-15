@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div id="container"> 
+        <h1 id="title">我是标题</h1>
+        <p id="content">我是内容</p>
+    </div>
+    <script>
+        var container = document.getElementById('container');
+        var title = document.getElementById('title');
+        const titleId = title.getAttribute('id');
+        title.setAttribute('id','anotherId');
+    </script>
+</body>
+</html>

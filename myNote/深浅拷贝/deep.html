@@ -1,0 +1,33 @@
+<script>
+    function deepClone(item) {
+        // 判断复制的目标是数组还是对象
+        const target = item.constructor === Array ? [] : {};
+        for (let keys in item) {    //遍历目标
+            if (item.hasOwnProperty(keys)) {
+                // 如果是对象，就递归一下
+                if (item[keys] && typeof item[keys] === 'object') {
+                    target[keys] = item[keys].constructor === Array ? [] : {};
+                    target[keys] = deepClone(item[keys]);
+                } else {
+                    target[keys] = item[keys];
+                }
+            }
+        }
+        return target;
+    }
+    const obj1 = { a: 'a', b: 'b' };
+    const obj2 = deepClone(obj1);
+    obj2.a = 'aa';
+    console.log(obj1);
+    console.log(obj2);
+
+    const obj3 = {
+        name: 'zhangsan',
+        fn: function () {
+            console.log('Hello World');
+        }
+    }
+    console.log(obj3); // {name: "zhangsan", fn: ƒ}
+    const obj4 = deepClone(obj3);
+    console.log(obj4); // {name: "zhangsan", fn: ƒ}
+</script>

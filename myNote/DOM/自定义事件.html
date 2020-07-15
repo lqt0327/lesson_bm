@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        #divA,
+        #divB,
+        #divC {
+            width: 100px;
+            height: 100px;
+        }
+
+        #divA {
+            background-color: #333;
+        }
+
+        #divB {
+            background-color: #dd5990;
+        }
+
+        #divC {
+            background-color: #ccc990;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="divA">我是A</div>
+    <div id="divB">我是B</div>
+    <div id="divC">我是C</div>
+    <script>
+        var divA = document.getElementById('divA')
+        // document.addEventListener('click', function () {
+        //     console.log('我是小A')
+
+        // })
+
+        var clickAEvent = new Event('clickA');
+        // 获取 divB 元素 
+        var divB = document.getElementById('divB')
+        // divB 监听 clickA 事件
+        divB.addEventListener('clickA', function (e) {
+            console.log('我是小B，我感觉到了小A')
+            console.log(e.target)
+        })
+
+        // 获取 divC 元素
+        var divC = document.getElementById('divC')
+        // divC 监听 clickA 事件
+        divC.addEventListener('clickA', function (e) {
+            console.log('我是小C，我感觉到了小A')
+            console.log(e.target)
+        })
+
+        // A 元素的监听函数也得改造下
+        divA.addEventListener('click', function () {
+            console.log('我是小A')
+            // 注意这里 dispatch 这个动作，就是我们自己派发事件了
+            divB.dispatchEvent(clickAEvent)
+            divC.dispatchEvent(clickAEvent)
+        })  
+    </script>
+</body>
+
+</html>
