@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body {
+            height: 1000px;
+            width: auto;
+        }
+    </style>
+</head>
+<body>
+    <script>
+        function throttle(fn,interval) {
+            let last = 0;
+            return function(){
+                let args = arguments;
+                // let now = +new Date();
+                let now = Date.now();
+                let context = this;
+                if(now - last >= interval) {
+                    last = now;
+                    fn.apply(context,args);
+                }
+            }
+        }
+        const better_scroll = throttle(()=>{console.log('test')},3000);
+        document.addEventListener('scroll',better_scroll);
+    </script>
+</body>
+</html>
