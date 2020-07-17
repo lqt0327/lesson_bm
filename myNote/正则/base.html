@@ -1,0 +1,59 @@
+<script>
+    // 匹配字符串
+    let str = 'abc';
+    str === 'abc';
+
+    let reg = /abc/;
+
+    let reg2 = /a[bdf]c/;
+
+    // () 作为一个整体
+    // | 或者
+    //  ^ 开始
+    // $ 结束
+    // /i 忽略大小写
+
+    // #fff
+    // #ffffff
+    let color = /^#(([a-fA-F0-9]{3})|([a-fA-F0-9]{6}))$/
+    let color2 = /^#(([a-f0-9]{3})|([a-f0-9]{6}))$/i
+
+    // YYYY-MM-DD
+    let time = /[0-9]{3}-(0[1-9]|1[0-2])-([0-2][0-9]|3[0-1])/
+    let time2 = /^\d{4}-(0[1-9]|1[0-2])-(0[1-9]|[1-2][0-9]|3[0-1])$/
+
+    console.log(time2.test('2017-12-12'));
+
+
+    console.log(time2.exec('2017-12-12'))
+
+    // ['输入的源文本',分组1,分组2,分组3,  分组n]
+
+    console.log('2017-12-12'.match(time2));
+
+
+    let time3 = /[a-z]/g
+    let str1 = 'abc';
+    console.log(time3.test(str1));  //true  a满足
+    console.log(time3.lastIndex);  // index = 1
+    console.log(time3.test(str1));  //true  b满足
+    console.log(time3.test(str1));  //true  c满足
+    console.log(time3.test(str1));  //false  
+
+    console.log(time3.exec(str1))
+    console.log(time3.exec(str1))
+    console.log(time3.exec(str1))
+    console.log(time3.exec(str1))
+
+
+    let state = {
+        name:'lilei',
+        age:18
+    }
+    let str3 = 'my name is {name}, age is {age}';
+    function compile(obj, tpl) {
+        const {name,age} = tpl;
+        return obj.replace('{name}',name).replace('{age}',age);
+    }
+    console.log(compile(str3,state));
+</script>
