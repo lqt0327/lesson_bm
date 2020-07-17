@@ -51,9 +51,29 @@
         age:18
     }
     let str3 = 'my name is {name}, age is {age}';
-    function compile(obj, tpl) {
-        const {name,age} = tpl;
-        return obj.replace('{name}',name).replace('{age}',age);
+    // function compile(obj, tpl) {
+    //     const {name,age} = tpl;
+    //     return obj.replace('{name}',name).replace('{age}',age);
+    // }
+
+    // function compile(obj,tpl) {
+    //     let reg = /^{[a-z]*}$/
+    //     for(let e in obj) {
+    //         str3 = str3.replace(reg.exec('{'+e+'}'),obj[e])
+    //     }
+    //     return str3;
+    // }
+
+    function compile(obj,tpl) {
+        let reg = /^{[a-z]*}$/
+        for(let item in obj) {
+            let reg = new RegExp("{"+item+"}")
+            tpl = tpl.replace(`{${item}}`,obj[item])
+        }
+        return tpl;
     }
-    console.log(compile(str3,state));
+    console.log(compile(state,str3));
+
+
+    
 </script>
