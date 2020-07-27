@@ -1,0 +1,51 @@
+<style>
+    /* .ration {
+        width: 16em;
+        height: 9em;
+        background-color: red;
+    } */
+    .ration {
+        width: 100%;
+        outline: 1px solid red;
+        height: 0;
+        padding-top: calc(100% * 9 / 16);
+        position: relative;
+    }
+    .ration > div {
+        position: absolute;
+        left: 0;
+        top: 0;
+    }
+</style>
+<div class="ration">
+    <div>content</div>
+</div>
+<script>
+    // Symbol.toPrimitive
+    let obj = {
+        a: 1,
+        toString() {
+            return 1;
+        },
+        valueOf() {
+            return 2;
+        },  
+        // 复杂数据类型 进行类型转换的时候：
+        // es6 之前 toString || valueOf  es6: toPrimitive(优先级最高)
+        [Symbol.toPrimitive]: () => {
+            return 123;
+        }
+    };
+    let res = obj + 1;
+    console.log(res);
+    console.log(String(obj));
+
+    Object.prototype.toString() // 对象的toString
+    let arr = [1,2]
+    arr.toString()  // arr 重写的toString
+    let num = 123
+    num.toString()
+
+    // 123.toString(); // 语法错误 数字后面的点会被识别成小数点
+    (123).toString(); // 正确
+</script>

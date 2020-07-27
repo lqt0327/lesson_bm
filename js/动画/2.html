@@ -1,0 +1,46 @@
+<style>
+    #el {
+        width: 30px;
+        height: 30px;
+        background-color: red;
+    }
+</style>
+
+<div id="el"></div>
+<button id="pause" onclick="pause();">pause</button>
+<button onclick="resume();">resume</button>
+<script>
+    const el = document.getElementById('el');
+    let end = 400, duration = 5000, start = 0;
+    let startTime = Date.now();
+
+
+    // setInterval不能适用所有设备(设备不同可能导致帧不同)，它是一个固定的时间
+    // setInterval(() => {
+    //     console.log(1);
+    // }, 16);
+    function tick() {
+        // console.log(1);
+        let hasPassed = Date.now() - startTime;
+        let progress = hasPassed / duration;
+        if(progress >= 1) {
+            el.style.transform = `translate3d(${end}px,0,0)`;
+            return;
+        }
+        let x = progress * (end - start);
+        el.style.transform = `translate3d(${x}px,0,0)`;
+        rafId = requestAnimationFrame(tick)
+    }
+    var rafId = null;
+    rafId = requestAnimationFrame(tick);
+    var pauseTime = null;
+    function pause() {
+        pauseTime = Date.now();
+        cancelAnimationFrame(rafId);
+    }
+    function resume() {
+        startTime += Date.now() - pauseTime;
+        rafId = requestAnimationFrame(tick)
+    }
+    // requestAnimationFrame 能够确保回调在每一帧调用
+</script>
