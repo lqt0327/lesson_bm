@@ -1,0 +1,18 @@
+<script>
+    const obj = {
+        name: 'xiuyan',
+        career: 'coder'
+    }
+    Object.defineProperty(obj, 'career', {
+        // getter 方法
+        get() {
+            console.log('尝试读取修言的工作')
+        },
+        // setter 方法
+        set(newCareer) {
+            console.log(`修言的工作换成了${newCareer}`)
+        },
+    });
+    console.log(obj.career);
+    console.log(obj.career = 'writter');
+</script>
