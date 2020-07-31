@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+        }
+        .circle{
+            width: 100px;
+            height: 100px;
+            border: 5px solid red;
+            border-radius: 100px;
+            border-top-color: transparent;
+            border-left-color: transparent;
+            /* border-top-left-radius: 0;
+            border-bottom-left-radius: 0; */
+            /* animation: test 3s; */
+        }
+        .progress {
+            width: 200px;
+            height: 200px;
+            position: relative;
+        }
+        .right,.left{
+            width: 100px;
+            height: 200px;
+            position: absolute;
+            top: 0;
+        }
+        .right {
+            right: 0;
+            background-color: red;
+        }
+        .left {
+            left: 0;
+            background-color: royalblue;
+        }
+        .circle-50{
+            width: 160px;
+            height: 160px;
+            border: 20px solid transparent;
+            border-radius: 50%;
+            transform: rotate(-135deg);
+            position: absolute;
+            top: 0;
+        }
+        .right-circle {
+            border-top-color: yellow;
+            border-right-color: yellow;
+            right: 0;
+            animation: rotate 5s ease;
+            /* 后面加5s表示延迟5s后再开始 */
+            /* animation: rotate 5s ease 5s; */
+        }
+        @keyframes rotate {
+            from{
+                transform: rotate(-135deg);
+            }
+            to{
+                transform: rotate(45deg);
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="circle"></div>
+    <div class="progress">
+        <div class="right">
+            <div class="circle-50 right-circle"></div>
+        </div>
+        <div class="left">
+            <div class="circle-50 left-circle"></div>
+        </div>
+    </div>
+</body>
+</html>

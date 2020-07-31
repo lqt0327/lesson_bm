@@ -1,0 +1,33 @@
+<script>
+    const chapterTree = {
+        name: '总章节',
+        children: [
+            { name: '章节一', children: [{ name: '第一节', children: [{ name: '第一小节' }, { name: '第二小节' }] }, { name: '第二节' }] },
+            { name: '章节二', children: [{ name: '第三节' }, { name: '第四节' }] }]
+    };
+
+    function serialize(tree) {
+        // TODO
+        let res = [];
+
+        return (function walk(tree) {
+            res.push(tree.name);
+            if (tree.children) {
+                for (let v of tree.children) {
+                    walk(v)
+                }
+            }
+            return res;
+        })(tree)
+    }
+    // 测试
+    const result = serialize(chapterTree);
+    console.log(result);
+  // ["总章节", "章节一", "第一节", "第一小节", "第二小节", "第二节", "章节二", "第三节", "第四节"]
+
+
+    // Content-type: application/json 符合json  {a:1,b:2}
+    // Content-type: application/x-www-form-url-encoded  a=1&b=2
+    // Content-type: text/plain  字符串  a=1,b=2
+    // Content-type: form-data  文件（包含大量的非ASCII字符）
+</script>
