@@ -32,3 +32,21 @@ js -> relayout -> repaint -> composite(合成) -> GPU
 ## 提升 layers 的好处
 - 当前这个layers变化不会影响其它layers
 - 对于 transform、opacity 产生变化了，不会经过 relayout repaint 跳到composite
+
+## flex
+主轴
+交叉轴
+flex 容器:
+display:flex
+flex-direction
+flex-wrap
+justify-content:主轴
+align-items
+align-content
+
+flex 容器里面的每一项：
+order
+flex-grow
+flex-shrink
+flex-basis
+align-self
