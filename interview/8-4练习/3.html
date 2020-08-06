@@ -1,0 +1,39 @@
+<script>
+    
+// function zip() {
+//     // todo
+// }
+// zip(['fred', 'barney'], [30, 40], [true, false]);
+//   // => [['fred', 30, true], ['barney', 40, false]]
+
+// let arr = [['fred', 'barney'], [30, 40], [true, false]];
+// function zip(a,b,c) {
+//     // todo
+//     let res = [];
+//     let len = Math.max(a.length,b.length,c.length)
+//     for(let i =0; i < len; i++) {
+//         let tmp = [];
+//         tmp.push(a[i]!==null ? a[i] : null);
+//         tmp.push(b[i]!==null ? b[i] : null);
+//         tmp.push(c[i]!==null ? c[i] : null);
+//         res.push(tmp);
+//     }
+//     return res;
+// }
+
+function zip(...args) {
+    // todo
+    let res = []
+    let len = args[0].length;
+    for(let j = 0; j < len; j++) {
+        let tmp = []
+        for(let i = 0; i < args.length; i++) {
+            tmp.push(args[i].shift())
+        }
+        res.push(tmp);
+    }
+    return res;
+}
+
+console.log(zip(['fred', 'barney'], [30, 40], [true, false]))
+</script>

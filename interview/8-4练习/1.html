@@ -1,0 +1,43 @@
+<script>
+    // 题目
+    // 实现 trim
+    // function trim(str) {
+    // // todo
+    // }
+    // '    1   '   =>. '1'
+    // function trim(str) {
+    //     for(let i = 0; i < str.length; i++) {
+    //         if(str[i] !== ' ') break;
+    //         str.shift();
+    //     }
+    //     for(let i = str.length-1;i >=0; i--) {
+    //         if(str[i] !== ' ') break;
+    //         str.pop();
+    //     }
+    //     return str;
+    // }
+    // let str = '   12 3   ';
+    // console.log(trim(str.split('')))
+
+    
+    function trim(str) {
+        // todo
+        let L = 0,
+            R = str.length - 1;
+        while (str[L] === " ") {
+            L++;
+        }
+        while (str[R] === " ") {
+            R--;
+        }
+        console.log(L, R)
+        return str.substring(L, R + 1)
+    }
+    console.log(trim("   1   "))
+
+
+    function mytrim(str) { 
+        return str.replace(/(^\s+)|(\s+$)/g, "");
+    }
+
+</script>

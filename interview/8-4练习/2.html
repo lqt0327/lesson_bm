@@ -1,0 +1,33 @@
+<script>
+    // 输入：
+
+    // dateFormat(new Date('2020-12-01'), 'yyyy/MM/dd') // 2020/12/01
+    // dateFormat(new Date('2020-04-01'), 'yyyy/MM/dd') // 2020/04/01
+    // dateFormat(new Date('2020-04-01'), 'yyyy年MM月dd日') // 2020年04月01日
+    // 写一个日期格式化函数
+    // const dateFormat = (dateInput, format)=>{
+    // // todo
+    // }
+
+    // const dateFormat = (dateInput, format)=>{
+    // // todo
+    //     let n = format.charAt(4);
+    //     let y = format.charAt(7);
+    //     let r = format.charAt(10) ? format.charAt(10) : '';
+    //     let n1 = dateInput.getFullYear();
+    //     let y1 = dateInput.getMonth()+1;
+    //     let r1 = dateInput.getDate()
+    //     return n1+n+y1+y+r1+r;
+    // }
+    // console.log(dateFormat(new Date('2020-12-01'),'yyyy年MM月dd日'))
+
+    const dateFormat = (dateInput, format)=>{
+        let y = dateInput.getFullYear();
+        let m = dateInput.getMonth() + 1;
+        let d = dateInput.getDate();
+        return format
+            .replace(/(y|Y){4}/, y)
+            .replace(/(m|M){2}/, m >= 10 ? m : "0" + m)
+            .replace(/(d|D){2}/, d >= 10 ? d : "0" + d)
+    }
+</script>
