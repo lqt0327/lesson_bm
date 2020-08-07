@@ -1,0 +1,13 @@
+<script>
+    function FileComponent(path,cb) {
+    // todo
+    setTimeout(()=>{
+        cb("读取完毕")
+    },3000)
+  }
+  
+  FileComponent('index.js', (file) => {
+    console.log(file)
+    // 3s 之后 输出 “读取完毕”
+  })
+</script>

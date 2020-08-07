@@ -1,0 +1,64 @@
+<script>
+    Array.prototype.myForeach = function (cb) {
+        // let args = arguments;
+        // console.log(Array.arguments);
+        // cb(args);
+        // console.log(arguments);
+        for (i = 0; i < this.length; i++) {
+            cb(this[i], i);
+        }
+    }
+    let arr = [1, 2, 3]
+    arr.myForeach((item, i) => {
+        // console.log(Array.prototype);
+        console.log(item, i)
+    })
+
+
+    window.name = 'ByteDance';
+    function A() {
+        // new 过程:
+        // 生成一个对象: {}
+        // {}.__proto__ = A.prototype
+        // {} 添加 name 属性
+        // return {}
+        // 我们 new 的时候拿到的就是这个 {}
+        console.log(this)  // 指向 空对象{} A.proptype
+        // debugger;
+        console.log(this.name);     // 456
+        this.name = 123;
+    }
+    A.prototype.getA = function () {
+        console.log(this);      // window
+        return this.name + 1;   // ByteDance1
+    }
+    A.prototype.name = 456;
+    let a = new A();
+    // console.log(a);
+    let funcA = a.getA;
+    console.log(funcA());
+
+
+    function newConstructor(Constructor) {
+        let obj = {}
+        obj.__proto__ = Constructor.prototype;
+        // 给 obj 附上属性
+        Constructor.apply(obj);
+        return obj;
+    }
+    console.log(newConstructor(A)) 
+
+
+    function Animal() {
+        // this === ani
+        // ani.name = 'cat'
+        this.name = 'cat';
+        // ani.live = 'land';
+        this.live = 'land';
+    }
+    let ani = {};
+    Animal.apply(ani);
+    console.log(ani);
+
+
+</script>
