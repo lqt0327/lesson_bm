@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body{
+            height: 1000px;
+        }
+    </style>
+</head>
+<body>
+    <script>
+        function throttle(fn,delay) {
+            let last = 0;
+            return function() {
+                let now = Date.now();
+                // console.log(now)
+                let _this = this;
+                let args = arguments;
+                if(now - last >= delay) {
+                    fn.apply(_this,args);
+                    last = now;
+                }
+            }
+        }
+        document.addEventListener("scroll",throttle(()=>console.log("test"),3000))
+    </script>
+</body>
+</html>

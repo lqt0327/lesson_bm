@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+        
+        li {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            background-color: #666666;
+            margin-top: 100px;
+        }
+
+        ul.stop li:nth-child(1){
+            background-color: red;
+        }
+
+        ul.warn li:nth-child(2){
+            background-color: yellow;
+        }
+
+        ul.pass li:nth-child(3) {
+            background-color: green;
+        }
+    </style>
+</head>
+<body>
+    <ul>
+        <li></li>
+        <li></li>
+        <li></li>
+    </ul>
+    <script>
+        let ul = document.querySelector('ul');
+        console.log([ul])
+        // function test() {
+        //     ul.classList.add('stop')
+        //     setTimeout(()=>{
+        //         ul.classList.remove('stop')
+        //     },1000)
+        // }
+        // setInterval(() => {
+        //     test()
+        // }, 3000);
+        
+        // 方法一
+        // let test = ()=>{
+        //     return new Promise((resolve,reject)=>{
+        //         setTimeout(() => {
+        //             resolve()
+        //         }, 1000);
+        //     })
+        // } 
+        // test().then(()=>{
+        //     ul.className="stop"
+        //     return test()
+        // })
+        // .then(()=>{
+        //     ul.className="warn"
+        //     return test()
+        // })
+        // .then(()=>{
+        //     ul.className="pass"
+        // })
+        
+        // 方法二
+        const test = ()=>{
+            return new Promise((resolve,reject)=>{
+                setTimeout(() => {
+                    resolve()
+                }, 1000);
+            })
+        } 
+        async function traffic() {
+            await test().then(() => {
+                ul.className="stop"
+            });
+            await test().then(() => {
+                ul.className="warn"
+            });
+            await test().then(() => {
+                ul.className="pass"
+            });
+        } 
+        let i = 0;
+        const time = setInterval(()=>{
+            // traffic()
+            i >= 4 ? clearInterval(time) : i++;
+        },3000)
+
+        // 方法三
+        function sleep(time) {
+            return new Promise((resolve,reject)=>{
+                setTimeout(()=>{
+                    resolve()
+                },time)
+            })
+        }
+        async function loop2() {
+            for(let i = 0; i < 5; i++){
+                ul.className="stop";
+                await sleep(1000);
+                ul.className="warn";
+                await sleep(2000);
+                ul.className="pass";
+                await sleep(3000);
+            }
+        }
+        loop2();
+
+        // async 调用 返回的是 一个 Promise
+        // 外界 是可以知道 这个 async 函数 有没有调用完成
+    </script>
+</body>
+</html>

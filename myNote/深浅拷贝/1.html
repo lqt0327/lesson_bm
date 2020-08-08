@@ -1,0 +1,38 @@
+<script>
+
+    let map = new Map();
+    // map key 任意值
+    // {} key 字符串 Symbol
+
+    function deepClone(obj) {
+        let t = {}
+        // 待拷贝的对象
+        // t 拷贝完的结果
+        if(map.get(obj)) return map.get(obj);
+        map.set(obj,t)
+        Object.keys(obj).forEach(k=>{
+            if(typeof obj[k] === 'object'){
+                t[k] = deepClone(obj[k])
+            }else{
+                t[k] = obj[k]
+            }
+        })
+        return t;
+    }
+    let obj = {
+        a:1,
+        b: {b: 2},
+    }
+    // obj.t = obj
+    // console.log(obj);  // 死循环 报错
+    let obj1 = deepClone(obj)
+    obj.b.b = 3;
+    console.log(obj,obj1);
+
+    let obj4 = {}
+    let obj2 = {}
+    let obj3 = {}
+    obj4[obj2] = 1
+    obj4[obj3] = 2
+    console.log(obj4[obj3])  // 2  但 对象作为key是不合法的
+</script>

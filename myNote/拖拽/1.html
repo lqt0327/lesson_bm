@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .box {
+            width: 100px;
+            height: 100px;
+            background-color: red;
+            position: absolute;
+            top: 0;
+            left: 0;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="box" id="box"></div>
+    <script>
+        let box = document.getElementById("box");
+        console.log([box]);
+
+        let startX = 0;
+        let startY = 0;
+
+        function move(e){
+            console.log(startX,startY)
+            box.style.top = e.clientY - startY + "px";
+            box.style.left = e.clientX - startX + "px";
+        }
+
+        function end(e) {
+            console.log([e]);
+            document.removeEventListener("mousemove", move);
+            box.removeEventListener("mouseup", end);            
+        }
+
+        box.addEventListener("mousedown", (e) => {
+            // console.log([e])
+            startX = e.clientX - box.offsetLeft;
+            startY = e.clientY - box.offsetTop;
+            // 将mousemove事件绑定到了元素本身，这意味着当鼠标移出元素所 占据的范围的时候，元素会停止移动。
+            // 为了解决这个问题，我们需要将mousemove事件绑定到 document 上。
+            document.addEventListener("mousemove", move)
+            box.addEventListener("mouseup", end)
+        })
+
+    </script>
+</body>
+
+</html>

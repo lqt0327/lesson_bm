@@ -1,0 +1,18 @@
+<script>
+// 说结果
+console.log(1);
+setTimeout(()=>{console.log(2)})
+Promise.resolve().then(()=>{console.log(3)})
+var p = new Promise((res)=>{
+console.log(4)
+setTimeout(()=>{
+res(5)
+console.log(6)
+})
+})
+p.then((r)=>{console.log(r)})   
+
+// 1 4 3 5 2 6  错误
+
+// 1 4 3 2 6 5 正确
+</script>

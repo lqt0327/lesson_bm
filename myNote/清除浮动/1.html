@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+    .fahter{
+        width: 400px;
+        border: 1px solid deeppink;
+        /* 方式二 */
+        /* overflow: hidden; */
+    }
+    .big{
+        width: 200px;
+        height: 200px;
+        background: darkorange;
+        float: left;
+    }
+    .small{
+        width: 120px;
+        height: 120px;
+        background: darkmagenta;
+        float: left;
+    }
+    .footer{
+        width: 900px;
+        height: 100px;
+        background: darkslateblue;
+    }
+    .clear{
+        /* 方式一 */
+        /* clear:both; */ 
+    }
+
+    /* 方式三 */
+    .clearfix::after {
+        content: "";
+        display: block;
+        height: 0;
+        clear: both;
+        visibility: hidden;
+    }
+    .clearfix {
+        /*ie6清除浮动的方式 *号只有IE6-IE7执行，其他浏览器不执行*/
+        *zoom: 1;
+    }
+
+    /* 方式四 */
+    .clearfix::after,.clearfix::before {
+        content: "";
+        display: table;
+    }
+    .clearfix::after{
+        clear: both;
+    }
+    .clearfix{
+        *zoom:1;
+    }
+    </style>
+</head>
+<body>
+    <div class="fahter clearfix">
+        <div class="big">big</div>
+        <div class="small">small</div>
+        <div class="clear">额外标签法</div>
+    </div>
+    <div class="footer"></div>
+</body>
+</html>

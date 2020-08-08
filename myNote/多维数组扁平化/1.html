@@ -1,0 +1,49 @@
+<script>
+    let arr = [[1, 2, 8, [6, 7,[10,11]]], 3, [3, 6, 9], 4]
+
+    // arr.some(item=>console.log(item))
+    // 方法一   
+    function getNewArr(arr) {
+        while(arr.some(item=>Array.isArray(item))) {
+            console.log(arr);
+            arr = [].concat(...arr);
+        }
+        return arr;
+    }
+    // console.log(getNewArr(arr));
+
+    // 方法二
+    function getNewArr2(arr) {
+        return arr.toString().split(',').map(item=>{
+            return +item;
+        })
+    }
+    // console.log(getNewArr2(arr));
+
+    // 方法三
+    function getNewArr3(arr) {
+        let newArr = [];
+        for(let i = 0; i < arr.length; i++){
+            if(Array.isArray(arr[i])){
+                newArr = newArr.concat(getNewArr3(arr[i]))
+            }else{
+                newArr.push(arr[i]);
+            }
+        }
+        return newArr;
+    }
+    // console.log(getNewArr3(arr));
+
+    // 方法四
+    function getNewArr4(arr,newArr) {
+        for(let i = 0; i < arr.length; i++) {
+            if(arr[i] instanceof Array) {
+                getNewArr4(arr[i],newArr)
+            }else{
+                newArr.push(arr[i])
+            }
+        }
+        return newArr;
+    }
+    console.log(getNewArr4(arr,[]));
+</script>

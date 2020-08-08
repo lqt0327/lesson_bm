@@ -1,0 +1,33 @@
+<button>发送请求</button>
+<script>
+    window.onload=function () {
+        var btn =document.querySelector("button");
+        btn.onclick=function () {       
+          //1.创建一个异步对象
+          var xmlhttp=new XMLHttpRequest();
+
+          //2.设置请求方式和请求地址
+          xmlhttp.open("GET","06-Ajax-base.php",true);       
+
+          //3.发送请求
+          xmlhttp.send();
+          
+          //4.监听状态的变化
+          //每当 readyState 状态改变时，就会触发 onreadystatechange事件，执行回调数。 
+          xmlhttp.onreadystatechange=function () {
+          
+          //5.处理返回的结果
+              if (xmlhttp.readyState === 4) {       //请求已完成，且响应已就绪；
+               //判断是否请求成功   (请求有可能成功和失败的)
+              //如果服务器返回的状态码大于200，小于300，或等于304，则表示请求成功了,否则服务器请求失败
+                  if (xmlhttp.status>=200 && xmlhttp.status<300 ||xmlhttp.status===304 ){
+                      console.log("接收到服务器返回的数据");
+                  }else{
+                      console.log("没有接收到服务器的数据");
+                  }
+              }
+          }
+
+   }
+}
+</script>

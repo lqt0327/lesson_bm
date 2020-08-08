@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body{
+            height: 1000px;
+        }
+        #content{
+            height: 1000px;
+            width: 100vw;
+        }
+    </style>
+</head>
+<body>
+    <div id="content"></div>
+    <script>
+        let content = document.getElementById('content');
+        // fn是我们需要包装的事件回调，delay是每次推迟执行的等待事件
+        function debounce(fn,delay) {
+            // 定时器
+            let timer = null;
+            return function() {
+                // 保留 this 调用时的上下文
+                let _this = this
+
+
+                console.log(this,_this);
+
+
+                // 保留调用时传入的参数
+                let args = arguments;
+                // 每次事件被触发时，清除旧定时器
+                if(timer){
+                    clearTimeout(timer);
+                }
+                // 设置一个新定时器
+                timer = setTimeout(()=>{
+                    fn.apply(_this,args)
+                    clearTimeout(timer);
+                }, delay)
+            }
+        }
+        let obj = {
+
+        }
+        document.addEventListener("scroll", debounce(()=>{console.log("test")},1000))
+        content.addEventListener("touchmove", debounce(()=>{console.log("test")},1000))
+        function fn () {
+            // this
+            console.log(1)
+        }
+        const fn1 = debounce(fn);
+        document.addEventListener('scroll', fn1)
+    </script>
+</body>
+</html>
