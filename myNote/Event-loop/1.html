@@ -1,0 +1,20 @@
+<script>
+    setTimeout(()=>{
+        console.log(1);
+        Promise.resolve(6).then(console.log)
+    },0)
+    new Promise((res,rej)=>{
+        console.log(2)
+        res(3);
+    })
+    .then(r=>{
+        console.log(r)
+    })
+    .then(r=>{
+        console.log(r)
+    })
+    console.log(4);
+    setTimeout(()=>{
+        console.log(10);
+    },0)
+</script>
