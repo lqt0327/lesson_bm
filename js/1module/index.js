@@ -1,0 +1,1 @@
+import './a.js'    // es11 动态import

@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div>
+        <style>
+            .center {
+                text-align: center;
+                background-color: greenyellow;
+            }
+        </style>
+        <div class="center">
+            hello: <%=userName%>
+        </div>
+        <%for(let i = 0; i < lists.length; i++) {%>
+            <li><%=lists[i]%></li>
+        <%}%>
+    </div>
+    
+</body>
+</html>
