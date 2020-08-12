@@ -1,0 +1,47 @@
+<script>
+    // let arr = [[1, 2, 8, [6, 7,[10,11]]], 3, [3, 6, 9], 4]
+    let arr = [1,2,[3,[4,[5]]]]
+    function falt(arr) {
+        let res = [];
+        for(let i = 0; i < arr.length; i++) {
+            if(arr[i] instanceof Array) {
+                res = res.concat(falt(arr[i]))
+            }else{
+                res.push(arr[i]);
+            }
+        }
+        return res;
+    }
+    
+    function falt2(arr) {
+        while(arr.some(item=>Array.isArray(item))) {
+            arr = [].concat(...arr);
+        }
+        return arr;
+    }
+
+    function falt3(arr) {
+        return arr.toString().split(',').map(item=>{
+            return +item;
+        })
+    }
+
+    //  假如存在环 arr.push(arr);
+    arr.push(arr);
+    let map = new Map();
+    function falt4(arr) {
+        let res = [];
+        if(map.get(arr)) return map.get(arr);
+        map.set(arr,res);
+        for(let item of arr) {
+            if(Array.isArray(item)) {
+                res.push(...falt4(item))
+            }else{
+                res.push(item);
+            }
+        }
+        return res;
+    }
+    
+    console.log(falt4(arr));
+</script>
