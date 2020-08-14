@@ -8,8 +8,9 @@
 </script> -->
 
 <script>
-    function ajax({url,method,data,timeout}) {
-        return new Promise((resolve,reject)=>{
+    function ajax({ url, method, data, timeout }) {
+        return new Promise((resolve, reject) => {
+            //1.创建一个异步对象
             const xhr = new XMLHttpRequest();
             xhr.timeout = timeout;
             // let tmp = '';
@@ -17,18 +18,28 @@
             //     tmp += '&' + v;
             // }
             xhr.responseType = 'json'
-            xhr.open(method,url,true);
 
+            //2.设置请求方式和请求地址
+            xhr.open(method, url, true);
+
+            //3.发送请求
             xhr.send();
             // readyState : 0 1 2 3 4
-            xhr.ontimeout = function(){
+            xhr.ontimeout = function () {
                 reject('timeout');
             }
-            xhr.onreadystatechange = function(){
-                if(xhr.readyState === 4) {
-                    if((xhr.status >= 200 && xhr.status < 300) || xhr.status === 304) {
+
+            //4.监听状态的变化
+            //每当 readyState 状态改变时，就会触发 onreadystatechange事件，执行回调数。
+            xhr.onreadystatechange = function () {
+                //5.处理返回的结果
+                if (xhr.readyState === 4) {
+                    //请求已完成，且响应已就绪；
+                    //判断是否请求成功   (请求有可能成功和失败的)
+                    //如果服务器返回的状态码大于200，小于300，或等于304，则表示请求成功了,否则服务器请求失败
+                    if ((xhr.status >= 200 && xhr.status < 300) || xhr.status === 304) {
                         resolve(xhr.response);
-                    }else {
+                    } else {
                         reject('response error')
                     }
                 }
@@ -42,12 +53,12 @@
         })
     }
     ajax({
-        method:'GET',
+        method: 'GET',
         url: 'http://neteasecloudmusicapi.zhaoboy.com/search?keywords=%E6%B5%B7%E9%98%94%E5%A4%A9%E7%A9%BA',
         timeout: 5000
     })
-    .then(res=>{
-        console.log(res)
-    })
-    .catch()
+        .then(res => {
+            console.log(res)
+        })
+        .catch()
 </script>
