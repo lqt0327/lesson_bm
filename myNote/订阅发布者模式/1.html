@@ -1,0 +1,35 @@
+<script>
+    let eventEmitter = {}
+
+    eventEmitter.list = {}
+
+    eventEmitter.on = function (event, fn) {
+        let _this = this;
+        console.log(_this,this);
+        (_this.list[event] || (_this.list[event] = [])).push(fn);
+        return _this;
+    }
+
+    eventEmitter.emit = function () {
+        let _this = this;
+        console.log(arguments)
+        let event = [].shift.call(arguments),
+        fns = [..._this.list[event]];
+        if(!fns || fns.length === 0) {
+            return false;
+        }
+        fns.forEach(fn=>{
+            fn.apply(_this,arguments);
+        });
+        return _this;
+    }
+    function user1 (content) {
+        console.log('用户1订阅了：', content);
+    }
+    function user2 (content) {
+        console.log('用户2订阅了：', content)
+    }
+    eventEmitter.on('article',user1);
+    eventEmitter.on('article',user2);
+    eventEmitter.emit('article','Javascript 发布-订阅模式')
+</script>

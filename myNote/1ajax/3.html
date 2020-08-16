@@ -12,7 +12,7 @@
         return new Promise((resolve, reject) => {
             //1.创建一个异步对象
             const xhr = new XMLHttpRequest();
-            xhr.timeout = timeout;
+
             // let tmp = '';
             // for(let v of data){
             //     tmp += '&' + v;
@@ -22,13 +22,18 @@
             //2.设置请求方式和请求地址
             xhr.open(method, url, true);
 
-            //3.发送请求
-            xhr.send();
-            // readyState : 0 1 2 3 4
+            // 在IE中，超时属性可能只能在调用 open() 方法之后且在调用 send() 方法之前设置。
+            xhr.timeout = timeout;
+
             xhr.ontimeout = function () {
                 reject('timeout');
             }
 
+            //3.发送请求
+            xhr.send();
+
+            // readyState : 0 1 2 3 4
+        
             //4.监听状态的变化
             //每当 readyState 状态改变时，就会触发 onreadystatechange事件，执行回调数。
             xhr.onreadystatechange = function () {
@@ -62,3 +67,10 @@
         })
         .catch()
 </script>
+<!-- 
+xhr.readyState
+0	UNSENT	代理被创建，但尚未调用 open() 方法。
+1	OPENED	open() 方法已经被调用。
+2	HEADERS_RECEIVED	send() 方法已经被调用，并且头部和状态已经可获得。
+3	LOADING	下载中； responseText 属性已经包含部分数据。
+4	DONE	下载操作已完成。 -->
