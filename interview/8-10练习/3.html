@@ -1,0 +1,22 @@
+<script>
+    function test(str) {
+        let stick = []
+        str = str.split("");
+        let open = false;
+        for(let i = 0; i < str.length; i++) {
+            if(str[i] === '<') {
+                stick.pop()
+                continue
+            }
+            if(str[i] === '(') {
+                while(str[i++] !== ')') {}
+            }
+            stick.push(str[i]);
+        }
+        return stick.join("");
+    } 
+    let str = "Corona(Trump(123)4)USA<<<Virus";
+    console.log(test(str))
+    // 输出
+    // CoronaVirus
+</script>
