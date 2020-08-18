@@ -1,0 +1,27 @@
+<script>
+    let arr = [1,2,3,[4,[5,[6]]],7]
+    function deep(arr) {
+        const target = arr.constructor === Array ? [] : {};
+        for(let key in arr) {
+            if(arr.hasOwnProperty(key)){
+                if(arr[key] && typeof arr[key] === 'object') {
+                    target[key] = arr[key].constructor === Array ? [] : {}
+                    target[key] = deep(arr[key])
+                }else{
+                    target[key] = arr[key];
+                }
+            }
+        }
+        return target;
+    }
+    let ans = deep(arr);
+    console.log(ans)
+    const obj3 = {
+        name: 'zhangsan',
+        fn: function () {
+            console.log('Hello World');
+        }
+    }
+    let obj4 = deep(obj3);
+    console.log(obj4);
+</script>

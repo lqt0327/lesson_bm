@@ -1,0 +1,21 @@
+<style>
+    body{
+        height: 10000px;
+    }
+</style>
+<body></body>
+<script>
+    function throttle(fn,delay){
+        let last = 0;
+        return function(){
+            let now = +new Date();
+            let _this = this;
+            let args = arguments;
+            if(now - last > delay) {
+                fn.apply(_this,args);
+                last=now;
+            }
+        }
+    }
+    document.addEventListener('scroll',throttle(()=>{console.log('scroll')},1000))
+</script>

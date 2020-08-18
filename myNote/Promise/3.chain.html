@@ -1,0 +1,59 @@
+<script>
+    // [1,2,3].forEach((item, i) => {})
+    const PENDING = Symbol('PENGDING');
+    const FULFILLED = Symbol('FULFILLED');
+    const REJECTED = Symbol('REJECTED');
+    function MyPromise(fn) {
+      this.value = undefined;
+      this.onFulfilled = [];
+      this.status = PENDING;
+      let self = this;
+      function resolve(value) {
+        self.value = value;
+        self.status = FULFILLED;
+        console.log(value);
+        self.onFulfilled.forEach(fn => {
+          fn(value);
+        });
+      }
+      function reject() {}
+      fn(resolve, reject);
+    }
+    MyPromise.prototype.then = function(onFulfilled, onRejected) {
+      if (this.status === FULFILLED) onFulfilled(this.value)
+      else if (this.status === PENDING) {
+        //   每一个 then 都返回 promise 支持链式调用
+          return new MyPromise((resolve,reject)=>{
+            //   ...
+            this.onFulfilled.push(()=>{
+                // then 回调，需要知道 返回值
+                let x = onFulfilled(value);
+                // 当前这个 promise 需要 resolve 下一个 then 才会被调用
+                if (x instanceof MyPromise){
+                    x.then(resolve,reject)
+                }
+                // resolve();
+            })
+          })
+        // this.onFulfilled.push(onFulfilled);
+      } else {}
+      return this;
+    }
+    new MyPromise((resolve, reject) => {
+      setTimeout(() => {
+        resolve(1)
+      }, 2000);
+    })
+    .then((res) => {
+      console.log(res);
+      return new MyPromise((resolve,reject)=>{
+          setTimeout(()=>{
+              resolve(2)
+          },2000)
+      })
+    }, () => {})
+    .then((res) => {
+      console.log(res);
+    })
+  </script>
+  
