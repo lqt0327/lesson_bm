@@ -1,0 +1,15 @@
+<script>
+    Function.prototype.mycall = function(context,...arg) {
+        context.fn = this;
+        context.fn(...arg)
+        delete context.fn;
+    }
+    var me = {
+        name:'tom'
+    }
+    function show(name){
+        console.log(this.name);
+        console.log(name)
+    }
+    show.mycall(me,'tom')
+</script>

@@ -1,0 +1,9 @@
+<script>
+    function mynew(context){
+        let obj = new Object();
+        Constructor = [].shift.call(arguments)
+        obj.__proto__ = Constructor.prototype;
+        Constructor.apply(onj, arguments);
+        return obj;
+    }
+</script>

@@ -1,0 +1,14 @@
+<script>
+    Function.prototype.mycall = function(context,...args) {
+        context.fn = this;
+        context.fn(...args);
+        delete context.fn;
+    }
+    let obj = {
+        name: "tom"
+    }
+    function test(name,age) {
+        console.log(this.name,name,age);
+    }
+    console.log(test.mycall(obj,"lili",15));
+</script>

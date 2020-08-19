@@ -1,0 +1,31 @@
+<script>
+    function ajax({method,url,data,timeout}){
+        return new Promise((resolve,reject)=>{
+            let xhr = new XMLHttpRequest();
+            xhr.responseType = 'json';
+            xhr.open(method,url);
+            xhr.timeout = timeout;
+            xhr.ontimeout = () =>{
+                reject('error');
+            }
+            xhr.send();
+            xhr.onreadystatechange = function() {
+                if(xhr.readyState === 4) {
+                    if((xhr.status >= 200 && xhr.status < 300) || xhr.status === 304){
+                        resolve(xhr.response);
+                    }else{
+                        reject('error')
+                    }
+                }
+            }
+        })
+    }
+    ajax({
+        method:'GET',
+        url: 'http://neteasecloudmusicapi.zhaoboy.com/search?keywords=%E6%B5%B7%E9%98%94%E5%A4%A9%E7%A9%BA',
+        timeout: 5000
+    })
+    .then(res=>{
+        console.log(res);
+    })
+</script>

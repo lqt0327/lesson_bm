@@ -1,0 +1,16 @@
+<script>
+    Function.prototype.myapply = function(context,arr){
+        context.fn = this;
+        context.fn(...arr);
+        delete context.fn;
+    }
+    var foo = {
+        value:1
+    }
+    function bar(name, age) {
+        console.log(name)
+        console.log(age)
+        console.log(this.value)
+    }
+    bar.myapply(foo,['tom',18]);
+</script>
