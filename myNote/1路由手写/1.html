@@ -6,10 +6,63 @@
     <title>Document</title>
 </head>
 <body>
+    <button type="button" onclick="history.go(-1)">返回</button>
     <ul>
-        <li></li>
-        <li></li>
-        <li></li>
+        <li onclick="Router.replace('/')">首页</li>
+        <li onclick="Router.replace('/news')">新闻</li>
+        <li onclick="Router.replace('/product')">产品</li>
     </ul>
+    <div id="app"></div>
+    <script>
+        var app = document.getElementById('app');
+
+        function RouterClass(){
+            this.routes = {}
+            // 初始化url
+            this.curUrl = ""
+            this.eventHashRouter()
+        }
+
+        RouterClass.prototype.route = function(path,callback) {
+            this.routes[path] = callback || function() {}
+            // console.log(this.routes);
+        }
+
+        // 监听hash模式路由
+        RouterClass.prototype.eventHashRouter = function() {
+            console.log(this);
+            window.addEventListener("load",this.hashRouter.bind(this))
+            window.addEventListener("hashchange",this.hashRouter.bind(this))
+        }
+
+        RouterClass.prototype.replace = function(url) {
+            url = "#" +url;
+            window.location.replace(url)
+        }
+
+        RouterClass.prototype.hashRouter = function() {
+            console.log(this);
+            this.curUrl = window.location.hash.slice(1) || '/'
+            this.routes[this.curUrl]();
+        }
+
+        RouterClass.prototype.push = function(url) {
+            console.log(url);
+            url = '#' + url;
+            window.location.href = url;
+        }
+
+        var Router = new RouterClass()
+
+        Router.route('/', function(){
+            app.innerHTML='首页'
+        })
+        Router.route('/news',function(){
+            app.innerHTML = '新闻页面'
+        })
+        Router.route('/product', function(){
+            app.innerHTML = '产品页面'
+        })
+    </script>
 </body>
 </html>

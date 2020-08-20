@@ -1,0 +1,16 @@
+<script>
+    var curry = fn =>
+        judge = (...args) =>
+            args.length === fn.length
+                ? fn(...args)
+                : (arg) => judge(...args, arg)
+
+    var fn = curry(function (a, b, c) {
+        console.log([a, b, c]);
+    });
+
+    fn("a", "b", "c") // ["a", "b", "c"]
+    fn("a", "s")("c") // ["a", "b", "c"]
+    fn("a")("d")("c") // ["a", "b", "c"]
+    fn("a")("f", "c") // ["a", "b", "c"]
+</script>

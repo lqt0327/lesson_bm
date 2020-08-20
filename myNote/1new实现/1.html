@@ -1,6 +1,7 @@
 <script>
     function mynew(context){
         let obj = new Object();
+        // 删除并拿到arguments的第一项
         Constructor = [].shift.call(arguments)
         obj.__proto__ = Constructor.prototype;
         Constructor.apply(onj, arguments);

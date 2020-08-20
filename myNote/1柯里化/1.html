@@ -1,0 +1,23 @@
+<script>
+    var curry = function (fn){
+        // [].slice.call(arguments, 1) 其含义相当于 arguments.slice(1)，就是取出所有参数，并从下标为1开始，截取所有。
+        var args = [].slice.call(arguments,1);
+        return function() {
+            // [].slice.call(arguments) 把类数组对象转为数组对象
+            var newArgs = args.concat([].slice.call(arguments))
+            return fn.apply(this, newArgs);
+        }
+    }
+    
+    function add(a, b) {
+        return a + b;
+    }
+    var addCurry = curry(add, 1, 2);
+    console.log(addCurry())
+
+    var addCurry = curry(add, 1)
+    console.log(addCurry(2));
+
+    var addCurry = curry(add);
+    console.log(addCurry(1,2));
+</script>
