@@ -1,0 +1,22 @@
+<script>
+    function mynew() {
+        var obj = new Object();
+        Constructor = [].shift.call(arguments)
+        obj.__proto__ = Constructor.prototype;
+        const net = Constructor.apply(obj,arguments)
+        return typeof net === 'object' ? net : obj;
+    }
+
+    function Otaku (name, age) {
+        this.strength = 60;
+        this.age = age;
+
+        return 'handsome boy';
+    }
+    var person = mynew(Otaku,'Kevin', '18');
+
+    console.log(person.name) // undefined
+    console.log(person.habit) // undefined
+    console.log(person.strength) // 60
+    console.log(person.age) // 18
+</script>
