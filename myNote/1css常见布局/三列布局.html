@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+        }
+        .left{
+            float:left;
+            width: 150px;
+            height: 50px;
+            background-color: red;
+        }
+        .right{
+            float: right;
+            width: 200px;
+            height: 50px;
+            background-color: yellow;
+        }
+        /* .main{
+            margin: 0 200px 0 150px;
+            background-color: green;
+            height: 50px;
+        } */
+        .main{
+            /* 使用BFC原理，将middle设为overflow: hidden; */
+            overflow: hidden;
+            background-color: green;
+            height: 50px;
+        }
+    </style>
+</head>
+<body>
+    <div class="content">
+        <div class="left"></div>
+        <div class="right"></div>
+        <div class="main"></div>
+    </div>
+</body>
+</html>
