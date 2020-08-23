@@ -14,3 +14,9 @@
     fn("a")("d")("c") // ["a", "b", "c"]
     fn("a")("f", "c") // ["a", "b", "c"]
 </script>
+
+<script>
+    var curry = fn => {
+        judge = (...args) => args.length === fn.length ? fn(...args) : (...arg) => judge(...args,...arg)
+    }
+</script>
