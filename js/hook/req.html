@@ -1,0 +1,37 @@
+<script>
+    // 无痕埋点
+    const _XMLHttpRequest = window.XMLHttpRequest;
+    window.XMLHttpRequest = function XMLHttpRequest() {
+        const _xhr = new _XMLHttpRequest()
+        _xhr.addEventListener('readystatechange', function(){
+            if(_xhr.readyState === 4) {
+                console.log(_xhr.responseURL,'success');
+            }
+        })
+        
+        return _xhr
+    }
+
+    // console.log([window.fetch.addEventListener]);
+    const _fetch = window.fetch;
+    window.fetch = function(url, options) {
+        // return new Promise((resolve,reject)=>{
+        //     _fetch(url,options).then(res=>{
+        //         console.log('890');
+        //         resolve(res);
+        //     })
+        //     .catch(reject);
+        // })
+        return _fetch(url, options).then(res=>{
+            console.log(res.url,'success')
+            return res;
+        })
+    }
+    fetch('http://neteasecloudmusicapi.zhaoboy.com/search?keywords=%E6%B5%B7%E9%98%94%E5%A4%A9%E7%A9%BA')
+.then(res=>{
+    return res.json()
+})
+.then(res=>{
+    console.log(res)
+})
+</script>
