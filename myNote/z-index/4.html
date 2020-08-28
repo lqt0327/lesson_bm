@@ -1,0 +1,23 @@
+<style>
+    div {
+        width: 200px;
+        height: 200px;
+        border: 5px solid silver;
+    }
+    .father {
+        background-color: red;
+    }
+    .son {
+        position: absolute;
+        z-index:99;
+        background-color: green;
+    }
+    .brother {
+        position: absolute;
+        z-index:50;
+        background-color: yellow;
+    }
+</style>
+<div class="father">fahter box <div class="son">son box</div>
+</div>
+<div class="brother">brother box</div>

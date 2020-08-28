@@ -1,0 +1,15 @@
+<script>
+    function stack() {
+        var arr = [];
+        for (var i = 1; i < 5; i++) {
+            arr.push(i);//数组后面追加
+            console.log(i + '进栈', arr)
+        };
+        var len = arr.length;//pop方法会导致数组长度变化，先存到变量里
+        for (var k = 0; k < len; k++) {
+            console.log(arr.pop() + '出栈');//pop方法返回的就是数组删除的那一项      
+            console.log(arr);
+        }
+    }
+    stack()
+</script>
