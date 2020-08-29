@@ -1,0 +1,16 @@
+<script>
+    function fatherFn() {
+        this.some = '父类的this属性'
+    }
+    fatherFn.prototype.fatherFnSome = '父类原型对象的属性或方法';
+    function sonFn() {
+        this.obkoro1 = '子类的this属性'
+    }
+    sonFn.prototype = new fatherFn();
+    sonFn.prototype.sonFnSome = '子类原型对象的属性或方法'
+    const sonFnInstance = new sonFn()
+    console.log('子类的实例：',sonFnInstance);
+    // 缺点
+    // 父类使用this声明的属性被所有实例共享
+    // 创建子类实例时，无法向父类构造函数传参，不够灵活。
+</script>

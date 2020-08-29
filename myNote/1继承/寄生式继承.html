@@ -1,0 +1,13 @@
+<script>
+    function cloneObject(obj) {
+        function F() {}
+        F.prototype = obj;
+        return new F()
+    }
+    function createAnother(original) {
+        var clone = cloneObject(original)
+        clone.some = function(){}
+        clone.obkoro1 = '封装继承过程'
+        return clone;
+    }
+</script>

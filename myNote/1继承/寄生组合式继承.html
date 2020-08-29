@@ -1,0 +1,25 @@
+<script>
+    function fatherFn(...arr) {
+        this.some = '父类的this属性'
+        this.params = arr;
+    }
+    fatherFn.prototype.fatherFnSome = '父类原型对象的属性或方法'
+    function sonFn() {
+        fatherFn.call(this, '接用构造继承')
+        this.obkoro1 = '子类的this属性'
+    }
+    function inheritPrototype(son, father) {
+        const fatherFnPrototype = Object.create(father.prototype)
+        son.prototype = fatherFnPrototype;
+        son.prototype.constructor = son;
+    }
+    inheritPrototype(sonFn, fatherFn);
+    sonFn.prototype.sonFnSome = '子类原型对象的属性或方法'
+    const sonFnInstance = new sonFn()
+    console.log('寄生组合式继承子类实例', sonFnInstance)
+    // 寄生组合式继承相对于组合继承有如下优点：
+    // 只调用一次父类fatherFn构造函数。
+    // 避免在子类prototype上创建不必要多余的属性。
+    // 使用原型式继承父类的prototype，保持了原型链上下文不变。
+    // 子类的prototype只有子类通过prototype声明的属性 / 方法和父类prototype上的属性 / 方法泾渭分明。
+</script>

@@ -1,0 +1,15 @@
+<script>
+    function cloneObject(obj) {
+        function F() { }
+        F.prototype = obj
+        return new F()
+    }
+    let oldObj = { p: 1 };
+    let newObj = cloneObject(oldObj);
+    oldObj.p = 2;
+    console.log('oldObj newObj', oldObj, newObj);
+    // 优点： 兼容性好，最简单的对象继承。
+    // 缺点：
+    // 因为旧对象(oldObj)是实例对象(newObj)的原型，多个实例共享被继承对象的属性，存在篡改的可能。
+    // 无法传参
+</script>

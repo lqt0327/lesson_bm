@@ -1,0 +1,23 @@
+<script>
+    function fatherFn(...arr) {
+        this.some = '父类的this属性'
+        this.params = arr;
+    }
+    fatherFn.prototype.fatherFnSome = '父类原型对象的属性或方法'
+    function sonFn(fatherParams, ...sonParams) {
+        fatherFn.call(this, ...fatherParams);
+        this.obkoro1 = '子类的this属性'
+        this.sonParams = sonParams;
+    }
+    sonFn.prototype.sonFnSome = '子类原型对象的属性或者方法'
+    let fatherParamsArr = ['父类参数1', '父类参数2']
+    let sonParamsArr = ['子类参数1', '子类参数2']
+    const sonFnInstance = new sonFn(fatherParamsArr, ...sonParamsArr);
+    console.log('借用构造函数子类实例', sonFnInstance)
+    // 优点：
+    // 可以向父类传递参数
+    // 解决了原型链继承中：父类属性使用this声明的属性会在所有实例共享的问题。
+    // 缺点：
+    // 只能继承父类通过this声明的属性 / 方法，不能继承父类prototype上的属性 / 方法。
+    // 父类方法无法复用：因为无法继承父类的prototype，所以每次子类实例化都要执行父类函数，重新声明父类this里所定义的方法，因此方法无法复用。
+</script>
