@@ -1,0 +1,20 @@
+<script>
+    function fatherFn(...args) {
+        this.fa = '父函数的值'
+        this.params = args;
+    }
+    fatherFn.prototype.fatherFnSome = '父函数原型上的属性或方法'
+    function sonFn() {
+        fatherFn.call(this,'父函数1','父函数2')
+        this.son = '子函数的值'
+    }
+    function inheritPrototype(son,father) {
+        let obj = Object.create(father.prototype);
+        son.prototype = obj;
+        son.prototype.constructor = son;
+    }
+    inheritPrototype(sonFn,fatherFn);
+    sonFn.prototype.sonFnSome = '子函数原型上的属性或方法'
+    let obj = new sonFn();
+    console.log(obj)
+</script>

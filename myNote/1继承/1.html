@@ -1,0 +1,15 @@
+<script>
+    function fatherFn(...args) {
+        this.fa = '父函数的属性'
+        this.params = args
+    }
+    fatherFn.prototype.fatherFnSome = '父函数原型上的属性或方法';
+    function sonFn() {
+        fatherFn.call(this,'接用构造继承');
+        this.son = '子函数的属性'
+    }
+    sonFn.prototype = new fatherFn('父函数','123')
+    sonFn.prototype.sonFnSome = '子函数原型上的属性或方法'
+    let obj = new sonFn()
+    console.log(obj);
+</script>

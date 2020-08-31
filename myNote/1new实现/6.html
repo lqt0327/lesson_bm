@@ -1,0 +1,18 @@
+<script>
+    function mynew() {
+        let obj = new Object()
+        Constructor = [].shift.call(arguments);
+        obj.__proto__ = Constructor.prototype
+        // let net = Constructor.apply(obj,arguments);
+        let net = 123
+        return typeof net === 'object' ? net : obj;
+    }
+    function Test(name,age) {
+        this.name=name;
+        this.age = age;
+        return 'asdf';
+    }
+    let t = mynew(Test,'tom',18);
+    console.log(t.name);
+    console.log(t);
+</script>
