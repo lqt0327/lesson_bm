@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <ul>
+        <li onclick="Route.push('/')">首页</li>
+        <li onclick="Route.push('/new')">新闻</li>
+        <li onclick="Route.push('/detail')">详情</li>
+    </ul>
+    <div id="app"></div>
+    <script>
+        let app = document.getElementById('app')
+        function Router() {
+            this.curUrl = ''
+            this.routes = {}
+            this.eventHashRoute()
+        }
+
+        Router.prototype.route = function(url, callback) {
+            this.routes[url] = callback || function() {}
+        }
+
+        Router.prototype.eventHashRoute = function() {
+            window.addEventListener('load',this.hashRoute.bind(this));
+            window.addEventListener('hashchange', this.hashRoute.bind(this))
+        }
+
+        Router.prototype.hashRoute = function(url) {
+            this.curUrl = window.location.hash.slice(1) || '/'
+            this.routes[this.curUrl]()
+        }
+
+        Router.prototype.push = function(url) {
+            url = '#' + url;
+            window.location.href = url;
+        }
+
+        Router.prototype.replace = function(url) {
+            url = '#' + url;
+            window.location.replace(url);
+        }
+
+        let Route = new Router()
+        Route.route('/',()=>{
+            app.innerHTML = '首页'
+        })
+        Route.route('/new',()=>{
+            app.innerHTML = '新闻'
+        })
+        Route.route('/detail',()=>{
+            app.innerHTML = '详情'
+        })
+    </script>
+</body>
+</html>

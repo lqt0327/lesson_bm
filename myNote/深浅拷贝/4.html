@@ -1,0 +1,25 @@
+<script>
+    function deepClone(obj) {
+        const target = obj instanceof Array ? [] : {}
+        for(let k in obj) {
+            if(obj.hasOwnProperty(k)) {
+                if(obj[k] && typeof obj[k] === 'object') {
+                    target[k] = Array.isArray(obj[k]) ? [] : {}
+                    target[k] = deepClone(obj[k])
+                }else{
+                    target[k] = obj[k]
+                }
+            }
+        }
+        return target;
+    }
+    let obj = {
+        v:1,
+        fn:()=>{
+            console.log('hello')
+        }
+    }
+    let obj2 = deepClone(obj);
+    obj.v = 2
+    console.log(obj2,obj)
+</script>

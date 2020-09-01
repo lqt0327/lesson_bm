@@ -1,0 +1,25 @@
+<script>
+    Function.prototype.call = function(context,...args) {
+        context.fn = this
+        context.fn(...args)
+        delete context.fn;
+    }
+    var foo = {
+        v : 1
+    }
+    function test(a,b) {
+        this.a = a
+        this.b = b
+        console.log(this.v,this.a,this.b)
+    }
+    test.call(foo,'a','b');
+</script>
+
+<script>
+    Function.prototype.bind = function(context) {
+        let _this = this;
+        return function() {
+            return _this.apply(context)
+        } 
+    }
+</script>
