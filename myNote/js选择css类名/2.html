@@ -1,0 +1,21 @@
+<style>
+    .block {
+        width: 100px;
+        height: 100px;
+    }
+</style>
+<div class="wrap">
+    <div class="block"></div>
+    <div class="block"></div>
+    <div class="block"></div>
+    <img src="https://one.luoqintai.cn/uploads/html/20200902200912.png" width="500">
+</div>
+<script>
+    var block=document.querySelectorAll(".block");
+    var wrap=document.getElementsByClassName("wrap")[0];
+    block[1].className="b"
+    for(var i=0;i<block.length;i++){
+        block[i].style.backgroundColor="red";
+
+    }
+</script>
