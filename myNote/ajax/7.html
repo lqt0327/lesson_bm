@@ -2,23 +2,23 @@
     function ajax({url,method,timeout}) {
         return new Promise((resolve,reject)=>{
             let xhr = new XMLHttpRequest()
+            xhr.responseType = 'json'
             xhr.open(method,url,true)
-            xhr.responseType = 'json';
-            xhr.timeout = timeout;
+            xhr.timeout = timeout
             xhr.ontimeout = ()=>{
                 reject('error')
             }
             xhr.send()
-            xhr.onreadystatechange = () => {
+            xhr.onreadystatechange = () =>{
                 if(xhr.readyState === 4) {
                     if((xhr.status >= 200 && xhr.status < 300) || xhr.status === 304) {
                         resolve(xhr.response)
-                    }else{
-                        reject('error')
                     }
+                }else{
+                    reject('error')
                 }
             }
-        }) 
+        })
     }
     new ajax({
         url:'https://one.luoqintai.cn/api/index/article',

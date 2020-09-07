@@ -1,10 +1,10 @@
 <script>
     function debounce(fn, delay) {
         let time = null;
-        return function() {
+        return function () {
             let _this = this;
             let args = arguments;
-            if(now - time > delay) {
+            if(time) {
                 clearTimeout(time)
             }
             time = setTimeout(()=>{

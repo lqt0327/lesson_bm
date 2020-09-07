@@ -8,11 +8,11 @@
     function throttle(fn,delay) {
         let last = 0;
         return function() {
-            let now = +new Date();
+            let now = Date.now()
             let _this = this;
             let args = arguments;
-            if(now - last > delay) {
-                fn.apply(_this,args);
+            if(now - last >= delay) {
+                fn.apply(_this,args)
                 last = now;
             }
         }
