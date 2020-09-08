@@ -1,0 +1,31 @@
+<script>
+    function test(arr) {
+        let map = new Map();
+        for(let i = 0; i < arr.length; i++) {
+            if(map.has(arr[i])) {
+                map.set(arr[i],map.get(arr[i])+1)
+            }else{
+                map.set(arr[i],1)
+            }
+        }
+        let min = Infinity
+        for(let [i,v] of map) {
+            if(min > v) {
+                min = v;
+            }
+        }
+        let str = "";
+        for(let [i,v] of map) {
+            if(v === min) {
+                map.delete(i)
+            }else{
+                while(v--) {
+                    str+=i
+                }
+            }
+        }
+        return str
+    }
+    let str = "aabbcef"
+    console.log(test(str));
+</script>

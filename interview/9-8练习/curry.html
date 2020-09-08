@@ -1,0 +1,26 @@
+<script>
+    function sum(a, b, c) {
+      console.log(this, a + b + c)
+    }
+    Function.prototype
+    .mybind = function(THIS, ...arg1) {
+      let fn = this;
+      return function(...arg2) {
+        let args = arg1.concat(arg2);
+        // 谁 bind 调用谁 ？
+        return fn.apply(THIS, args);   // obj.XXX
+      }
+    }
+    // sum Function
+    let sum10 = sum.mybind(null, 10);
+    sum10(20, 30);
+    // let sumCurry = curry(sum)
+    // sumCurry(1)(2)(3)
+    // sumCurry(1,2)(3)
+    // sumCurry(1)(2,3)
+    // sumCurry(1,2,3)
+  
+  
+  
+  </script>
+  

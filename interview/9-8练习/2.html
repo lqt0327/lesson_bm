@@ -1,0 +1,16 @@
+<script>
+    // 将奇数偶数隔离，奇数递增，偶数递减 eg:[1,3,7,9,8,6,2]
+    function test(arr) {
+        let l = []
+        let r = []
+        arr.filter((v,i)=>{
+            if(v%2!==0) {
+                l.push(v)
+            }else{
+                r.push(v)
+            }
+        })
+        return l.concat(r)
+    }
+    console.log(test([1,3,7,9,8,6,2]))
+</script>
