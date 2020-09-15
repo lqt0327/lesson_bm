@@ -1,0 +1,11 @@
+<script>
+// 写一个下划线转化为驼峰命名的方法。
+// 测试数据：'get_element_by_id' 转换为 'getElementById'
+function test(str) {
+    return str.replace(/\_(\w)/g,function(all,letter,...args){
+        console.log(all,letter,args)
+        return letter.toUpperCase();
+    })
+}
+console.log(test('get_element_by_id'))
+</script>

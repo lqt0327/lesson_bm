@@ -1,0 +1,23 @@
+<body>
+
+</body>
+
+<script>
+    let body = document.querySelector('body');
+    // console.log(body)
+    body.innerHTML = "hello"
+    let step = 40;
+    let all = 1000;
+    let tmp = document.createElement('div');
+    let j = 0
+    function walk(count) {
+        if(count <= 0) return
+        for(let i = 0; i < (step > count ? count : step); i++) {
+            body.innerHTML += `<div>${j++}</div>`;
+        }
+        setTimeout(()=>{
+            walk(count - step)
+        },16)
+    }
+    walk(all);
+</script>
