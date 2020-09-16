@@ -1,0 +1,23 @@
+<script>
+    // 实现const a = add(1)(2)(3) console.log(a.get())//6;
+    function add(a) {
+        var sum = a;
+        var tmp = function (y) {
+            sum = sum + y
+            return tmp;
+        }
+        tmp.toString = function() {
+            return sum;
+        }
+        return tmp;
+    }
+    const a = add(1)(2)(3)
+    
+    a.__proto__.get = function () {
+        return this;
+    }
+    // console.log([a])
+    console.log(a.get())
+
+    // https://blog.csdn.net/qq_38290251/article/details/88064552
+</script>

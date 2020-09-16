@@ -1,0 +1,10 @@
+<script>
+    // 实现console.log((10).add(10).minus(2)) //18
+    Number.prototype.add = function(val) {
+        return parseInt(this) + val;
+    }
+    Number.prototype.minus = function(val) {
+        return parseInt(this) - val;
+    }
+    console.log((10).add(10).minus(2))
+</script>

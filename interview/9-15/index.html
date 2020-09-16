@@ -1,0 +1,29 @@
+<script>
+// 完成以下功能：任意打开一个网页如新浪或者百度，写一段js代码找到网页中所有以h或者H开头的元素，并打印每种元素的个数，如网页中含有head, hr 和 h2 元素，那么打印出类似如下的结果：
+// {
+// hr: 3,
+// h2: 2,
+// head: 1
+// }
+function find(node, map = {}) {
+    let tagName = node.nodeName;
+    let first = tagName.slice(0,1)
+    if(first === 'H' || first === 'h') {
+        if(map[tagName]) {
+            map[tagName]++
+        }else {
+            map[tagName] = 1
+        }
+    }
+    let children = node.childNodes;
+    if(children) {
+        for(let i = 0; i < children.length; i++) {
+            find(children[i],map)
+        }
+    }
+    return map;
+}
+console.log(find(document));
+
+// https://segmentfault.com/q/1010000023925297
+</script>
