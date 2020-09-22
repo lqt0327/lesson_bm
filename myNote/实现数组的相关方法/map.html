@@ -1,0 +1,29 @@
+<script>
+    // 循环实现
+    const selfMap = function(fn,context) {
+        // 对原数组做拷贝
+        let arr = Array.prototype.slice.call(this)
+        // console.log(arr)  // [1,2,3]
+        let mappedArr = new Array()
+        for(let i = 0; i < arr.length; i++) {
+            // 判断稀疏数组的情况
+            if(!arr.hasOwnProperty(i)) continue
+            mappedArr[i] = fn.call(context,arr[i],i,this)
+        }
+        return mappedArr
+    }
+    Array.prototype.selfMap = selfMap
+    console.log([1,2,3].selfMap(num=>num*2))
+
+
+    // reduce 实现
+    const selfMap2 = function(fn, context) {
+        let arr = Array.prototype.slice.call(this)
+        console.log(this);
+        return arr.reduce((pre,cur,index) => {
+            return [...pre, fn.call(context, cur, index, this)]
+        }, [])
+    }
+    Array.prototype.selfMap2 = selfMap2
+    console.log([1,2,3].selfMap2(num=>num*2))
+</script>

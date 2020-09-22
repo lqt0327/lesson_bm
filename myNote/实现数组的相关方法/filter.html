@@ -1,0 +1,14 @@
+<script>
+    const selfFilter = function(fn, context) {
+        let arr = Array.prototype.slice.call(this)
+        console.log(arr)
+        let filterArr = []
+        for(let i = 0; i < arr.length; i++) {
+            if(!arr.hasOwnProperty(i)) continue
+            fn.call(context,arr[i],i,this) && filterArr.push(arr[i])
+        }
+        return filterArr
+    }
+    Array.prototype.selfFilter = selfFilter
+    console.log([0,2,3].selfFilter(word => word > 2))
+</script>
