@@ -2,11 +2,11 @@
     function deepclone(obj) {
         const target = obj instanceof Array ? [] : {}
         for(let k in obj) {
-            if(obj.hasOwnProperty(k)) {
+            if(obj.hasOwnProperty(k)){
                 if(obj[k] && typeof obj[k] === 'object') {
                     target[k] = Array.isArray(obj[k]) ? [] : {}
                     target[k] = deepclone(obj[k])
-                }else{
+                }else {
                     target[k] = obj[k]
                 }
             }

@@ -1,0 +1,20 @@
+<script>
+    function father(...args) {
+        this.some = '父类的this属性'
+        this.params = args
+    }
+    father.prototype.fatherFn = '父类原型上的方法'
+    function son() {
+        father.call(this,'借用构造继承')
+        this.obkorol = '子类的this属性'
+    }
+    function inheritPrototype(son, father) {
+        const fatherFnPrototype = Object.create(father.prototype)
+        son.prototype = fatherFnPrototype
+        son.prototype.constructor = son
+    }
+    inheritPrototype(son,father)
+    son.prototype.sonFn = '子类的原型上的方法'
+    const sonFnInstance = new son()
+    console.log('寄生组合式继承子类实例', sonFnInstance);
+</script>

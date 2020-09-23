@@ -159,3 +159,6 @@
 **保持constructor指向的一致性：**
 
 因此每次重写函数的prototype都应该修正一下constructor的指向，以保持读取constructor行为的一致性。
+
+## 参考
+> https://blog.csdn.net/OBKoro1/article/details/101116725

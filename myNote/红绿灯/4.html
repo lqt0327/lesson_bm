@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        ul {
+            list-style: none;
+        }
+        li {
+            margin-top: 50px;
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            background-color: #efefef;
+        }
+        ul.stop li:nth-child(1) {
+            background-color: red;
+        }
+        ul.warn li:nth-child(2) {
+            background-color: yellow;
+        }
+        ul.pass li:nth-child(3) {
+            background-color: green;
+        }
+    </style>
+</head>
+<body>
+    <ul>
+        <li></li>
+        <li></li>
+        <li></li>
+    </ul>
+    <script>
+        let ul = document.querySelector('ul')
+        function sleep() {
+            return new Promise((resolve,reject)=>{
+                setTimeout(()=>{
+                    resolve()
+                },1000)
+            })
+        }
+        async function test() {
+           ul.className = 'stop'
+            await sleep()
+            ul.className = 'warn'
+            await sleep()
+            ul.className = 'pass' 
+        }
+        test()
+    </script>
+</body>
+</html>

@@ -1,0 +1,37 @@
+<script>
+    function getNewArr2(arr) {
+        while(arr.some(item=>Array.isArray(item))){
+            console.log(arr)
+            arr = [].concat(...arr)
+        }
+        return arr
+    }
+
+    function getNewArr(arr) {
+        let newarr = []
+        for(let i = 0; i < arr.length; i++) {
+            if(arr[i] instanceof Array) {
+                newarr = newarr.concat(getNewArr(arr[i]))
+            }else{
+                newarr.push(arr[i]);
+            }
+        }
+        return newarr
+    }
+
+    function getNewArr3(arr) {
+        let newArr = []
+        for(let i = 0; i < arr.length; i++) {
+            if(Array.isArray(arr[i])) {
+                newArr = newArr.concat(getNewArr3(arr[i]))
+            }else{
+                newArr.push(arr[i])
+            }
+        }
+        return newArr;
+    }
+
+
+    let arr = [1,2,3,[4,5,6,[7,8]],9]
+    console.log(getNewArr(arr))
+</script>

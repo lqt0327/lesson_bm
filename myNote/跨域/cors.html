@@ -7,6 +7,7 @@
     // 1 -> 预检preflight, 试探一下我们跨域能不能通过   2 -> POST /api
     axios({
         withCredentials:true,
+        // request.getHeader(“x-requested-with”); 为 null，则为传统同步请求，为 XMLHttpRequest，则为 Ajax 异步请求
         headers: {'X-Requested-With': 'XMLHttpRequest'},
         url:'http://localhost:9090/api',
         method:'POST',
