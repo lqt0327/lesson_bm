@@ -1,0 +1,29 @@
+<script>
+    function foo(res) {
+        console.log(res)
+    }
+</script>
+<!-- <script src="/api?a=1&b=2&callback=foo"></script> -->
+
+<script>
+    function jsonp({url,data,timeout}) {
+        return new Promise((resolve,reject)=>{
+            let methodName = `jsonpCallback${Date.now()}`
+            window[methodName] = function(res) {
+                resolve(res)
+                delete window[methodName];
+                clearTimeout(timer)
+            }
+            const scriptNode = document.createElement('script');
+            scriptNode.src = url + '?callback=' + methodName;
+            document.body.appendChild(scriptNode);
+            var timer = setTimeout(()=>{
+                reject('超时')
+            },timeout)
+        })
+    }
+    jsonp({url:'/api', data:{}, timeout: 3000})
+    .then(res=>{
+        console.log(res)
+    })
+</script>
