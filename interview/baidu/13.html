@@ -1,0 +1,76 @@
+<!-- <script>
+    function father() {
+        this.fparam = '父元素的属性'
+    }
+    father.prototype.fatherFn = '父元素的原型'
+    function son() {
+        this.param = '子元素的属性'
+    }
+    son.prototype = new father()
+    son.prototype.sonFn = '子元素的原型'
+    let sons = new son()
+    console.log(sons)
+</script> -->
+
+<!-- <script>
+    function father(...arr) {
+        this.f = 'father'
+        this.fparam = arr
+    }
+    father.prototype.fatherFn = '父元素的原型'
+    function son(fa,...params) {
+        this.param = params
+        father.call(this,...fa)
+    }
+    son.prototype.sonFn = '子元素的原型'
+    let arr = [1,2,3]
+    let sons = new son(['父元素的属性1','父元素的属性2'],arr)
+    console.log(sons)
+</script> -->
+
+<!-- <script>
+    function father(...arr) {
+        this.fp = arr
+    }
+    father.prototype.fatherFn = '父元素的原型'
+    function son(fa,...arr) {
+        father.call(this,...fa);
+        this.sp = arr;
+    }
+    son.prototype = new father(['父类1','父类2'])
+    son.prototype.sonFn = '子类的原型'
+    let sons = new son(['父类1','父类2'],[1,2,3])
+    console.log(sons)
+</script> -->
+
+<!-- <script>
+    function father() {
+        this.fp = '父类的属性'
+    }
+    father.prototype.fatherFn = '父类的原型'
+    function son() {
+        this.sp = '子类的属性'
+    }
+    let test = {a:1}
+    son.prototype = Object.create(test)
+    son.prototype.sonFn = '子类的原型'
+    let sons = new son()
+    console.log(sons)
+</script> -->
+
+<script>
+    function cloneObj(obj) {
+        let tmp = function() {}
+        tmp.prototype = obj
+        return new tmp;
+    }
+    function son() {
+        this.sp = '子类的属性'
+    }
+    let fa = { a: 1 } 
+    son.prototype = cloneObj(fa)
+    son.prototype.sonFn = '子类的原型'
+    let sons = new son()
+    console.log(sons);
+</script>
+

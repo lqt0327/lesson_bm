@@ -1,0 +1,22 @@
+<script>
+    // 写一个方法，获取参数的数据类型
+    function isType(type) {
+        return function(target) {
+            return `[object ${type}]` === Object.prototype.toString.call(target)
+        }
+    }
+    const isArray = isType('Array')
+    console.log(isArray([]))
+
+    function isType2(target) {
+        if(typeof target === 'object') {
+            return Array.isArray(target) ? 'Array' : 'object';
+        }else {
+            return typeof target;
+        }
+    }
+    console.log(isType2([1,23]))
+    console.log(isType2({'a': 1,fn:console.log}))
+    console.log(isType2(123))
+    console.log(isType2(console.log))
+</script>
