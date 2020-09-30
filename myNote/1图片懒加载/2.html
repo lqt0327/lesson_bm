@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <ul>
+        <li><img src="./imgs/default.png" data="./imgs/1.png" alt=""></li>
+        <li><img src="./imgs/default.png" data="./imgs/2.png" alt=""></li>
+        <li><img src="./imgs/default.png" data="./imgs/3.png" alt=""></li>
+        <li><img src="./imgs/default.png" data="./imgs/4.png" alt=""></li>
+        <li><img src="./imgs/default.png" data="./imgs/5.png" alt=""></li>
+        <li><img src="./imgs/default.png" data="./imgs/6.png" alt=""></li>
+        <li><img src="./imgs/default.png" data="./imgs/7.png" alt=""></li>
+        <li><img src="./imgs/default.png" data="./imgs/8.png" alt=""></li>
+        <li><img src="./imgs/default.png" data="./imgs/9.png" alt=""></li>
+        <li><img src="./imgs/default.png" data="./imgs/10.png" alt=""></li>
+        <li><img src="./imgs/default.png" data="./imgs/11.png" alt=""></li>
+        <li><img src="./imgs/default.png" data="./imgs/12.png" alt=""></li>
+        <li><img src="./imgs/default.png" data="./imgs/13.png" alt=""></li>
+        <li><img src="./imgs/default.png" data="./imgs/14.png" alt=""></li>
+        <li><img src="./imgs/default.png" data="./imgs/15.png" alt=""></li>
+        <li><img src="./imgs/default.png" data="./imgs/16.png" alt=""></li>
+        <li><img src="./imgs/default.png" data="./imgs/1.png" alt=""></li>
+        <li><img src="./imgs/default.png" data="./imgs/2.png" alt=""></li>
+        <li><img src="./imgs/default.png" data="./imgs/3.png" alt=""></li>
+        <li><img src="./imgs/default.png" data="./imgs/4.png" alt=""></li>
+        <li><img src="./imgs/default.png" data="./imgs/5.png" alt=""></li>
+        <li><img src="./imgs/default.png" data="./imgs/6.png" alt=""></li>
+        <li><img src="./imgs/default.png" data="./imgs/7.png" alt=""></li>
+        <li><img src="./imgs/default.png" data="./imgs/8.png" alt=""></li>
+        <li><img src="./imgs/default.png" data="./imgs/9.png" alt=""></li>
+        <li><img src="./imgs/default.png" data="./imgs/10.png" alt=""></li>
+        <li><img src="./imgs/default.png" data="./imgs/11.png" alt=""></li>
+        <li><img src="./imgs/default.png" data="./imgs/12.png" alt=""></li>
+        <li><img src="./imgs/default.png" data="./imgs/13.png" alt=""></li>
+        <li><img src="./imgs/default.png" data="./imgs/14.png" alt=""></li>
+        <li><img src="./imgs/default.png" data="./imgs/15.png" alt=""></li>
+        <li><img src="./imgs/default.png" data="./imgs/16.png" alt=""></li>
+    </ul>
+    <script>
+        let imgs = document.querySelectorAll('img')
+        let clientHeight = window.innerHeight || document.documentElement.clientHeight || document.body.clientHeight
+        function lazyload() {
+            let scrollTop = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop
+            for(let i = 0; i < imgs.length; i++) {
+                let x = clientHeight + scrollTop - imgs[i].offsetTop
+                if(x > 0 && x < (clientHeight + imgs[i].height)) {
+                    imgs[i].src = imgs[i].getAttribute('data')
+                }
+            }
+        }
+        document.addEventListener('scroll',lazyload)
+    </script>
+</body>
+</html>
