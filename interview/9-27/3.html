@@ -1,0 +1,31 @@
+<script>
+    function promsieall(promises, limit, count) {
+      return new Promise(function (resolve, reject) {
+        let res = [];
+        for (let i = 0; i < limit; i++) {
+          (function (i) {
+            Promise.resolve(promises[i]).then(
+              function (value) {
+                count++;
+                res[i] = value;
+                if (count === promises.length) {
+                  return resolve(res);
+                }
+                return promsieall(promises.slice(0,limit),limit,count)
+              },
+              function (reason) {
+                return reject(reason);
+              }
+            );
+          })(i);
+        }
+      });
+    }
+    var p1 = Promise.resolve(1),
+      p2 = Promise.resolve(2),
+      p3 = Promise.resolve(3);
+
+      promsieall([p1, p2, p3],3, 0).then(function (value) {
+      console.log(value);
+    });
+  </script>
