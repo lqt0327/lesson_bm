@@ -16,8 +16,9 @@ class HomeController extends Controller {
         //   获取url ？ 后的参数
         let page = this.ctx.query.page ? this.ctx.query.page : 1;
         const limit = 10;
-        const data = await this.ctx.service.default.article(page, limit)
+        const data = await this.ctx.service.default.article(page, limit);
         this.ctx.body = data;
+        this.ctx.set('Cache-Control','max-age=10');
     }
 }
 
