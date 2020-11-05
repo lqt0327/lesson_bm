@@ -6,10 +6,10 @@ import { UsersModule } from './users/users.module';
   imports: [
     TypeOrmModule.forRoot({
       type: 'mysql',
-      host: '',
+      host: '120.79.55.21',
       port: 3306,
-      username: '',
-      password: '',
+      username: 'root',
+      password: 'lqt03271315',
       database: 'mytest',
       autoLoadEntities: true,
       synchronize: true,
