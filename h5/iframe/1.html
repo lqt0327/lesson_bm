@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body {
+            height: 100vh;
+            width: 100vw;
+        }
+        iframe {
+            overflow:hidden
+
+        }
+    </style>
+</head>
+
+<body>
+    <iframe id="inlineFrameLing" ref='ii' title="Inline Frame Ling" scrolling="no" width="80%" height="50%"
+        src="http://127.0.0.1:5500/h5/iframe/2.html">
+
+    </iframe>
+    <script>
+        let ling = document.getElementById('inlineFrameLing').contentWindow;
+        console.log(document.getElementById('inlineFrameLing'),'++++')
+        console.log([ling.document.querySelectorAll('h1')],'------')
+        ling.document.querySelectorAll('h1').style = 'color:red'
+        // ling.document.body.smoothScrollTo(200,500)
+        console.log([ling.document],'+++++')
+        document.getElementById('inlineFrameLing').onload = () =>{
+            console.log([ling.document.body],'------')
+            ling.document.querySelectorAll('h1').forEach(item => {
+                item.style = 'color:red'
+            })
+            // 解决scrollTop不生效
+            document.getElementById('inlineFrameLing').contentWindow.document.documentElement.scrollTop=400;
+        }
+    </script>
+</body>
+
+</html>
