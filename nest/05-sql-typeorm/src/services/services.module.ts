@@ -2,9 +2,11 @@ import { from } from "rxjs";
 import { Module } from '@nestjs/common'
 import { EntityModule } from '@src/entities/entities.module'
 import { UsersService } from './users/users.service'
+import { LinkService } from './links/links.service'
 
 const serviceList = [
-    UsersService
+    UsersService,
+    LinkService
 ]
 
 @Module({
