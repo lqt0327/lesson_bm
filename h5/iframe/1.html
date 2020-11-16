@@ -11,8 +11,8 @@
             width: 100vw;
         }
         iframe {
-            overflow:hidden
-
+            overflow:hidden;
+            /* width:100%;height:100%;padding:0;margin:0 */
         }
     </style>
 </head>
@@ -30,12 +30,13 @@
         // ling.document.body.smoothScrollTo(200,500)
         console.log([ling.document],'+++++')
         document.getElementById('inlineFrameLing').onload = () =>{
-            console.log([ling.document.body],'------')
+            console.log([document.getElementById('inlineFrameLing').contentWindow.document],'------')
             ling.document.querySelectorAll('h1').forEach(item => {
                 item.style = 'color:red'
             })
             // 解决scrollTop不生效
             document.getElementById('inlineFrameLing').contentWindow.document.documentElement.scrollTop=400;
+            document.getElementById('inlineFrameLing').contentWindow.document.body.style = 'width:90%'
         }
     </script>
 </body>
