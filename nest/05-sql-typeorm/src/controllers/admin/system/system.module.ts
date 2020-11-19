@@ -3,6 +3,8 @@ import { ServicesModule } from '@src/services/services.module';
 import { UsersController } from './users/users.controller'
 import { LinksController} from './links/links.controller'
 import { LoginController } from './login/login.controller'
+import { CommentsController } from './comments/comments.controller'
+import { ReplyController } from './reply/reply.controller'
 
 @Module({
   imports: [
@@ -11,7 +13,9 @@ import { LoginController } from './login/login.controller'
   controllers: [
     UsersController,
     LinksController,
-    LoginController
+    LoginController,
+    CommentsController,
+    ReplyController
   ],
 })
 export class SystemModule { }

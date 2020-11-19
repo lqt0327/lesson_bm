@@ -1,4 +1,4 @@
-import { Body, Controller, Delete, Get, Param, Post, Header } from '@nestjs/common';
+import { Body, Controller, Get, Param, Post } from '@nestjs/common';
 import { CreateLinkDto } from './dto/create-links.dto';
 import { LinkEntity } from '@src/entities/model/system/link.entity';
 import { LinkService } from '@src/services/links/links.service';
@@ -23,9 +23,4 @@ export class LinksController {
   findOne(@Param('id') id: string): Promise<LinkEntity> {
     return this.linksService.findOne(id);
   }
-
-  // @Delete(':id')
-  // remove(@Param('id') id: string): Promise<void> {
-  //   return this.usersService.remove(id);
-  // }
 }

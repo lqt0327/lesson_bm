@@ -2,10 +2,16 @@ import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { UserEntity } from './model/system/user.entity';
 import { LinkEntity } from './model/system/link.entity';
+import { CommentsEntity } from './model/system/comments.entity';
+import { ReplyEntity } from './model/system/reply.entity';
+import { ArticleEntity } from './model/system/article.entity'
 
 const entityList = [
     UserEntity,
-    LinkEntity
+    LinkEntity,
+    CommentsEntity,
+    ReplyEntity,
+    ArticleEntity
 ]
 
 @Module({
