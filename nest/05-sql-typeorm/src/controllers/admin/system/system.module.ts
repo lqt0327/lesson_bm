@@ -5,6 +5,8 @@ import { LinksController} from './links/links.controller'
 import { LoginController } from './login/login.controller'
 import { CommentsController } from './comments/comments.controller'
 import { ReplyController } from './reply/reply.controller'
+import { ArticleController } from './article/article.controller'
+import { CateController } from './cate/cate.controller'
 
 @Module({
   imports: [
@@ -15,7 +17,9 @@ import { ReplyController } from './reply/reply.controller'
     LinksController,
     LoginController,
     CommentsController,
-    ReplyController
+    ReplyController,
+    ArticleController,
+    CateController
   ],
 })
 export class SystemModule { }

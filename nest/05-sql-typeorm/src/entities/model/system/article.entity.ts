@@ -46,4 +46,12 @@ export class ArticleEntity {
       comment: '时间'
   })
   time: number;
+
+  @Column('mediumint',{
+    nullable:true,
+    default:()=>1,
+    name:'cateid',
+    comment: '文章类别'
+  })
+  cateid: number;
 }

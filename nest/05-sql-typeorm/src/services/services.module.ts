@@ -6,6 +6,8 @@ import { LinkService } from './links/links.service'
 import { LoginService } from './login/login.service'
 import { CommentsService } from './comments/comments.service'
 import { ReplyService } from './reply/reply.service'
+import { ArticleService } from './article/article.service'
+import { CateService } from './cate/cate.service'
 
 const serviceList = [
     UsersService,
@@ -13,7 +15,9 @@ const serviceList = [
     LoginService,
     ToolsService,
     CommentsService,
-    ReplyService
+    ReplyService,
+    ArticleService,
+    CateService
 ]
 
 @Module({
