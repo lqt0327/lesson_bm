@@ -19,6 +19,7 @@ export class ArticleEntity {
 
   @Column('varchar',{
     nullable:true,
+    default: () => '绫罗',
     length:30,
     name: 'author',
     comment: '作者'
