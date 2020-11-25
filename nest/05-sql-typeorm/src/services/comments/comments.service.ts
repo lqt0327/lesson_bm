@@ -20,14 +20,13 @@ export class CommentsService {
     comments.author = createCommentsDto.author;
     comments.content = createCommentsDto.content;
     comments.time = createCommentsDto.time;
-    comments.parent = createCommentsDto.parent;
 
     return this.commentsRepository.save(comments);
   }
 
-  async findAll(): Promise<CommentsEntity[]> {
+  async findAll(id: string): Promise<CommentsEntity[]> {
     let res = [];
-    let obj = await this.commentsRepository.find({where:{parent: 0}})
+    let obj = await this.commentsRepository.find({where:{post_id: id}})
     for(let v of obj) {
         let tmp = await this.replyRepository.createQueryBuilder('tp_reply')
             .where('parent=' + v.id)

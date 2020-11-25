@@ -3,5 +3,4 @@ export class CreateCommentsDto {
     readonly author: string;
     readonly time: number;
     readonly content: string;
-    readonly parent: number;
 }

@@ -37,11 +37,4 @@ export class CommentsEntity {
       comment: '评论内容'
   })
   content: string;
-
-  @Column('mediumint',{
-      nullable: false,
-      name: 'parent',
-      comment: '父级id'
-  })
-  parent: number;
 }
