@@ -24,16 +24,27 @@ export class ArticleService {
     return this.articleRepository.save(article);
   }
 
-  async articleList(queryOption: ObjectType): Promise<ArticleEntity[]> {
+  async articleList(queryOption: ObjectType): Promise<any> {
     const {page=1,pageSize=10} = queryOption
-    return this.articleRepository.find({
+
+    let arr = await this.articleRepository.find();
+    console.log();
+    let res = await this.articleRepository.find({
       order:{time:"DESC"},
       skip:(page-1)*pageSize,
       take:pageSize
-    });
+    })
+    console.log(res.length)
+    let tmp = {
+      "current_page":page,
+      "last_page": Math.ceil(arr.length/pageSize),
+      "total": arr.length,
+      "per_page": pageSize
+    }
+    return Object.assign({"data":res},tmp)
   }
 
-  async updateById(id: string, data: UpdateArticleDto): Promise<any> {
+  async updateById(id: string, data: UpdateArticleDto): Promise<void> {
     try{
       const { title, content, cateid } = data;
       const time = Date.now() / 1000 | 0;
@@ -54,6 +65,6 @@ export class ArticleService {
   }
 
   async remove(id: string): Promise<void> {
-    await this.articleRepository.delete(id);
+      await this.articleRepository.delete(id);
   }
 }
