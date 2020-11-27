@@ -1,14 +1,17 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Repository } from 'typeorm';
+import { getConnection, Repository } from 'typeorm';
 import { CreateCateDto } from '@src/controllers/admin/system/cate/dto/create-cate.dto';
 import { CateEntity } from '@src/entities/model/system/cate.entity';
+import { ArticleEntity } from '@src/entities/model/system/article.entity'
 
 @Injectable()
 export class CateService {
   constructor(
     @InjectRepository(CateEntity)
-    private readonly cateRepository: Repository<CateEntity>
+    private readonly cateRepository: Repository<CateEntity>,
+    @InjectRepository(ArticleEntity)
+    private readonly articleRepository: Repository<ArticleEntity>
   ) {}
 
   create(createCateDto: CreateCateDto): Promise<CateEntity> {
@@ -19,11 +22,17 @@ export class CateService {
   }
 
   async findAll(): Promise<CateEntity[]> {
-    return this.cateRepository.find();
+    return await this.cateRepository.find();
   }
 
-  findOne(id: string): Promise<CateEntity> {
-    return this.cateRepository.findOne(id);
+  // 有问题lqtlqt
+  async cateList(id: string): Promise<any> {
+    console.log(id)
+    const cateList = await getConnection().createQueryBuilder(CateEntity,'cates')
+      .innerJoinAndSelect(ArticleEntity, 'articles', 'articles.cateid=cates.id')
+      .where('articles.cateid=:cateid',{cateid:id})
+      .getMany()
+    return cateList;
   }
 
   async remove(id: string): Promise<void> {

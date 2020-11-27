@@ -28,13 +28,11 @@ export class ArticleService {
     const {page=1,pageSize=10} = queryOption
 
     let arr = await this.articleRepository.find();
-    console.log();
     let res = await this.articleRepository.find({
       order:{time:"DESC"},
       skip:(page-1)*pageSize,
       take:pageSize
     })
-    console.log(res.length)
     let tmp = {
       "current_page":page,
       "last_page": Math.ceil(arr.length/pageSize),
@@ -60,11 +58,18 @@ export class ArticleService {
     }
   }
 
-  findOne(id: string): Promise<ArticleEntity> {
-    return this.articleRepository.findOne(id);
+  async findOne(id: string): Promise<ArticleEntity> {
+    return await this.articleRepository.findOne(id);
   }
 
   async remove(id: string): Promise<void> {
       await this.articleRepository.delete(id);
+  }
+
+  async archive(): Promise<ArticleEntity[]> {
+    return await this.articleRepository.find({
+      select:["id","time","title"],
+      order:{time:"DESC"}
+    })
   }
 }

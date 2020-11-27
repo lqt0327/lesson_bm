@@ -20,7 +20,7 @@ export class CateController {
   }
 
   @Get(':id')
-  findOne(@Param('id') id: string): Promise<CateEntity> {
-    return this.CateService.findOne(id);
+  cateList(@Param('id') id: string): Promise<CateEntity> {
+    return this.CateService.cateList(id);
   }
 }

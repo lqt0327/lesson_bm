@@ -1,4 +1,4 @@
-import { Body, Controller, Delete, Get, HttpCode, HttpStatus, Param, ParseIntPipe, Patch, Post, Query } from '@nestjs/common';
+import { Body, CacheInterceptor, Controller, Delete, Get, HttpCode, HttpStatus, Param, ParseIntPipe, Patch, Post, Query, UseInterceptors } from '@nestjs/common';
 import { CreateArticleDto } from './dto/create-article.dto';
 import { ArticleEntity } from '@src/entities/model/system/article.entity';
 import { ArticleService } from '@src/services/article/article.service';
@@ -8,6 +8,7 @@ import { UpdateArticleDto } from './dto/update-article.dto';
 
 @ApiTags('文章')
 @Controller('article')
+@UseInterceptors(CacheInterceptor)
 export class ArticleController {
   constructor(private readonly articleService: ArticleService) {}
 
