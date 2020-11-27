@@ -25,13 +25,12 @@ export class CateService {
     return await this.cateRepository.find();
   }
 
-  // 有问题lqtlqt
   async cateList(id: string): Promise<any> {
-    console.log(id)
-    const cateList = await getConnection().createQueryBuilder(CateEntity,'cates')
-      .innerJoinAndSelect(ArticleEntity, 'articles', 'articles.cateid=cates.id')
-      .where('articles.cateid=:cateid',{cateid:id})
-      .getMany()
+    const cateList = await getConnection().createQueryBuilder(CateEntity,'c')
+      .innerJoin(ArticleEntity, 'a', 'a.cateid=c.id')
+      .select(['a.id','a.time','a.title','c.catename'])
+      .where('a.cateid=:id',{id})
+      .getRawMany()
     return cateList;
   }
 
