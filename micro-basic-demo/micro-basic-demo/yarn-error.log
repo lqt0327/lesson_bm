@@ -1,0 +1,42 @@
+Arguments: 
+  /Users/zhaomeng/.nvm/versions/node/v12.17.0/bin/node /Users/zhaomeng/npm/bin/yarn
+
+PATH: 
+  /Users/zhaomeng/.nvm/versions/node/v12.17.0/bin:/Users/zhaomeng/Downloads/mongodb/bin:/Users/zhaomeng/.autojump/bin:/Users/zhaomeng/.npm-global/bin:/Library/Frameworks/Python.framework/Versions/3.7/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/Users/zhaomeng/npm/bin:/usr/local/mysql/bin:/Users/zhaomeng/mysh
+
+Yarn version: 
+  1.13.0
+
+Node version: 
+  12.17.0
+
+Platform: 
+  darwin x64
+
+Trace: 
+  Error: ENOENT: no such file or directory, copyfile '/Users/zhaomeng/Library/Caches/Yarn/v4/npm-locate-path-5.0.0-1afba396afd676a6d42504d0a67a3a7eb9f62aa0/node_modules/locate-path/index.d.ts' -> '/Users/zhaomeng/Downloads/personal-project/blog/fe-structure/micro-fe/webpack-5/micro-basic-demo/node_modules/conventional-commits-parser/node_modules/locate-path/index.d.ts'
+
+npm manifest: 
+  {
+    "name": "micro-basic-demo",
+    "version": "1.0.0",
+    "main": "index.js",
+    "scripts": {
+      "client:init": "lerna init",
+      "build": "lerna run --parallel build",
+      "serve": "lerna run --parallel serve"
+    },
+    "keywords": [],
+    "author": "",
+    "license": "ISC",
+    "description": "",
+    "devDependencies": {
+      "lerna": "^3.20.2"
+    }
+  }
+
+yarn manifest: 
+  No manifest
+
+Lockfile: 
+  No lockfile
