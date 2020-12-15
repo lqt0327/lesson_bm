@@ -62,3 +62,5 @@ setTimeout(function() {
 ```
 setTimeout(MyObj.showName.bind(MyObj), 1000)
 ```
+
+> 参考：[浏览器工作原理与实践](https://time.geekbang.org/column/article/134456)

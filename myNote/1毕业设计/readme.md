@@ -1,44 +1,3 @@
-# 实习收获
-- 熟悉了业务开发流程
-- 了解了一些以前没接触过的插件
-    - Reselect https://www.npmjs.com/package/reselect
-    - storybook
-    - redux-saga
-    - js-yaml
-    - classnames
-    - 使用 react-loadable 分割组件 https://www.npmjs.com/package/react-loadable **优化性能，提升加载速度**
-    - react-lazyload
-- 对于代码的追踪能力
-- 对于组件的抽离，功能函数的封装
-- 对于react类组件更加熟悉了
-    - componentWillReceiveProps
-
-## 实习业务
-- 吸底导航支持配置背景图
-- 多tab新增好货
-- 抢购商品模版样式升级
-- 互动合作项目
-- 广告+商品增加划线价
-- 自定义商品增加关联效验
-
-## 自学
-- nestjs的学习
-- umi和dva的了解
-
-## 待定
-- webpack5
-- react17
-- lodash
-- js基础能力的加强
-
-
-## 项目
-- cross-env
-    - 解决 windows不支持NODE_ENV=development的设置方式
-    - https://segmentfault.com/a/1190000005811347
-    - https://www.npmjs.com/package/cross-env
-
-
 # 开发规范
 
 ## 技术要求
@@ -83,3 +42,26 @@ src
     ├── app.js
     └── index.js
 ```
+
+## 大概需求
+- 定向推荐
+    - 选择标签
+- 模块库设计 适用人群
+    - 暂定为企业网站，只支持浏览器
+- 用户个人信息页面
+    - 在线预览
+    - 自己组件的网页
+    - 代码的下载
+- 支持用户上传自定义模版
+- 支持用户分享已搭建好的网页
+
+参考网站：
+- https://www.zcool.com.cn/
+
+## 设计
+- webpack自定义设计
+- 后端采用nestjs
+- 数据库 表
+    - 标签
+    - 用户信息
+    - 登陆和注册
