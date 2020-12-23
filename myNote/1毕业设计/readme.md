@@ -17,30 +17,24 @@
 
 ```
 src
-├── client
-│   ├── components
-│   │   ├── Shared ----组件库
-│   │   ├── Feature
-│   │   ├── Page ----页面
-│   │   └── Scene ----应用场景
-│   ├── reducers
-│   ├── sagas
-│   ├── selectors
-│   ├── services ----接口方法
-│   ├── constants ----常量
-│   ├── utils ----工具方法
-│   ├── styles ----全局样式
-│   │   ├── mixins.styl
-│   │   └── variables.styl
-│   ├── routes ----应用路由
-│   ├── main.jsx
-│   └── store.js
-└── server ----本地服务器
-    ├── middlewares ----中间件
-    ├── routers 
-    ├── mocks ----模拟数据源
-    ├── app.js
-    └── index.js
+├── api ----接口方法
+├── application ----页面
+├── assets ----字体等资源
+├── baseUI ----基础ui
+├── components ----模版库
+├── layouts ----基础布局
+├── routes ----路由
+├── utils ----工具方法
+├── store
+├── App.css
+├── App.js
+├── App.test.js
+├── index.css
+├── index.js
+├── logo.svg
+├── reportWebVitals.js
+└── setupTests.js
+
 ```
 
 ## 大概需求
@@ -65,3 +59,10 @@ src
     - 标签
     - 用户信息
     - 登陆和注册
+
+# 插件
+- classnames
+- redux-saga
+- react-loadable
+- react-lazyload
+- Reselect
