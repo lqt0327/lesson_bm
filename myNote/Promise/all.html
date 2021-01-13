@@ -1,0 +1,59 @@
+<!-- https://github.com/Advanced-Frontend/Daily-Interview-Question/issues/130 -->
+<script>
+    Promise.all = function (promises) {
+        let results = [];
+        return new Promise(function (resolve) {
+            promises.forEach(function (val) {
+                // 按顺序执行每一个Promise操作
+                val.then(function (res) {
+                    results.push(res);
+                });
+            });
+            resolve(results);
+        });
+    }
+
+    var p1 = Promise.resolve(1),
+        p2 = Promise.resolve(2),
+        p3 = Promise.resolve(3);
+    Promise.all([p1, p2, p3]).then(function (results) {
+        //then方法不会被执行
+        console.log(results);
+    }).catch(function (e) {
+        //catch方法将会被执行，输出结果为：2
+        console.log(2);
+    });
+</script>
+
+<script>
+    function promiseAll(promises) {
+        return new Promise(function (resolve, reject) {
+            if (!Array.isArray(promises)) {
+                return reject(new TypeError("argument must be anarray"))
+            }
+            var countNum = 0;
+            var promiseNum = promises.length;
+            var resolvedvalue = new Array(promiseNum);
+            for (var i = 0; i < promiseNum; i++) {
+                (function (i) {
+                    Promise.resolve(promises[i]).then(function (value) {
+                        countNum++;
+                        resolvedvalue[i] = value;
+                        if (countNum === promiseNum) {
+                            return resolve(resolvedvalue)
+                        }
+                    }, function (reason) {
+                        return reject(reason)
+                    })
+                })(i)
+            }
+        })
+    }
+    var p1 = Promise.resolve(1),
+        p2 = Promise.resolve(2),
+        p3 = Promise.resolve(3);
+    promiseAll([p1, p2, p3]).then(function (value) {
+        console.log(value)
+    })
+    // 徒劳的闲语只会使身体浑浊，浑浊的身体只会生出烟雾般的话语
+</script>

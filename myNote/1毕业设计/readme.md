@@ -137,3 +137,39 @@ src
 - ```vertical-align: top;```
 
 4. css(sass)文件中使用 路径别名 ？
+
+
+
+## 对比
+config.json + JSON-Schema
+Template
+Props
+States
+Service存储
+LocalStorage存储
+
+网上大多数 组件相关信息 放入json文件
+- 如何处理的  React.createElement ReactDOM.render ? 
+
+我：直接import全部导入，采用 函数 存储，放入数组，循环执行
+ - 参数传递 ？ 
+ - 组件与配置面板的联动 ？
+
+ lqt-demo2
+ - 直接套用 antd 组件
+ - React.createElement 配合 ReactDOM.render
+ - 导入了全部 antd
+ 
+ lqt-demo2 提供了组件 参数的传递思路 -》json格式 LocalStorage存储
+
+ - 都需要对每个组件逐一配置  
+
+ - DOM树  长截屏  二维码预览
+
+
+ ## 1-13
+ - 解决hooks取代redux  hooks 无法处理中间件 ？
+ - 使用redux做数据处理
+ - 后端nodejs 应该处理什么 ？
+     - 选择组件 -》 保存组件 -》 预览 -》 下载代码
+
