@@ -173,3 +173,7 @@ LocalStorage存储
  - 后端nodejs 应该处理什么 ？
      - 选择组件 -》 保存组件 -》 预览 -》 下载代码
 
+
+- 配置redux后，函数会被改变，无法做到 通过数组循环输出
+    - 解决方案：采用 React.createElement 配合 ReactDOM.render
+
