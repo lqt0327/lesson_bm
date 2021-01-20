@@ -1,0 +1,61 @@
+<script>
+    function myPromise(exectuor) {
+        this.value = null
+        this.reason = null
+        this.status = "pending"
+        let self = this;
+        this.onResolveQueue = []
+        this.onRejectQueue = []
+
+        function resolve(value) {
+            if(self.status !== "pending") return
+            self.status = "resolve"
+            self.value = value
+            setTimeout(()=> {
+                self.onResolveQueue.forEach(resolved => resolved(self.value))
+            })
+        }
+
+        function reject(reason) {
+            if(self.status !== "pending") return
+            self.reason = reason
+            self.status = "reject"
+            setTimeout(()=>{
+                self.onRejectQueue.forEach(rejected => rejected(self.reason))
+            })
+        }
+
+        exectuor(resolve,reject)
+    }
+
+    myPromise.prototype.then = function(onResolve, onReject) {
+        if(typeof onResolve !== "function") {
+            onResolve = function(x) {return x}
+        }
+        if(typeof onReject !== "function") {
+            onReject = function(e) {throw e}
+        }
+        let self = this
+        if(self.status === 'resolve') {
+            onResolve(self.value)
+        }
+        else if(self.status === 'reject') {
+            onReject(self.reason)
+        }
+        else {
+            self.onResolveQueue.push(onResolve)
+            self.onRejectQueue.push(onReject)
+        }
+        return this
+    }
+
+    const test = new myPromise(function(resolve,reject) {
+        resolve('success1')
+    })
+    test.then(value =>{
+        console.log(value)
+        console.log('value2')
+    }).then(value => {
+        console.log('3')
+    })
+</script>

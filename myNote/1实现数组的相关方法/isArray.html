@@ -3,3 +3,8 @@
     const isArray = isType('Array')
     console.log(isArray([]))
 </script>
+
+<script>
+    const isType = type => target => `[object ${type}]` === Object.prototype.toString.call(target)
+    
+</script>

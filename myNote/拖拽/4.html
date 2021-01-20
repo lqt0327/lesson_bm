@@ -1,0 +1,30 @@
+<style>
+    div {
+        width: 100px;
+        height: 100px;
+        background-color: red;
+        position: absolute;
+    }
+</style>
+<body>
+    <div></div>
+<script>
+    let box = document.querySelector('div')
+    let x = 0
+    let y = 0
+    function move(e){
+        box.style.left = e.clientX - x
+        box.style.top = e.clientY - y
+    }
+    function up(){
+        document.removeEventListener("mousemove",move)
+        box.removeEventListener("mouseup",up)
+    }
+    document.addEventListener('mousedown',function down(e){
+        x = e.clientX - box.offsetLeft
+        y = e.clientY - box.offsetTop
+        document.addEventListener('mousemove',move)
+        box.addEventListener('mouseup',up)
+    })
+</script>
+</body>

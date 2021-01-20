@@ -19,3 +19,19 @@
     }
     console.log(serialize(chapterTree))
 </script>
+
+
+<script>
+    function serialize(obj) {
+        let res = []
+        return (function test(node) {
+            res.push(node.name)
+            if(node.children) {
+                for(let v of node.children) {
+                    test(v)
+                }
+            }
+            return res;
+        })(obj)
+    }
+</script>
