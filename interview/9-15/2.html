@@ -3,10 +3,12 @@
     function add(a) {
         var sum = a;
         var tmp = function (y) {
+            console.log(y,'y')
             sum = sum + y
             return tmp;
         }
         tmp.toString = function() {
+            console.log(sum,'sum')
             return sum;
         }
         return tmp;
@@ -21,3 +23,26 @@
 
     // https://blog.csdn.net/qq_38290251/article/details/88064552
 </script>
+
+<script>
+    function add(a) {
+        let sum = a
+        let tmp = function(e) {
+            sum += e
+            return tmp
+        }
+        tmp.toString = function() {
+            return sum
+        }
+        return tmp
+    }
+    const a = add(1)(2)(3)
+    a.__proto__.get = function() {
+        return this
+    }
+    console.log(a.get())
+</script>
+
+<!-- 
+    当一个对象转换成原始值时，先查看对象是否有valueOf方法，如果有并且返回值是一个原始值，那么直接返回这个值，否则没有valueOf或返回的不是原始值，那么调用toString方法，返回字符串表示
+ -->
