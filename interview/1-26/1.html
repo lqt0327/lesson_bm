@@ -1,0 +1,82 @@
+<!-- <script>
+// 现已知一个字符串是由正整数和加减乘除四个运算符(+ - * /)组成。
+// 例如存在字符串 const str = '11+2-3*4+5/2*4+10/5'，现在需要将高优先级运算，用小括号包裹起来，例如结果为 '11+2-(3*4)+(5/2*4)+(10/5)'。注意可能会出现连续的乘除运算，需要包裹到一起。
+function change(str) {
+    str = str.split('')
+    console.log(str,'++++')
+    let stack = []
+    for(let i = 0; i < str.length; i++) {
+        if(str[i] === '*' || str[i] === '/') {
+            let j = i + 1
+            for(; j < str.length; j++) {
+                if(str[j] === '+' || str[j] === '-') {
+                    while(i >=0) {
+                        if(str[i] === '+' || str[i] === '-') {
+                            console.log(str[i],str[i+1])
+                            str.splice(i+1,0,'(')
+                            break;
+                        }
+                        i--;
+                    }
+                    if(i < 0) str.unshift('(')
+                    str.splice(j+1,0,')')
+                    break;
+                }
+            }
+            if(j === str.length) {
+                while(i >=0) {
+                    if(str[i] === '+' || str[i] === '-') {
+                        console.log(str[i],str[i+1])
+                        str.splice(i+1,0,'(')
+                        break;
+                    }
+                    i--;
+                }
+                if(i < 0) str.unshift('(')
+                str.push(')')
+                return str.join('')
+            }
+            i = j
+        }
+    }
+    return str.join('')
+}
+let str = '11+2-3*4+5/2*4+10/5'
+console.log(change(str))
+</script> -->
+
+<script>
+    function test(str) {
+        str = str.split('')
+        for(let i = 0; i < str.length; i++) {
+            if(str[i] === '*' || str[i] === '/') {
+                let l = i;
+                while(true){
+                    l--
+                    if(str[l] === '+' || str[l] === '-') {
+                        str.splice(l+1,0,'(')
+                        break;
+                    }else if(l < 0) {
+                        str.unshift('(')
+                        break;
+                    } 
+                };
+                let r = ++i
+                while(true) {
+                    r++
+                    if(str[r] === '+' || str[r] === '-') {
+                        str.splice(r,0,')')
+                        break;
+                    }else if(r >= str.length) {
+                        str.push(')')
+                        break;
+                    }
+                }
+                i = r + 1
+            }
+        }
+        return str.join('')
+    }
+    let str = '11*111+2-3*4+5/2*4+10/5'
+    console.log(test(str))
+</script>
