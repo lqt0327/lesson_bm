@@ -14,3 +14,20 @@
     }
     bar.myapply(foo,['tom',18]);
 </script>
+
+<script>
+    Function.prototype._apply = function(context,args) {
+        context.fn = this;
+        context.fn(...args);
+        delete context.fn;
+    }
+    let obj = {
+        a:1
+    }
+    function test(name,age) {
+        console.log(name)
+        console.log(age)
+        console.log(this.a)
+    }
+    test._apply(obj,['tom',18])
+</script>

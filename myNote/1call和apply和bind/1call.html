@@ -12,3 +12,11 @@
     }
     console.log(test.mycall(obj,"lili",15));
 </script>
+
+<script>
+    Function.prototype._call = function(context,...args){
+        context.fn = this;
+        context.fn(...args)
+        delete context.fn;
+    }
+</script>

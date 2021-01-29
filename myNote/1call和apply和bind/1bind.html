@@ -6,3 +6,12 @@
         }
     }
 </script>
+
+<script>
+    Function.prototype._bind = function(context) {
+        var self = this;
+        return function() {
+            return self.apply(context)
+        }
+    }
+</script>

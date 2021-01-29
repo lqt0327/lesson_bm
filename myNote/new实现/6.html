@@ -26,3 +26,12 @@
         return typeof net === 'object' ? net : obj
     }
 </script>
+
+<script>
+    function _new() {
+        let obj = {}
+        Constructor = [].shift.call(arguments)
+        let net = Constructor.apply(obj,arguments)
+        return typeof net === 'object' ? net : obj
+    }
+</script>
