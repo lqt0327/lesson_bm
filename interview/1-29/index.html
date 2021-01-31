@@ -1,0 +1,55 @@
+实现一个对象的 flatten 方法，如下
+
+const obj = {
+	a: {
+        b: 1, 
+        c: 2, 
+        d: {e: 5}
+    },
+	b: [1, 3, {a: 2, b: 3}],
+	c: 3
+}
+
+flatten(obj) 结果返回如下
+// {
+// 	'a.b': 1,
+// 	'a.c': 2,
+// 	'a.d.e': 5,
+// 	'b[0]': 1,
+// 	'b[1]': 3,
+// 	'b[2].a': 2,
+// 	'b[2].b': 3
+// 	 c: 3
+
+<script>
+    const obj = {
+        a: {
+            b: 1, 
+            c: 2, 
+            d: {e: 5}
+        },
+        b: [1, 3, {a: 2, b: 3}],
+        c: 3
+    }
+    function flatten(obj) {
+        let res = {}
+        function walk(node,key) {
+            if(typeof node === 'number') {
+                res[key] = node
+                return
+            }
+            if(Array.isArray(node)) {
+                for(let i = 0; i < node.length; i++) {
+                    walk(node[i],`${key}[${i}]`)
+                }
+            }else if(typeof node === 'object') {
+                Object.keys(node).forEach(k=>{
+                    walk(node[k], `${key}${key.length > 0 ? '.':""}${k}`)
+                })
+            }
+        }
+        walk(obj,'')
+        return res
+    }
+    console.log(flatten(obj))
+</script>
