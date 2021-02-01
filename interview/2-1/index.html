@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <!-- input只能输入数字 -->
+    <!-- type=number 没有过滤小数点和减号 -->
+    测试：<input type="text" oninput="value=value.replace(/[^\d]/g,'')">
+</body>
+</html>
