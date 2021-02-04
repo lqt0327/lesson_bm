@@ -177,3 +177,6 @@ LocalStorage存储
 - 配置redux后，函数会被改变，无法做到 通过数组循环输出
     - 解决方案：采用 React.createElement 配合 ReactDOM.render
 
+## 2-3
+- 对插入组件的，css类名和样式的自定义操作
+- 自定义组件的实现
