@@ -180,3 +180,12 @@ LocalStorage存储
 ## 2-3
 - 对插入组件的，css类名和样式的自定义操作
 - 自定义组件的实现
+
+
+## 2-6
+- 拖拽生成页面 ？ 如何做到 拖拽并停留在指定位置 ？ 
+    - 1. 放弃组件这种最小单位，采用模板为最小单位
+
+- 自定义通用模板 ？ 
+    - 先定义一个通用的 generateTemplate.jsx 
+    - 如何做到 类似 antd 那样 配合 React.createElement 和 ReactDOM.render
