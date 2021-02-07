@@ -189,3 +189,15 @@ LocalStorage存储
 - 自定义通用模板 ？ 
     - 先定义一个通用的 generateTemplate.jsx 
     - 如何做到 类似 antd 那样 配合 React.createElement 和 ReactDOM.render
+        - React.createElement(Banner,{},'')  // Banner自定义组件，通过import导入
+        - 如何让React.createElement的第一个参数传入自定义字符串，并理解这个字符串是已注册的react组件 ？
+
+## 2-7
+技术关键卡点--已解决
+
+进度计划
+- 完善相关模板  （参考云凤蝶，2-17前完成可视化页面的开发）
+- 完善首页和后台注册页面， （参考网站：https://588ku.com/image/shangwumokuai.html，https://www.zcool.com.cn/）
+- 论文的初步完善
+- 2-28
+- 定向推荐功能的完成
