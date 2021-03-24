@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        #otherWin {
+            width: 600px;
+            height: 400px;
+            background-color: #cccccc;
+        }
+    </style>
+</head>
+<body>
+    <button id="btn">open</button>
+    <button id="send">send</button>
+        <!-- 通过 iframe 嵌入子页面(接收消息目标窗口) --> 
+        <iframe src="hhttp://127.0.0.1:8082/2.html" 
+                    id="otherWin"></iframe> 
+        <br/><br/> 
+        <input type="text" id="message"><input type="button" 
+                value="Send to child.com" id="sendMessage" /> 
+    <script>
+        window.onload = function() {
+            var btn = document.getElementById('btn');
+            var btn_send = document.getElementById('send');
+            var sendBtn = document.getElementById('sendMessage');
+            var win;
+            btn.onclick = function() {
+                //通过window.open打开接收消息目标窗口
+                win = window.open('http://127.0.0.1:8082/2.html', 'popUp');
+            }
+            btn_send.onclick = function() { 
+                // 通过 postMessage 向子窗口发送数据      
+                win.postMessage('Hello', 'http://127.0.0.1:8082/2.html');
+            }
+            function sendIt(e){ 
+                // 通过 postMessage 向子窗口发送数据
+                document.getElementById("otherWin").contentWindow 
+                .postMessage( 
+                    document.getElementById("message").value, 
+                    "http://127.0.0.1:8082/2.html"); 
+            } 
+            sendBtn.onclick = function(e) {
+                sendIt(e);
+            };
+        };
+    </script>
+</body>
+</html>
