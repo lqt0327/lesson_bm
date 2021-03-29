@@ -310,3 +310,16 @@ LocalStorage存储
 - 预览/发布 单独再使用一个 jsx 文件 存储配置好的组件的数据 然后对这个react.jsx文件打包 ？？
     - 移动端适配 依旧无法解决
         - 是否可以通过编写相关函数  直接通过函数对css单位做一个相关转换 ？？？
+
+
+- 后端接口 添加、更新等功能的接口编写
+- h5发布页的 移动端适配  各个组件的css 单位 等问题
+- 上面记录的 部分组件 样式问题
+- 每个组件 专属配置面板的完善
+
+
+## 
+- 用户的登陆相关 ：
+    - 参考： 
+        1. https://github.com/kuangshp/simp-node-auth/blob/master/src/base64.ts
+        2. https://github.com/kuangshp/nestjs-mysql-api/blob/master/src/entities/model/system/account.entity.ts
