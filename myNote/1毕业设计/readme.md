@@ -330,6 +330,8 @@ LocalStorage存储
                 - 发布 -》 打包到事先生成的路径下
 
             - http://localhost:8082/?pageId=xxx 通过多加一个字段，来保证页面路径的唯一，可使用数据库 tpl表中的id作为页面的区分
+                - 拿到url上的pageId 和 数据库中的pageId做匹配 只有匹配上了 才展示页面 否则 展示兜底
+                
 
 
 
