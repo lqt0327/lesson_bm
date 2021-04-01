@@ -342,8 +342,20 @@ LocalStorage存储
         - id ？？？
         - 数组的下标 ？？？
 
+        - 先用redux做个存储，再将数据存入localstorage，localstorage无法做到在数据变更的时候，实时刷新页面
+        - 通过props将变更后的状态，传递给预览页面中的组件
+        - 更新localstorage中的数据，需要 给出数组索引 以便准确修改
+
+        - 如果是多层嵌套 该怎么到达正确的位置 修改数据？？？
+            - 每个层次 相应数组的索引
+
 
 - 在左侧面板配置标签，根据标签，筛选模版，   -- 定向推荐功能
+
+- 获取到了 link——address  refs转发，获取 <LinkAddress /> input 中的数据 
+    - 如何准确修改对应数据  
+        - tpldata[comp_i].children[1] .img_address or .link_address
+    - 获取到了相关数据后，对localstorage中的数据做变更
 
 ## 
 - 用户的登陆相关 ：
