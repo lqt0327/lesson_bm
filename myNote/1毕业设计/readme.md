@@ -357,6 +357,13 @@ LocalStorage存储
         - tpldata[comp_i].children[1] .img_address or .link_address
     - 获取到了相关数据后，对localstorage中的数据做变更
 
+    - 保存当前配置的数据
+    - 右侧预览页面 随 左侧的更改改变
+        1. 和通天塔一样 彻底将整个页面的数据（html,js,css）整合进json
+        2. 通过redux做数据的双向传递
+            - 双向绑定成功， 如何保存数据，不会刷新后丢失？？？
+                - 采用localstorage ？？
+
 ## 
 - 用户的登陆相关 ：
     - 参考： 
