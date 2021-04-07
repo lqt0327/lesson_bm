@@ -374,3 +374,6 @@ LocalStorage存储
     - 参考： 
         1. https://github.com/kuangshp/simp-node-auth/blob/master/src/base64.ts
         2. https://github.com/kuangshp/nestjs-mysql-api/blob/master/src/entities/model/system/account.entity.ts
+
+
+- 左侧 组件配置面板 开发进度-》列表-》网格列表2、1
