@@ -387,3 +387,14 @@ LocalStorage存储
 - 预览 页面上方的url 去除 （自动生成）
 - 更新页面功能  可视化这边要获取接口中的页面数据
 
+- 图片上传功能
+
+- 添加页面后 就先把该页面数据发送到服务端（created）  然后后续操作均为 更新操作
+    - 这样 预览页面中的 url也可以提前预知了
+    - 刚创建页面 展示 兜底页面
+
+- html2canvas 存在跨域问题，图片无法截取  需要将图片上传到支持跨域的服务器才行
+    - https://juejin.cn/post/6844903759559000072
+    - https://blog.csdn.net/weixin_43672560/article/details/105121186
+    - https://blog.csdn.net/xiaohu12685/article/details/107388519
+    - https://html2canvas.hertzen.com/
