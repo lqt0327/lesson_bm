@@ -391,10 +391,27 @@ LocalStorage存储
 
 - 添加页面后 就先把该页面数据发送到服务端（created）  然后后续操作均为 更新操作
     - 这样 预览页面中的 url也可以提前预知了
-    - 刚创建页面 展示 兜底页面
+    - 刚创建页面 展示 兜底页面  (h5中判断服务器拿到的数据是否为空，为空则展示兜底页面)
+
+- 发布按钮  服务端更新的逻辑处理
 
 - html2canvas 存在跨域问题，图片无法截取  需要将图片上传到支持跨域的服务器才行
     - https://juejin.cn/post/6844903759559000072
     - https://blog.csdn.net/weixin_43672560/article/details/105121186
     - https://blog.csdn.net/xiaohu12685/article/details/107388519
     - https://html2canvas.hertzen.com/
+
+
+- React.memo 默认 对比的是使用 memo 包裹的子组件 的父组件的state状态值
+    - 父组件 state 状态发生变化，要是想要 memo 包裹的子组建也随之重新渲染，则需要将变化的state作为子组建的props 传递过去
+        - 同时子组建也可以通过 memo 的第二个参数，配置回调函数来手动判断 （这个也是需要父组件将state作为子组建的props传递过去  才能生效） 如下：
+```js
+    export default React.memo(Comp, (prevProps, nextProps) => {
+        console.log(prevProps, nextProps, "====");
+        if (prevProps.lqt !== nextProps.lqt) {
+            return false;
+        }
+        return true;
+    });
+    // https://codesandbox.io/s/icy-wood-35p8r?file=/src/Comp.jsx:141-345
+```
