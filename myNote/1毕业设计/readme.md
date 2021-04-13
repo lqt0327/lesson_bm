@@ -415,3 +415,9 @@ LocalStorage存储
     });
     // https://codesandbox.io/s/icy-wood-35p8r?file=/src/Comp.jsx:141-345
 ```
+
+
+- 推荐  新增一个表 (防止直接更改推荐列表的模版)
+    - id tpldata img_url tag_id
+- 推荐 弹窗
+    - 左右滑动 或 分页处理
