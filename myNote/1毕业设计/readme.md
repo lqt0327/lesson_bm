@@ -433,3 +433,11 @@ localstorage 已清楚  redux中 未清除
 
 
 - **完善推荐面板中的数据**
+
+- 点击保存 将页面存入localstorage，否则每次从接口中拉取最新数据
+
+- 同一个左侧 组件配置面板 切换组建，面板不会重渲染
+    - Input defaultValue 只会保留首次给定的值，不会感知后续 值 的变更
+        - 解决办法：react 使用 key ，给key和defaultValue一样的值，通过key来单独重新加载 Input 组件
+
+- 相同组件间 点击切换 组件配置面板不刷新
