@@ -441,3 +441,9 @@ localstorage 已清楚  redux中 未清除
         - 解决办法：react 使用 key ，给key和defaultValue一样的值，通过key来单独重新加载 Input 组件
 
 - 相同组件间 点击切换 组件配置面板不刷新
+
+
+
+import logo from './logo.svg';
+
+<img src={logo} className="App-logo" alt="logo" />
