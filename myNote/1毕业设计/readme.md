@@ -445,3 +445,7 @@ localstorage 已清楚  redux中 未清除
 
 - h5 的抽离，通天塔的tpl应该是指的本项目中的components
     - config.json 的拆分  yaml
+
+import logo from './logo.svg';
+
+<img src={logo} className="App-logo" alt="logo" />
