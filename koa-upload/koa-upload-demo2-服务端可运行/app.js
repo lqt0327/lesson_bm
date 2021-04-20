@@ -35,13 +35,10 @@ app.use(koaBody({
     }
 }))
 router.post('/upload', ctx => {
-    // ctx.request.files.file file对应于axios中的
-    // let param = new FormData()
-    // param.append('file', file)   'file'
     const file = ctx.request.files.file
     const basename = path.basename(file.path)
     ctx.body = { "url": `https://two.luoqintai.cn/uploads/${basename}` }
-    return ctx.body;
+    // return ctx.body;
     // ctx.body = { "url": `${ctx.origin}/uploads/${basename}`,"ctx": ctx }
 })
 
