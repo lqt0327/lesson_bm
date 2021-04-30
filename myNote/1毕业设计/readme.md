@@ -449,3 +449,11 @@ localstorage 已清楚  redux中 未清除
 import logo from './logo.svg';
 
 <img src={logo} className="App-logo" alt="logo" />
+
+
+运行时 编译各个组件的yaml，然后生成统一的一个config.json
+- koa 程序启启动时 读取components 下 yaml，组合yaml，生成统一的config.json
+    - 打包时 排除koa相关文件
+    - 打包时，自动把config.json
+
+json-schema的应用
