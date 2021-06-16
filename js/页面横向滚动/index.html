@@ -1,0 +1,54 @@
+<!-- 鼠标滚动，页面内容横向滚动 -->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .container {
+            display: flex;
+            overflow-x: scroll;
+        }
+
+        .page {
+            width: 100vw;
+            height: 100vh;
+            flex-shrink: 0;
+        }
+
+        .page:nth-child(1) {
+            background: hsl(140deg, 50%, 50%);
+        }
+
+        .page:nth-child(2) {
+            background: hsl(210deg, 50%, 50%);
+        }
+
+        .page:nth-child(3) {
+            background: hsl(270deg, 50%, 50%);
+        }
+    </style>
+</head>
+
+<body>
+    <main>
+        <div class="container">
+            <div class="page">Page1</div>
+            <div class="page">Page2</div>
+            <div class="page">Page3</div>
+        </div>
+    </main>
+    <script>
+        let container = document.querySelector(".container")
+        // 给它添加一个 “wheel” 事件，这个是监听鼠标滚轮的滚动，在滚动时，先阻止默认的滚动事件，然后让容器水平横向移动，这里利用到了 scrollLeft 属性，让容器的内容向左移动，这里只需要加上滚轮垂直滚动的距离差值就可以了，也就是 event 对象中的 deltaY 属性
+        container.addEventListener("wheel", (event) => {
+            event.preventDefault();
+            container.scrollLeft += event.deltaY
+        })
+    </script>
+</body>
+
+</html>
